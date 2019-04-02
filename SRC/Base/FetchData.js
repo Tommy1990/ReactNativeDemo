@@ -1,5 +1,5 @@
 import React from 'react';
-
+import {AsyncStorage} from 'react-native';
  export default async function fehchData(url,params,fn){
      let paramStr = transData(params);
     try {
@@ -17,10 +17,26 @@ import React from 'react';
     }
  }
 
- function transData(params) {
+ async function transData(params) {
      var paramStr = '';
      for (item in params){
         paramStr +=  `${item}=${params[item]}&`
      }
+     let token = getToken('TOKEN');
+     alert(token);
+     paramStr += `sign=${token}`
      return paramStr;
+ }
+ async function getToken(para){
+     try {
+         const value = await AsyncStorage.getItem(para);
+         if (value !== null){
+             return value;
+         }else{
+             return '';
+         }
+     } catch(error){
+         console.log(error);
+         return ''
+     }
  }
