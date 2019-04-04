@@ -9,17 +9,7 @@ import { TouchableOpacity } from 'react-native';
 import VaildMessageScreen from './SRC/Login/VaildMessageScreen';
 import UserModel from './SRC/Base/UserModel';
 import ResetPSWDScreen from './SRC/Login/ResetPSWDScreen';
-
-const HomeNav = createStackNavigator({
-  Home:HomeScreen,
-  ChildFirst:HomeChildPage,
-},{
-  initialRouteName:'Home',
-})
-
-const SettingNav = createStackNavigator({
-  Home:SettingScreen,
-})
+//登录
 const LoginNav = createStackNavigator({
   Login:LoginScreen,
   Vaild:VaildMessageScreen,
@@ -27,6 +17,18 @@ const LoginNav = createStackNavigator({
 },{
   initialRouteName:'Login',
 })
+//主页
+const HomeNav = createStackNavigator({
+  Home:HomeScreen,
+  ChildFirst:HomeChildPage,
+},{
+  initialRouteName:'Home',
+})
+//设置
+const SettingNav = createStackNavigator({
+  Home:SettingScreen,
+})
+//底部导航
 const TabNavigator = createBottomTabNavigator({
   Home:HomeNav,
   Setting:SettingNav,
@@ -37,7 +39,6 @@ const TabNavigator = createBottomTabNavigator({
     labelStyle:{
       fontSize:20,
     },
-    tabBarButtonComponent:TouchableOpacity,
     tabBarOnpress : ({navigation}) =>{
       if (navigation.routeName === 'Home'){
         navigation.navigate('Home');
