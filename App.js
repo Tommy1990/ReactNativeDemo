@@ -1,11 +1,13 @@
 import React,{Component} from 'react';
 import {createBottomTabNavigator,createStackNavigator,createAppContainer,createSwitchNavigator} from 'react-navigation';
+import AsyncStorage from '@react-native-community/async-storage';
 import HomeScreen from './SRC/Home/Home';
 import HomeChildPage from './SRC/Home/HomeChildPage'
 import SettingScreen from './SRC/Setting/SettingScreen'
 import LoginScreen from './SRC/Login/LoginScreen'
 import { TouchableOpacity } from 'react-native';
 import VaildMessageScreen from './SRC/Login/VaildMessageScreen';
+import UserModel from './SRC/Base/UserModel';
 import ResetPSWDScreen from './SRC/Login/ResetPSWDScreen';
 
 const HomeNav = createStackNavigator({
@@ -44,11 +46,17 @@ const TabNavigator = createBottomTabNavigator({
       }
     }
   },
-  
+})
+const model = new UserModel();
+const SwitchNav = createSwitchNavigator({
+  Tab:TabNavigator,
+  Load:LoginNav
+},{
+  initialRouteName: model.getToken() ? 'Load' : 'Tab',
 })
 
 
-const AppContainer = createAppContainer(LoginNav);
+const AppContainer = createAppContainer(SwitchNav);
 
 export default class App extends Component{
   render(){
