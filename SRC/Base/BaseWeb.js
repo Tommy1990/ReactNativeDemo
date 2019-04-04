@@ -2,6 +2,10 @@ import React from 'react';
 
 const HOME = 'http://iot-api.qa.nongfaziran.com/App/';
 
-//登录
-export default LOG_IN = HOME + 'Login/login'
 
+export default class REQUEST_URL {
+    //登录
+    LOG_IN = HOME + 'Login/login'
+    // 获取验证码
+    SEND_MSG = HOME + 'Login/sendSMS'
+}

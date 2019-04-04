@@ -2,8 +2,9 @@ import React,{Component} from 'react';
 import {View,TouchableOpacity,Text,TextInput,StyleSheet,SafeAreaView} from 'react-native';
 import {createStackNavigator} from 'react-navigation';
 import commenStyles from '../Base/CommenStyle.js'
-import LOG_IN from '../Base/BaseWeb'
+import REQUEST_URL from '../Base/BaseWeb'
 import fetchData from '../Base/FetchData'
+import UserModel from '../Base/UserModel'
 export default class LoginScreen extends Component{
     constructor(props){
         super(props);
@@ -47,11 +48,26 @@ export default class LoginScreen extends Component{
         return ((phone.length == 11) && (pswd.length > 5) && (pswd.length < 17))
     }
     _loginBtnclick = () => {
+        this._phoneInput.blur();
+        this._pswdInput.blur();
         let params = {mobile:this.state.phone,pass:this.state.pwd}
-        fetchData(LOG_IN,params,(respondJason)=>{
-
-            alert(JSON.stringify(respondJason.data.userInfo.userName));
+        let url = new REQUEST_URL();
+        fetchData(url.LOG_IN,params,(respondData,errorInfo)=>{
+            // alert(respondData.userInfo.userName)
+            if (errorInfo !== null ){
+                alert(errorInfo); 
+            }else{
+                alert('set data');
+                let model = new UserModel();
+                model.setLoginData(respondData);
+            }
         })
+    }
+    _forgetBtnClick = () =>{
+        this.props.navigation.navigate('Vaild',{
+            phone:this.state.phone,
+        });
+        
     }
     render() {
         return (
@@ -68,6 +84,7 @@ export default class LoginScreen extends Component{
             keyboardType = 'phone-pad'
             onChangeText = {this._phoneNumChnaged}
             value = {this.state.phone}
+            ref = {component=> this._phoneInput = component}
             ></TextInput>
            </View>
            <View style={styles.inputContainer2}>
@@ -81,6 +98,7 @@ export default class LoginScreen extends Component{
            secureTextEntry = {!this.state.showPwd}
            onChangeText = {this._pswdNumChnaged}
            value = {this.state.pwd}
+           ref = {component => this._pswdInput = component}
            >
            </TextInput>
            <TouchableOpacity 
@@ -95,7 +113,7 @@ export default class LoginScreen extends Component{
             ref ={component => this._logBtn = component}
             >
             <Text style={styles.logBtnTitle}>登录</Text></TouchableOpacity>
-            <TouchableOpacity style={styles.fogetButton}>
+            <TouchableOpacity style={styles.fogetButton} onPress={this._forgetBtnClick}>
             <Text style={styles.fogetTitle}>忘记密码</Text>
             </TouchableOpacity>
            </SafeAreaView>
