@@ -3,6 +3,7 @@ import {SafeAreaView,View,Text,TouchableOpacity,StyleSheet,TextInput} from 'reac
 import CommenStyle from '../Base/CommenStyle'
 import REQUST_URL from '../Base/BaseWeb'
 import fetchData from '../Base/FetchData'
+import { ViewPagerAndroid } from 'react-native-gesture-handler';
 export default class VaildMessageScreen extends Component{
     static navigationOptions = {
         header:null,
@@ -19,6 +20,8 @@ export default class VaildMessageScreen extends Component{
             submitEnable:false,
             msgToken:'',
             timeDuration:10,
+            advice:'',
+            adviceColor:'#00a056',
         };
     }
     _closeBtnOnpress = ()=>{
@@ -41,20 +44,29 @@ export default class VaildMessageScreen extends Component{
     _msgChanged = (value)=>{
         this.setState({
             msg:value,
+            submitEnable:value.length > 3
         })
+    
     }
     _msgBtnOnpress = () => {
         let url = new REQUST_URL();
         fetchData(url.SEND_MSG,{mobile:this.state.phone,type:0},(responde,error)=>{
             if (error!=null){
-                alert(error)
+               
+                this.setState({
+                    advice:error.message,
+                    adviceColor:'#f43530'
+                })
             }else{
                 this.setState({
                     msgToken:responde.key,
+                    advice:'验证码已发送',
+                    adviceColor:'#00a056',
                 })
             }
         })
      this._phoneInput.blur();
+     
        let timer = setInterval(()=>{
             let time = this.state.timeDuration - 1;
             if (time > 0){
@@ -74,6 +86,27 @@ export default class VaildMessageScreen extends Component{
             }
             
         },1000)
+    }
+    _submitBtnOnpress = ()=>{
+        let url = new REQUST_URL();
+        fetchData(url.VALIDE_MSG,{code:this.state.msg,key:this.state.msgToken},(responde,error)=>{
+            if (error !== null){
+                this.setState({
+                    advice:error.message,
+                    adviceColor:'#f43530'
+                })
+            }else{
+                console.log(`1234567890${responde}`)
+                if (responde === 1){
+                    if (this.state.phone.length == 11){
+                        this.navigation.navigate('Reset',{phone:this.state.phone,key:this.state.msgToken})
+                    }else{
+                        alert('电话号码错误')
+                    }
+                    
+                }
+            }
+        })
     }
     render(){
         
@@ -112,6 +145,15 @@ export default class VaildMessageScreen extends Component{
         <Text style={[styles.msgBtnTitle,{color: this.state.msgGetEnable ? '#fff' : '#333'}]}>{this.state.showMsg}</Text>
         </TouchableOpacity>
         </View>
+        <View style={styles.adviceContainer}>
+        <Text style={{color:this.state.adviceColor,fontSize:14}}>{this.state.advice}</Text>
+        </View>
+        <TouchableOpacity 
+        style={[styles.submitBtn,{backgroundColor:this.state.submitEnable ? '#00a056':'#eee'}]} 
+        disabled = {!this.state.submitEnable}
+        onPress = {this._submitBtnOnpress}>
+        <Text style={{fontSize:15,color: "#fff"}}>下一步</Text>
+        </TouchableOpacity>
         </SafeAreaView>)
     }
 }
@@ -133,6 +175,7 @@ const styles = StyleSheet.create({
     closeBtnTitle:{
         fontSize:20,
         fontWeight:'bold',
+        color:'#00a056'
     },
     title:{
         fontSize:36,
@@ -191,5 +234,23 @@ const styles = StyleSheet.create({
     msgBtnTitle:{
        
         fontSize:14,
-    }
+    },
+    adviceContainer:{
+        width:'80%',
+        height:44,
+        marginLeft:44,
+        justifyContent:'center',
+        alignItems:'flex-start',
+    },
+    submitBtn:{
+        borderRadius:20,
+        width:'80%',
+        height:40,
+        marginLeft:44,
+       
+        alignItems:'center',
+        justifyContent:'center',
+    },
+   
+
 })

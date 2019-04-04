@@ -6,6 +6,7 @@ import SettingScreen from './SRC/Setting/SettingScreen'
 import LoginScreen from './SRC/Login/LoginScreen'
 import { TouchableOpacity } from 'react-native';
 import VaildMessageScreen from './SRC/Login/VaildMessageScreen';
+import ResetPSWDScreen from './SRC/Login/ResetPSWDScreen';
 
 const HomeNav = createStackNavigator({
   Home:HomeScreen,
@@ -20,6 +21,7 @@ const SettingNav = createStackNavigator({
 const LoginNav = createStackNavigator({
   Login:LoginScreen,
   Vaild:VaildMessageScreen,
+  Reset:ResetPSWDScreen,
 },{
   initialRouteName:'Login',
 })

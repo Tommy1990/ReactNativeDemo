@@ -55,9 +55,8 @@ export default class LoginScreen extends Component{
         fetchData(url.LOG_IN,params,(respondData,errorInfo)=>{
             // alert(respondData.userInfo.userName)
             if (errorInfo !== null ){
-                alert(errorInfo); 
+                alert(errorInfo.message); 
             }else{
-                alert('set data');
                 let model = new UserModel();
                 model.setLoginData(respondData);
             }

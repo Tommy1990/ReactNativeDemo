@@ -12,12 +12,14 @@ import PropTypes from 'prop-types';
             if (res.status.code === 200){
                 fn(res.data,null);
             }else{
-                let error = Error(res.status.remind);
+                let error = new Error();
+                error.message = res.status.remind;
                 fn(null,error);
             }
            
         }else{
-            let error = Error('请求失败');
+            let error = new Error();
+            error.message = '网络错误'
             fn(null, error);
         }
         }
