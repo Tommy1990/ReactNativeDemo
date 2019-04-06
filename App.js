@@ -9,6 +9,7 @@ import { TouchableOpacity } from 'react-native';
 import VaildMessageScreen from './SRC/Login/VaildMessageScreen';
 import UserModel from './SRC/Base/UserModel';
 import ResetPSWDScreen from './SRC/Login/ResetPSWDScreen';
+import LoadingScreen from './SRC/Base/LoadingScreen';
 //登录
 const LoginNav = createStackNavigator({
   Login:LoginScreen,
@@ -19,41 +20,44 @@ const LoginNav = createStackNavigator({
 })
 //主页
 const HomeNav = createStackNavigator({
-  Home:HomeScreen,
+  Main:HomeScreen,
   ChildFirst:HomeChildPage,
 },{
-  initialRouteName:'Home',
+  initialRouteName:'Main',
 })
 //设置
 const SettingNav = createStackNavigator({
-  Home:SettingScreen,
+  Main:SettingScreen,
 })
+HomeNav.navigationOptions = ({navigation}) => {
+  let tabBarVisible = true;
+  if (navigation.state.index > 0){
+    tabBarVisible = false;
+  }
+  return { tabBarVisible};
+};
+SettingNav.navigationOptions = ({navigation}) => {
+  let tabBarVisible = true;
+  if (navigation.state.index > 0){
+    tabBarVisible = false;
+  }
+  return { tabBarVisible};
+};
+
 //底部导航
 const TabNavigator = createBottomTabNavigator({
-  Home:HomeNav,
-  Setting:SettingNav,
+  TabHome:HomeNav,
+  TabSetting:SettingNav,
 },{
-  tabBarOptions:{
-    activeTintColor:'#00a056',
-    inactiveTintColor:'#666',
-    labelStyle:{
-      fontSize:20,
-    },
-    tabBarOnpress : ({navigation}) =>{
-      if (navigation.routeName === 'Home'){
-        navigation.navigate('Home');
-      }else if (navigation.routeName === 'Setting'){
-        navigation.navigate('Setting');
-      }
-    }
-  },
+  initialRouteName:'TabHome'
 })
-const model = new UserModel();
+
 const SwitchNav = createSwitchNavigator({
   Tab:TabNavigator,
-  Load:LoginNav
+  Load:LoginNav,
+  Loading:LoadingScreen
 },{
-  initialRouteName: model.getToken() ? 'Load' : 'Tab',
+  initialRouteName: 'Loading',
 })
 
 

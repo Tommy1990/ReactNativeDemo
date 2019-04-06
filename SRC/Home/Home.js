@@ -4,16 +4,9 @@ import createStackNavigator from 'react-navigation';
 
 
 export default class HomeScreen extends Component{
-    static navigationOptions = ({navigation}) => {
-        let visuable = true;
-        if (navigation.state.index > 0){
-            visuable = false;
-        }
-        return{
-            title:'Home',
-            tabBarVisible: visuable,
-        }
-    }
+   static navigationOptions = {
+       title:'Home',
+   }
     render(){
         return(<SafeAreaView style={styles.container}>
         <TouchableOpacity style={styles.button} onPress={this._onPress}>

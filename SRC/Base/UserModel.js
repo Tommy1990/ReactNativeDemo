@@ -11,6 +11,7 @@ export default class UserModel{
     getToken = async()=>{
         try {
             let sign = await AsyncStorage.getItem('TOKEN');
+            
             return sign;
         }catch(error){
             return '';
