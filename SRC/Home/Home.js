@@ -1,11 +1,14 @@
 import React,{Component} from 'react';
-import {SafeAreaView,Text,TouchableOpacity,StyleSheet} from 'react-native';
+import {SafeAreaView,Text,TouchableOpacity,StyleSheet,Button} from 'react-native';
 import createStackNavigator from 'react-navigation';
 
 
 export default class HomeScreen extends Component{
    static navigationOptions = {
        title:'Home',
+       headerRight:(
+           <Button title='Info' color='#333' onPress={() => alert('this a rignt btn')}></Button>
+       )
    }
     render(){
         return(<SafeAreaView style={styles.container}>
