@@ -10,7 +10,7 @@ export default class LoadingScreen extends Component{
     _bootstrapAsync= async()=>{
         let userModel = new UserModel();
         const userToken = await userModel.getToken();
-        this.props.navigation.navigate(userToken.length > 2 ? 'Tab' : 'Load')
+        this.props.navigation.navigate(userToken.length > 2 ? 'DrawerNav' : 'Load')
     }
     render(){
         return(<SafeAreaView style={commenStyles.containerNormal}>

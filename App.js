@@ -1,5 +1,6 @@
 import React,{Component} from 'react';
-import {createBottomTabNavigator,createStackNavigator,createAppContainer,createSwitchNavigator} from 'react-navigation';
+import {SafeAreaView,DrawerItems} from 'react-navigation';
+import {createBottomTabNavigator,createStackNavigator,createAppContainer,createSwitchNavigator,createDrawerNavigator} from 'react-navigation';
 import AsyncStorage from '@react-native-community/async-storage';
 import HomeScreen from './SRC/Home/Home';
 import HomeChildPage from './SRC/Home/HomeChildPage'
@@ -10,6 +11,8 @@ import VaildMessageScreen from './SRC/Login/VaildMessageScreen';
 import UserModel from './SRC/Base/UserModel';
 import ResetPSWDScreen from './SRC/Login/ResetPSWDScreen';
 import LoadingScreen from './SRC/Base/LoadingScreen';
+import DrawerScreen from './SRC/Drawer/DrawerScreen';
+import { ScrollView } from 'react-native-gesture-handler';
 //登录
 const LoginNav = createStackNavigator({
   Login:LoginScreen,
@@ -44,6 +47,7 @@ SettingNav.navigationOptions = ({navigation}) => {
   return { tabBarVisible};
 };
 
+
 //底部导航
 const TabNavigator = createBottomTabNavigator({
   TabHome:HomeNav,
@@ -51,9 +55,27 @@ const TabNavigator = createBottomTabNavigator({
 },{
   initialRouteName:'TabHome'
 })
+//抽屉导航
+const DrawerNavigator = createDrawerNavigator({
+  TabNav:TabNavigator,
+  // Drawer:DrawerScreen,
+},{
+  drawerWidth:200,
+  contentComponent:CustomDrawerContentComponent,
+})
+const CustomDrawerContentComponent = props => {
+  <ScrollView>
+    <SafeAreaView style={{flex:1}} forceInset={{top:'always',horizontal:'never'}}>
+      <DrawerItems {...props}/>
+    </SafeAreaView>
+  </ScrollView>
+}
+
+
 
 const SwitchNav = createSwitchNavigator({
-  Tab:TabNavigator,
+  // Tab:TabNavigator,
+  DrawerNav:DrawerNavigator,
   Load:LoginNav,
   Loading:LoadingScreen
 },{

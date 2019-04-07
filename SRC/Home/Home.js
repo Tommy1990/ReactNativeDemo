@@ -7,8 +7,11 @@ export default class HomeScreen extends Component{
    static navigationOptions = {
        title:'Home',
        headerRight:(
-           <Button title='Info' color='#333' onPress={() => alert('this a rignt btn')}></Button>
+           <Button title='Info' color='#333' onPress={this._openDrawer}></Button>
        )
+   }
+   _openDrawer = ()=>{
+       this.props.navigation.toggleDrawer();
    }
     render(){
         return(<SafeAreaView style={styles.container}>
