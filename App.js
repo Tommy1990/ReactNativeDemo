@@ -1,18 +1,21 @@
 import React,{Component} from 'react';
-import {SafeAreaView,DrawerItems} from 'react-navigation';
+import {DrawerItems} from 'react-navigation';
 import {createBottomTabNavigator,createStackNavigator,createAppContainer,createSwitchNavigator,createDrawerNavigator} from 'react-navigation';
 import AsyncStorage from '@react-native-community/async-storage';
 import HomeScreen from './SRC/Home/Home';
 import HomeChildPage from './SRC/Home/HomeChildPage'
 import SettingScreen from './SRC/Setting/SettingScreen'
 import LoginScreen from './SRC/Login/LoginScreen'
-import { TouchableOpacity } from 'react-native';
+import { SafeAreaView,TouchableOpacity,View,Text } from 'react-native';
 import VaildMessageScreen from './SRC/Login/VaildMessageScreen';
 import UserModel from './SRC/Base/UserModel';
 import ResetPSWDScreen from './SRC/Login/ResetPSWDScreen';
 import LoadingScreen from './SRC/Base/LoadingScreen';
 import DrawerScreen from './SRC/Drawer/DrawerScreen';
 import { ScrollView } from 'react-native-gesture-handler';
+import commenStyles from './SRC/Base/CommenStyle';
+
+
 //登录
 const LoginNav = createStackNavigator({
   Login:LoginScreen,
@@ -56,26 +59,33 @@ const TabNavigator = createBottomTabNavigator({
   initialRouteName:'TabHome'
 })
 //抽屉导航
-const DrawerNavigator = createDrawerNavigator({
+const DrawerNav = createDrawerNavigator({
   TabNav:TabNavigator,
+  HomePage:HomeScreen,
+  SettingPage:SettingScreen,
   // Drawer:DrawerScreen,
 },{
   drawerWidth:200,
-  contentComponent:CustomDrawerContentComponent,
-})
-const CustomDrawerContentComponent = props => {
-  <ScrollView>
-    <SafeAreaView style={{flex:1}} forceInset={{top:'always',horizontal:'never'}}>
-      <DrawerItems {...props}/>
+  contentComponent: props =>{
+  return(<ScrollView>
+    <SafeAreaView style={commenStyles.containerNormal}>
+       <TouchableOpacity
+       onPress = {()=> props.navigation.navigate('HomePage')}
+       style={{marginTop:20}}>
+       <Text style={{color:'blue',fontSize:16}}>跳转到主导航</Text>
+       </TouchableOpacity>
+       
     </SafeAreaView>
-  </ScrollView>
-}
+   </ScrollView>)
+  },
+})
+
 
 
 
 const SwitchNav = createSwitchNavigator({
   // Tab:TabNavigator,
-  DrawerNav:DrawerNavigator,
+  DrawerNav:DrawerNav,
   Load:LoginNav,
   Loading:LoadingScreen
 },{
