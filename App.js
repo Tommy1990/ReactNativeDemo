@@ -6,7 +6,7 @@ import HomeScreen from './SRC/Home/Home';
 import HomeChildPage from './SRC/Home/HomeChildPage'
 import SettingScreen from './SRC/Setting/SettingScreen'
 import LoginScreen from './SRC/Login/LoginScreen'
-import { SafeAreaView,TouchableOpacity,View,Text } from 'react-native';
+import { SafeAreaView,TouchableOpacity,View,Text,Dimensions } from 'react-native';
 import VaildMessageScreen from './SRC/Login/VaildMessageScreen';
 import UserModel from './SRC/Base/UserModel';
 import ResetPSWDScreen from './SRC/Login/ResetPSWDScreen';
@@ -67,20 +67,34 @@ const DrawerNav = createDrawerNavigator({
 },{
   drawerWidth:200,
   contentComponent: props =>{
-  return(<ScrollView>
-    <SafeAreaView style={commenStyles.containerNormal}>
-       <TouchableOpacity
+    var {height,width} = Dimensions.get('window')
+  return(<ScrollView style={{flex:1}}>
+    <SafeAreaView style={{height:height,alignItems:'center',justifyContent:'flex-start'}}>
+    <View style={{flex:4}}>
+    <TouchableOpacity
        onPress = {()=> props.navigation.navigate('HomePage')}
        style={{marginTop:20}}>
        <Text style={{color:'blue',fontSize:16}}>跳转到主导航</Text>
        </TouchableOpacity>
-       
+    </View>
+    <View style={{flex:1,justifyContent:"center"}}>
+    <TouchableOpacity
+       onPress = {async()=> {
+        this._logout(props);
+       } }>
+       <Text style={{color:'blue',fontSize:16}}>退出</Text>
+       </TouchableOpacity>
+    </View> 
     </SafeAreaView>
    </ScrollView>)
   },
 })
 
-
+_logout = async(props) => {
+  let model = new UserModel();
+  await model.cleanLoginData();
+  props.navigation.navigate('Loading')
+}
 
 
 const SwitchNav = createSwitchNavigator({

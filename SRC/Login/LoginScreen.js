@@ -59,7 +59,7 @@ export default class LoginScreen extends Component{
             }else{
                 let model = new UserModel();
                 model.setLoginData(respondData);
-                this.props.navigation.navigate('Tab');
+                this.props.navigation.navigate('Loading');
             }
         })
     }

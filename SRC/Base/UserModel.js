@@ -7,7 +7,11 @@ export default class UserModel{
        this.setUserID(param.userInfo.userId);
        this.setUserName(param.userInfo.userName);
     }
-
+    cleanLoginData(){
+        this.setToken('');
+        this.setUserID('');
+        this.setUserName(''); 
+    }
     getToken = async()=>{
         try {
             let sign = await AsyncStorage.getItem('TOKEN');
