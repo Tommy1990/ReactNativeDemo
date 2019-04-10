@@ -43,7 +43,7 @@ export default class HomeScreen extends Component{
         </View>
         <View style={styles.bottomContainer}>
         <ScrollView style={{flex:1}} horizontal={true}>
-        <WeatherSationView ></WeatherSationView>
+        <WeatherSationView tempNavigation={this.props.navigation}></WeatherSationView>
         <View style={{width:width,flex:1,backgroundColor:'blue'}}></View>
         </ScrollView>
         </View>

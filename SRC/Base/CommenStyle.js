@@ -11,7 +11,7 @@ const commenStyles = StyleSheet.create({
     parkBottomContainer:{
         width:width,
         height:'100%',
-        backgroundColor:'red',
+        backgroundColor:'#eee',
     }
 
 })
