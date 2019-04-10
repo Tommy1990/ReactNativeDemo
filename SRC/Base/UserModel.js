@@ -6,11 +6,13 @@ export default class UserModel{
        this.setToken(param.token);
        this.setUserID(param.userInfo.userId);
        this.setUserName(param.userInfo.userName);
+       this.setCompanyList(JSON.stringify(param.companyInfo));
     }
     cleanLoginData(){
         this.setToken('');
         this.setUserID('');
         this.setUserName(''); 
+        this.setCompanyList('');
     }
     getToken = async()=>{
         try {
@@ -60,4 +62,40 @@ export default class UserModel{
             console.log(error)
         }
     }
+    setCompanyList = async(value) => {
+        try{
+            await AsyncStorage.setItem('ComapanyList',value);
+            
+        }catch(error){
+            console.log(error);
+        }
+    }
+    getCompanyList = async() =>{
+        try {
+           let json = await AsyncStorage.getItem('ComapanyList');
+           let objlist = JSON.parse(json);
+           console.log(`1234567890json=${objlist}`)
+           return objlist;
+        }catch(error){
+            console.log(error);
+        }
+    }
+    getDefaultCompany = () => {
+        let list = this.getCompanyList();
+        
+        for(i = 0;i < list.count;i++){
+            let model = list[i];
+            
+            if (model.userInCompanyStatus == '1'){
+                return model;
+            }
+            if (i == (list.count-1)){
+                alert('unfind')
+                return {};
+            }
+        }
+        
+    }
+    
 }
+

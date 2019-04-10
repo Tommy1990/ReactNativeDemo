@@ -1,6 +1,7 @@
 import React,{Component} from 'react';
 import {View,TouchableOpacity,Text,ScrollView,StyleSheet} from 'react-native';
 import commenStyle from '../../Base/CommenStyle';
+import UserModel from '../../Base/UserModel';
 export default class WeatherStationView extends Component{
     
    setNativeProps = (nativeProps) => {
@@ -39,6 +40,8 @@ class BottomStationLineView extends Component{
     _parkBtnClick = (id)=>{
         alert(`press on ${id}`);
         this.props.tempClick(id);
+        let model = new UserModel();
+        let company = model.getDefaultCompany();
     }
     render(){
         var items = [];
