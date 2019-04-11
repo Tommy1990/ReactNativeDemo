@@ -10,6 +10,7 @@ export default class LoadingScreen extends Component{
     _bootstrapAsync= async()=>{
         let userModel = new UserModel();
         const userToken = await userModel.getToken();
+        
         this.props.navigation.navigate(userToken !== null ? 'DrawerNav' : 'Load')
     }
     render(){

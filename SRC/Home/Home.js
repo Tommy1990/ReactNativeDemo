@@ -2,18 +2,22 @@ import React,{Component} from 'react';
 import {SafeAreaView,Text,TouchableOpacity,StyleSheet,Button,ScrollView,View,Dimensions} from 'react-native';
 import createStackNavigator from 'react-navigation';
 import WeatherSationView from './View/WeatherStationView'
+import UserModel from '../Base/UserModel';
 export default class HomeScreen extends Component{
    static navigationOptions = ({navigation})=>{
+       var parkName = navigation.getParam('title','');
        return{
-           headerTitle:(<Text style={{color:'#00a056',fontSize:20,fontWeight:'bold'}}>Home</Text>),
-           headerLeft:(<Button onPress={()=> navigation.openDrawer()} title="openDrawer" color='#333'/>)
-
+           headerTitle:(<Text style={{color:'#00a056',fontSize:20,fontWeight:'bold'}}>{parkName}</Text>),
+           headerLeft:(<Button onPress={()=> navigation.openDrawer()} title="openDrawer" color='#333'/>),
+           headerRight:(<Button onPress={()=> this._selectPark(navigation)} title='园区' color='#333'/>) 
        }
    }
   constructor(props){
       super(props);
       this.state = {
           selectIndex:1,
+          parkID:'',
+          parkName:'',
       }
   }
   _categorySlect = (index) =>{
@@ -21,7 +25,40 @@ export default class HomeScreen extends Component{
           selectIndex:index,
       })
   }
-  
+  _selectPark = (navigation) =>{
+        
+        navigation.navigate('ParkSelect',{ID:this.props.parkID});
+  }
+  _setDefaultParkInfo = async() => {
+    
+    
+    return park
+   
+  }
+   componentDidMount(){
+    const {navigation} = this.props;
+     const ID = navigation.getParam('id','');
+     var name = navigation.getParam('title','');
+     if (ID.length == 0){
+       foo = async()=>{
+        let model = new UserModel();
+        let companyModel= await model.getDefaultCompany();
+        let park = companyModel.park[0];
+        this.setState({
+            parkID:park.id,
+            parkName:park.nf_farmName,
+        })
+        this.props.navigation.setParams({title:park.nf_farmName,id:park.id});
+       }
+       foo();
+     }else{
+        this.setState({
+            parkID:ID,
+            parkName:name,
+        })
+     }
+     this.props.navigation.setParams({title:name});
+   } 
     render(){
         let {width,height} = Dimensions.get('window');
         return(<SafeAreaView style={styles.container}>
