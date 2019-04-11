@@ -8,8 +8,12 @@ export default class HomeScreen extends Component{
        var parkName = navigation.getParam('title','');
        return{
            headerTitle:(<Text style={{color:'#00a056',fontSize:20,fontWeight:'bold'}}>{parkName}</Text>),
-           headerLeft:(<Button onPress={()=> navigation.openDrawer()} title="openDrawer" color='#333'/>),
-           headerRight:(<Button onPress={()=> this._selectPark(navigation)} title='园区' color='#333'/>) 
+           headerLeft:(<Button onPress={()=> navigation.openDrawer()} title="openDrawer" color='#333' fontSize={15}/>),
+           headerRight:(<Button onPress= {() =>{
+             let parkID = navigation.getParam('id','');
+             navigation.navigate('ParkSelect',{id:parkID});
+           }} 
+            title='园区' color='#333'/>) 
        }
    }
   constructor(props){
@@ -25,15 +29,8 @@ export default class HomeScreen extends Component{
           selectIndex:index,
       })
   }
-  _selectPark = (navigation) =>{
+  _selectPark = (navigation) =>{  
         
-        navigation.navigate('ParkSelect',{ID:this.props.parkID});
-  }
-  _setDefaultParkInfo = async() => {
-    
-    
-    return park
-   
   }
    componentDidMount(){
     const {navigation} = this.props;
