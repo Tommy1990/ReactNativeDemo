@@ -2,6 +2,7 @@ import React,{Component} from 'react';
 import {View,TouchableOpacity,Text,ScrollView,StyleSheet} from 'react-native';
 import commenStyle from '../../Base/CommenStyle';
 import UserModel from '../../Base/UserModel';
+
 export default class WeatherStationView extends Component{
     
    setNativeProps = (nativeProps) => {
@@ -37,11 +38,12 @@ class BottomStationView extends Component{
 }
 class BottomStationLineView extends Component{
    
-    _parkBtnClick = (id)=>{
+    _parkBtnClick = async(id)=>{
         alert(`press on ${id}`);
         this.props.tempClick(id);
         let model = new UserModel();
-        let company = model.getDefaultCompany();
+        let company = await model.getDefaultCompany();
+        console.log(`1234567890=${company.companyName}`)
     }
     render(){
         var items = [];

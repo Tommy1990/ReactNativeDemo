@@ -74,23 +74,21 @@ export default class UserModel{
         try {
            let json = await AsyncStorage.getItem('ComapanyList');
            let objlist = JSON.parse(json);
-           console.log(`1234567890json=${objlist}`)
            return objlist;
         }catch(error){
             console.log(error);
+            return [];
         }
     }
-    getDefaultCompany = () => {
-        let list = this.getCompanyList();
-        
-        for(i = 0;i < list.count;i++){
+    getDefaultCompany = async() => {
+        let list = await this.getCompanyList();
+        for(i = 0;i < list.length;i++){
             let model = list[i];
-            
             if (model.userInCompanyStatus == '1'){
                 return model;
             }
-            if (i == (list.count-1)){
-                alert('unfind')
+            if (i == (list.length-1)){
+
                 return {};
             }
         }
