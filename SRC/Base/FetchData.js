@@ -55,14 +55,15 @@ async function transData(params,fnn) {
         dic[item] = params[item];
     }
     let model = new UserModel();
-    let token = await model.getToken;
-    let userID = await model.getUserID;
+    let token = await model.getToken();
+    let userID = await model.getUserID();
     let devType = DeviceInfo.getSystemName();
     let appVersion = DeviceInfo.getBuildNumber();
     let deviceType = DeviceInfo.getDeviceType();
     let deviceName = DeviceInfo.getDeviceName();
     let system = devType + deviceName;
     let time = Date.parse(new Date());
+    
     if (token.length > 6){
         dic.userid = userID;
         dic.sign = token;

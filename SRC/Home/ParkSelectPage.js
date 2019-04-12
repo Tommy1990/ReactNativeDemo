@@ -30,10 +30,7 @@ export default class ParkSelectPage extends Component{
         })
     }
     _onPress = (model)=>{
-        this.props.navigation.navigate('Main',{title:model.nf_farmName,id:model.id});
-    }
-    _requestData(){
-        ''
+        this.props.navigation.navigate('Main',{title:model.nf_farmName,id:model.id,companyID:model.companyID});
     }
    componentDidMount(){
        this._loadData();
@@ -60,7 +57,7 @@ class CompanyParkItem extends Component{
             let num = Math.ceil(list.length/3);
             for (i=0;i<num;i++){
                 let children = list.slice(i*3,(i+1)*3);
-                let item = <CompanyParkCol list={children} actionPress = {this.props.actionPress} keyID ={this.props.keyID}  key={`${i}`}/>
+                let item = <CompanyParkCol list={children} companyID={this.props.model.id} actionPress = {this.props.actionPress} keyID ={this.props.keyID}  key={`${i}`}/>
                 items.push(item);
             }
         }
@@ -75,6 +72,7 @@ class CompanyParkItem extends Component{
 
 class CompanyParkCol extends Component{
     _onPress = (model)=>{
+        model.companyID = this.props.companyID;
         this.props.actionPress(model);
     }
     render(){

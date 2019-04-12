@@ -12,4 +12,6 @@ export default class REQUEST_URL {
     VALIDE_MSG = HOME + 'Login/codeValidate'
     //修改密码
     RESET_PSWD   = HOME + 'Login/forgetPass'
+    //获取气象站数据
+    PARK_WEATHER_STATION_DATA = HOME + 'Park/sensorData'
 }

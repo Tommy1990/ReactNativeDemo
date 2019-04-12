@@ -3,6 +3,8 @@ import {SafeAreaView,Text,TouchableOpacity,StyleSheet,Button,ScrollView,View,Dim
 import createStackNavigator from 'react-navigation';
 import WeatherSationView from './View/WeatherStationView'
 import UserModel from '../Base/UserModel';
+import REQUEST_URL from '../Base/BaseWeb'
+import fehchData from '../Base/FetchData';
 export default class HomeScreen extends Component{
    static navigationOptions = ({navigation})=>{
        var parkName = navigation.getParam('title','');
@@ -22,6 +24,7 @@ export default class HomeScreen extends Component{
           selectIndex:1,
           parkID:'',
           parkName:'',
+          companyId:'',
       }
   }
   _categorySlect = (index) =>{
@@ -37,6 +40,7 @@ export default class HomeScreen extends Component{
     const {navigation} = this.props;
     const ID = navigation.getParam('id','');
     var name = navigation.getParam('title','');
+    var company = navigation.getParam('companyID','');
     if (ID.length == 0){
         let model = new UserModel();
         let companyModel= await model.getDefaultCompany();
@@ -44,19 +48,39 @@ export default class HomeScreen extends Component{
         this.setState({
             parkID:park.id,
             parkName:park.nf_farmName,
+            companyId:companyModel.id
         })
-        this.props.navigation.setParams({title:park.nf_farmName,id:park.id});
+        this.props.navigation.setParams({title:park.nf_farmName,id:park.id,companyID:companyModel.id});
     }else{
         this.setState({
             parkID:ID,
             parkName:name,
+            companyID:company,
+            farmModel:null,
         })
+        alert(company);
         this.props.navigation.setParams({title:name});
     }
+    this._fetchWeatherStationData();
    } 
+
    //获取网络数据
-   _fetchData(){
-       
+   _fetchWeatherStationData = async() =>{
+        let url = new REQUEST_URL();
+        
+        let params = {farmId:this.state.parkID,companyId:this.state.companyId};
+        
+        fehchData(url.PARK_WEATHER_STATION_DATA,params,(responds,error)=>{
+
+            if (error !== null){
+                alert(error.message)
+            }else{
+                this.setState({
+                    farmModel:responds,
+                })
+            }
+        })
+
    }
     render(){
         let {width,height} = Dimensions.get('window');
@@ -79,7 +103,7 @@ export default class HomeScreen extends Component{
         </View>
         <View style={styles.bottomContainer}>
         <ScrollView style={{flex:1}} horizontal={true}>
-        <WeatherSationView tempNavigation={this.props.navigation}></WeatherSationView>
+        <WeatherSationView tempNavigation={this.props.navigation} ></WeatherSationView>
         <View style={{width:width,flex:1,backgroundColor:'blue'}}></View>
         </ScrollView>
         </View>
