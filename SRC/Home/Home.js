@@ -29,15 +29,15 @@ export default class HomeScreen extends Component{
           selectIndex:index,
       })
   }
-  _selectPark = (navigation) =>{  
-        
-  }
    componentDidMount(){
+    this._getParkInfo();
+   }
+   //设置初始化内容
+   _getParkInfo = async()=>{
     const {navigation} = this.props;
-     const ID = navigation.getParam('id','');
-     var name = navigation.getParam('title','');
-     if (ID.length == 0){
-       foo = async()=>{
+    const ID = navigation.getParam('id','');
+    var name = navigation.getParam('title','');
+    if (ID.length == 0){
         let model = new UserModel();
         let companyModel= await model.getDefaultCompany();
         let park = companyModel.park[0];
@@ -46,16 +46,18 @@ export default class HomeScreen extends Component{
             parkName:park.nf_farmName,
         })
         this.props.navigation.setParams({title:park.nf_farmName,id:park.id});
-       }
-       foo();
-     }else{
+    }else{
         this.setState({
             parkID:ID,
             parkName:name,
         })
-     }
-     this.props.navigation.setParams({title:name});
+        this.props.navigation.setParams({title:name});
+    }
    } 
+   //获取网络数据
+   _fetchData(){
+       
+   }
     render(){
         let {width,height} = Dimensions.get('window');
         return(<SafeAreaView style={styles.container}>

@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import UserModel from './UserModel';
 import DeviceInfo from 'react-native-device-info';
+import { NativeEventEmitter} from 'react-native';
  export default async function fehchData(url,params,fn){
      transData(params,(str)=>{
         var request = new XMLHttpRequest();
@@ -48,27 +49,33 @@ import DeviceInfo from 'react-native-device-info';
 
  }
 
-function transData(params,fnn) {
-     var paramStr = '';
-     for (item in params){
-        paramStr += `${item}=${params[item]}&`
-     }
-     let res = paramStr.slice(0,paramStr.lastIndexOf('&'));
-     fnn(res);
- }
-
-  getDefaultparams = async(params,fnn)=> {
+async function transData(params,fnn) {
     var dic = {};
     for (item in params){
-        dic.item = params[item];
+        dic[item] = params[item];
     }
     let model = new UserModel();
     let token = await model.getToken;
     let userID = await model.getUserID;
-    if (token.length < 2){
-        fnn(dic);
-    }else{
-
+    let devType = DeviceInfo.getSystemName();
+    let appVersion = DeviceInfo.getBuildNumber();
+    let deviceType = DeviceInfo.getDeviceType();
+    let deviceName = DeviceInfo.getDeviceName();
+    let system = devType + deviceName;
+    let time = Date.parse(new Date());
+    if (token.length > 6){
+        dic.userid = userID;
+        dic.sign = token;
+        dic.appVersion = appVersion;
+        dic.devType = devType;
+        dic.system = system;
+        dic.time = time;
     }
-
+    var paramStr = ''
+    for (item in dic){
+        paramStr += `${item}=${dic[item]}&`
+    }
+    let res = paramStr.slice(0,paramStr.lastIndexOf('&'));
+    fnn(res);
  }
+
