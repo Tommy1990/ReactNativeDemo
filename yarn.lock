@@ -4733,6 +4733,11 @@ react-lifecycles-compat@^3.0.4:
   resolved "http://registry.npm.taobao.org/react-lifecycles-compat/download/react-lifecycles-compat-3.0.4.tgz#4f1a273afdfc8f3488a8c516bfda78f872352362"
   integrity sha1-TxonOv38jzSIqMUWv9p4+HI1I2I=
 
+react-native-device-info@^1.4.3:
+  version "1.4.3"
+  resolved "http://registry.npm.taobao.org/react-native-device-info/download/react-native-device-info-1.4.3.tgz#dd08fbc37cc97065072045716b1ad3758424358d"
+  integrity sha1-3Qj7w3zJcGUHIEVxaxrTdYQkNY0=
+
 react-native-gesture-handler@^1.1.0:
   version "1.1.0"
   resolved "http://registry.npm.taobao.org/react-native-gesture-handler/download/react-native-gesture-handler-1.1.0.tgz#2a7d545ad2e0ca23adce22b2af441ad360ecccee"

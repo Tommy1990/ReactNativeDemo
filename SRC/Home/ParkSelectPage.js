@@ -32,6 +32,9 @@ export default class ParkSelectPage extends Component{
     _onPress = (model)=>{
         this.props.navigation.navigate('Main',{title:model.nf_farmName,id:model.id});
     }
+    _requestData(){
+        ''
+    }
    componentDidMount(){
        this._loadData();
    }

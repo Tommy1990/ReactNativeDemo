@@ -1,5 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import UserModel from './UserModel';
+import DeviceInfo from 'react-native-device-info';
  export default async function fehchData(url,params,fn){
      transData(params,(str)=>{
         var request = new XMLHttpRequest();
@@ -53,4 +55,20 @@ function transData(params,fnn) {
      }
      let res = paramStr.slice(0,paramStr.lastIndexOf('&'));
      fnn(res);
+ }
+
+  getDefaultparams = async(params,fnn)=> {
+    var dic = {};
+    for (item in params){
+        dic.item = params[item];
+    }
+    let model = new UserModel();
+    let token = await model.getToken;
+    let userID = await model.getUserID;
+    if (token.length < 2){
+        fnn(dic);
+    }else{
+
+    }
+
  }
