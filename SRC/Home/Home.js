@@ -5,6 +5,7 @@ import UserModel from '../Base/UserModel';
 import REQUEST_URL from '../Base/BaseWeb'
 import fehchData from '../Base/FetchData';
 import FarmView from './View/FarmView';
+import WeatherStationView from './View/WeatherStationView';
 export default class HomeScreen extends Component{
    static navigationOptions = ({navigation})=>{
        var parkName = navigation.getParam('title','');
@@ -102,8 +103,8 @@ export default class HomeScreen extends Component{
         </ScrollView>
         </View>
         <View style={styles.bottomContainer}>
-        <ScrollView style={{flex:1}} horizontal={true}>
-        <View style={{width:width,flex:1,backgroundColor:'blue'}}></View>
+        <ScrollView style={{flex:1}} horizontal={true} pagingEnabled={true}>
+        <WeatherStationView tempNavigation={this.props.navigation}></WeatherStationView>
         <FarmView tempNavigation={this.props.navigation} ></FarmView>
         </ScrollView>
         </View>

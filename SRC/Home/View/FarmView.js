@@ -1,5 +1,5 @@
 import React,{Component} from 'react';
-import {View,TouchableOpacity,Text,ScrollView,StyleSheet,Image} from 'react-native';
+import {View,TouchableOpacity,Text,ScrollView,StyleSheet,Image,Dimensions} from 'react-native';
 import commenStyle from '../../Base/CommenStyle';
 import UserModel from '../../Base/UserModel';
 
@@ -50,6 +50,7 @@ class BottomStationLineView extends Component{
         var items = [];
         let num = this.props.num;
         let col = this.props.col;
+        
         for (i = 0;i<num;i ++) {
             let index = col*3 + i;
             let item = <TouchableOpacity style={[styles.normalCell,{backgroundColor:'#00a056'}]} 
