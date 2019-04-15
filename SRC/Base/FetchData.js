@@ -17,12 +17,14 @@ import { NativeEventEmitter} from 'react-native';
             }else{
                 let error = new Error();
                 error.message = res.status.remind;
+                console.log(`1234567890error=${JSON.stringify(error)}`)
                 fn(null,error);
             }
            
         }else{
             let error = new Error();
             error.message = '网络错误'
+            console.log(`1234567890error=${JSON.stringify(error)}`)
             fn(null, error);
         }
         }
@@ -59,12 +61,12 @@ async function transData(params,fnn) {
     let userID = await model.getUserID();
     let devType = DeviceInfo.getSystemName();
     let appVersion = DeviceInfo.getBuildNumber();
-    let deviceType = DeviceInfo.getDeviceType();
-    let deviceName = DeviceInfo.getDeviceName();
-    let system = devType + deviceName;
+    // let deviceType = DeviceInfo.getDeviceType();
+    let deviceName = DeviceInfo.getSystemVersion();
+    let system =  deviceName;
     let time = Date.parse(new Date());
     
-    if (token.length > 6){
+    if((token != null) &&(token.length > 6)){
         dic.userid = userID;
         dic.sign = token;
         dic.appVersion = appVersion;

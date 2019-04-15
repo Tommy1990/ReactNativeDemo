@@ -33,6 +33,12 @@ export default class HomeScreen extends Component{
           selectIndex:index,
       })
   }
+  didFocusSubscription = this.props.navigation.addListener(
+      'didFocus',
+      payload =>{
+          this._fetchWeatherStationData();
+      }
+  )
    componentDidMount(){
     this._getParkInfo();
    }
@@ -52,6 +58,7 @@ export default class HomeScreen extends Component{
             companyId:companyModel.id
         })
         this.props.navigation.setParams({title:park.nf_farmName,id:park.id,companyID:companyModel.id});
+        this._fetchWeatherStationData();
     }else{
         this.setState({
             parkID:ID,
@@ -61,8 +68,9 @@ export default class HomeScreen extends Component{
         })
         alert(company);
         this.props.navigation.setParams({title:name});
+        this._fetchWeatherStationData();
     }
-    this._fetchWeatherStationData();
+    
    } 
 
    //获取网络数据
@@ -70,7 +78,13 @@ export default class HomeScreen extends Component{
         let url = new REQUEST_URL();
         
         let params = {farmId:this.state.parkID,companyId:this.state.companyId};
-        
+        if ((this.state.parkID == '')||(this.companyID == '')){
+            return
+        }
+
+        this.setState({
+            farmModel:null,
+        })
         fehchData(url.PARK_WEATHER_STATION_DATA,params,(responds,error)=>{
 
             if (error !== null){
@@ -84,6 +98,7 @@ export default class HomeScreen extends Component{
 
    }
     render(){
+        
         let {width,height} = Dimensions.get('window');
         return(<SafeAreaView style={styles.container}>
         <View style={styles.categoryScrollContiner}>
@@ -104,7 +119,7 @@ export default class HomeScreen extends Component{
         </View>
         <View style={styles.bottomContainer}>
         <ScrollView style={{flex:1}} horizontal={true} pagingEnabled={true}>
-        <WeatherStationView tempNavigation={this.props.navigation}></WeatherStationView>
+        <WeatherStationView tempNavigation={this.props.navigation} model={this.state.farmModel !== null ? this.state.farmModel : null}></WeatherStationView>
         <FarmView tempNavigation={this.props.navigation} ></FarmView>
         </ScrollView>
         </View>

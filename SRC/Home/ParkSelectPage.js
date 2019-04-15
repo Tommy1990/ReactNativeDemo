@@ -81,7 +81,6 @@ class CompanyParkCol extends Component{
         
         for (i = 0 ; i < list.length; i++){
             let model = this.props.list[i]
-            console.log(`1234567890parkName=${model.nf_farmName}`)
             let item = (<TouchableOpacity key={model.id} 
                 onPress={()=>this._onPress(model)}
                 style={{height:30,backgroundColor: model.id == this.props.keyID ? '#00a056' : '#fff',
