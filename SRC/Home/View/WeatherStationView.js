@@ -4,7 +4,6 @@ import commenStyle from '../../Base/CommenStyle';
 export default class WeatherStationView extends Component{
     setNativeProps(nativeProps){
         this._view.setNativeProps(nativeProps);
-        
     }
     
     _setData = ()=>{
@@ -56,33 +55,36 @@ export default class WeatherStationView extends Component{
                 break;
             }
            list.push(model);
-           console.log(`1234567890the push = ${i}`);
         };
-        console.log(`1234567890the = child.des`);
-        this._dealList(list);
-       
+       let temp = this._dealList(list);
+       return temp;
     }
     _dealList = (list)=>{
         if (this.props.model != null){
-            
-            if ('weatherInfo' in this.props.model) 
-                for (item in this.props.model.weatherInfo){
-                    for (child in list){
-                        if (item.type == child.id){
-                            child['des']= `${item.val}${item.unit}`;
+            if ('weatherInfo' in this.props.model) {
+                var length = new Number();
+                length = this.props.model.weatherInfo.length;
+                console.log(`1234567890length=${length}`)
+                for (var i = 0; i<length; i++){
+                    alert(1234567)
+                    let item = this.props.model.weatherInfo[i]
+                    for (var j = 0; j<list.length; j++){
+                        let child = list[j];
+                        if (item.type == child.id){ 
+                            child.des= `${item.val}${item.unit}`;
                             child.isWarn = item.isWarm != 0 ;
                             child.webUrl = item.webUrl;
-                            console.log(`1234567890${child.des}`)
                             break;
                         }
                     }
                 }
             }
-        
+        }
+        return list;
         
     }
     render(){
-        this._setData();
+        let list = this._setData();
         let {width,height} = Dimensions.get('window');
         let imgWidth = width - 42;
         var img = require('../../../img/image_placeholder.png');
@@ -98,7 +100,7 @@ export default class WeatherStationView extends Component{
         return(<View style={commenStyle.parkBottomContainer} ref={component => this._view = component}{...this.props}>
             <ScrollView >
             <Image style={{width:imgWidth,height:200,marginLeft:21,borderRadius:5}} source={img}/>
-            <CollectionView list = {[]} style={styles.colContainer} />
+            <CollectionView list = {list} style={styles.colContainer} />
             </ScrollView>
         </View>)
     }
