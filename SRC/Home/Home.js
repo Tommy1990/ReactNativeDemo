@@ -36,7 +36,8 @@ export default class HomeScreen extends Component{
   didFocusSubscription = this.props.navigation.addListener(
       'didFocus',
       payload =>{
-          this._fetchWeatherStationData();
+          this._requestData();
+          
       }
   )
    componentDidMount(){
@@ -58,21 +59,26 @@ export default class HomeScreen extends Component{
             companyId:companyModel.id
         })
         this.props.navigation.setParams({title:park.nf_farmName,id:park.id,companyID:companyModel.id});
-        this._fetchWeatherStationData();
+        this._requestData();
     }else{
         this.setState({
             parkID:ID,
             parkName:name,
             companyID:company,
             farmModel:null,
+            stationModel:null,
+            weatherModel:null,
         })
         alert(company);
         this.props.navigation.setParams({title:name});
-        this._fetchWeatherStationData();
+        this._requestData();
     }
     
    } 
-
+   _requestData = ()=>{
+       this._fetchWeatherReportData();
+       this._fetchWeatherStationData();
+   }
    //获取网络数据
    _fetchWeatherStationData = async() =>{
         let url = new REQUEST_URL();
@@ -83,7 +89,7 @@ export default class HomeScreen extends Component{
         }
 
         this.setState({
-            farmModel:null,
+            stationModel:null,
         })
         fehchData(url.PARK_WEATHER_STATION_DATA,params,(responds,error)=>{
 
@@ -91,12 +97,35 @@ export default class HomeScreen extends Component{
                 alert(error.message)
             }else{
                 this.setState({
-                    farmModel:responds,
+                    stationModel:responds,
                 })
             }
         })
 
    }
+   //获取天气数据
+   _fetchWeatherReportData = async() =>{
+       let url = new REQUEST_URL();
+       let params = {farmId:this.state.parkID};
+       if (this.state.parkID == ''){
+           return
+       };
+       this.setState({
+           weatherModel:null,
+       });
+
+       fehchData(url.PARK_WEATHER_REPORT_DATA,params,(responds,error)=>{
+        if (error !== null){
+            alert(error.message)
+        }else{
+            this.setState({
+                weatherModel:responds,
+            })
+        } 
+       })
+
+       
+   } 
     render(){
         
         let {width,height} = Dimensions.get('window');
@@ -119,7 +148,9 @@ export default class HomeScreen extends Component{
         </View>
         <View style={styles.bottomContainer}>
         <ScrollView style={{flex:1}} horizontal={true} pagingEnabled={true}>
-        <WeatherStationView tempNavigation={this.props.navigation} model={this.state.farmModel !== null ? this.state.farmModel : null}></WeatherStationView>
+        <WeatherStationView tempNavigation={this.props.navigation} 
+        model={this.state.stationModel !== null ? this.state.stationModel : null} 
+        weatherModel={this.state.weatherModel !== null ? this.state.weatherModel : null}></WeatherStationView>
         <FarmView tempNavigation={this.props.navigation} ></FarmView>
         </ScrollView>
         </View>

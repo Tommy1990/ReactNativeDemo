@@ -4,6 +4,7 @@ import commenStyle from '../../Base/CommenStyle';
 export default class WeatherStationView extends Component{
     setNativeProps(nativeProps){
         this._view.setNativeProps(nativeProps);
+        
     }
     
     _setData = ()=>{
@@ -64,9 +65,7 @@ export default class WeatherStationView extends Component{
             if ('weatherInfo' in this.props.model) {
                 var length = new Number();
                 length = this.props.model.weatherInfo.length;
-                console.log(`1234567890length=${length}`)
                 for (var i = 0; i<length; i++){
-                    alert(1234567)
                     let item = this.props.model.weatherInfo[i]
                     for (var j = 0; j<list.length; j++){
                         let child = list[j];
@@ -83,11 +82,15 @@ export default class WeatherStationView extends Component{
         return list;
         
     }
+    _jumpToDetail = (model)=>{
+
+    }
     render(){
         let list = this._setData();
         let {width,height} = Dimensions.get('window');
         let imgWidth = width - 42;
         var img = require('../../../img/image_placeholder.png');
+       
         if (this.props.model != null){
             if ('farmPic' in this.props.model){
                 img = {uri:this.props.model.farmPic};
@@ -100,6 +103,15 @@ export default class WeatherStationView extends Component{
         return(<View style={commenStyle.parkBottomContainer} ref={component => this._view = component}{...this.props}>
             <ScrollView >
             <Image style={{width:imgWidth,height:200,marginLeft:21,borderRadius:5}} source={img}/>
+            <View style={{alignItems:'center',justifyContent:'flex-start',flexDirection:'row',marginTop:17,marginBottom:17}}>
+            <View style={{height:11.5,width:1,borderRadius:0.5,backgroundColor:'#00a056',marginLeft:21}}></View>
+            <Text style={{color:'#333',fontSize:14,marginLeft:10}}>今日天气</Text>
+            </View>
+            <WeatherReportView weatherModel = {this.props.weatherModel}/>
+            <View style={{alignItems:'center',justifyContent:'flex-start',flexDirection:'row',marginTop:17,marginBottom:17}}>
+            <View style={{height:11.5,width:1,borderRadius:0.5,backgroundColor:'#00a056',marginLeft:21}}></View>
+            <Text style={{color:'#333',fontSize:14,marginLeft:10}}>气象站数据</Text>
+            </View>
             <CollectionView list = {list} style={styles.colContainer} />
             </ScrollView>
         </View>)
@@ -151,6 +163,113 @@ class ColView extends Component{
         </View>)
     }
 }
+class WeatherReportView extends Component{
+    
+    
+    _jumpToDetail = ()=>{
+
+    }
+    _setData = (model)=>{
+        
+        var newModel = {};
+        if (model != null){
+            if ('TwentyFour' in model){
+                let tempModel1 = model.TwentyFour;
+                if ('data' in tempModel1){
+                    let tempModel2 = tempModel1.data;
+                    if ('hourly' in tempModel2){
+                        let list = tempModel2.hourly;
+                        newModel.list = list;
+                        var min = new Number(list[0].temp);
+                        var max = min;
+                        
+                        for (i = 0; i< list.length; i++){
+                            let temp  = new Number(list[i].temp);
+                            if (temp > max){
+                                max = temp
+                            }else if (temp < min){
+                                min = temp
+                            }
+                        }
+                        newModel.max = max;
+                        newModel.min = min;
+                    }
+                }
+            }
+            
+            if ('OneDay' in model){
+                let tempmodel3 = model.OneDay;
+                if ( tempmodel3.data != null){
+                    let tempModel4 = tempmodel3.data;
+                    if ( tempModel4.condition != null){
+                        let condition = tempModel4.condition;
+                         newModel.condition = condition.condition;
+                         newModel.icon = condition.icon;
+                         newModel.sunRise = condition.sunRise;
+                         newModel.sunSet = condition.sunSet;
+                         newModel.temp = condition.temp;
+                    }
+                }
+            }
+        }
+        return newModel;
+    }
+    render(){
+        
+        let model = this._setData(this.props.weatherModel);
+        var items = [];
+        var img = require('../../../img/weather_default.png');
+        var temp = '--';
+        var condition = '----';
+        var sunRiseStr = '--:--'
+        var sunSetStr = '--:--'
+        var tempGapStr = '--°~--°'
+        if (model != null){
+             img = ('icon' in model) ? {uri:model.icon} : require('../../../img/weather_default.png');
+             temp = model.temp != null ? model.temp : '--';
+             condition = model.condition != null ? model.condition : '----';
+             sunRiseStr = model.sunRise != null ? model.sunRise.slice(model.sunRise.length-8,model.sunRise.length-3) : '--';
+            sunSetStr = model.sunSet != null ? model.sunSet.slice(model.sunSet.length-8,model.sunSet.length-3) :'--' ;
+            tempGapStr =  model.max != null ? `${model.min}°~${model.max}°` : '--°~--°';
+            if ( model.list != null){
+                for (var i = 0;i<model.list.length;i++){
+                    let temp = model.list[i];
+                    let tempImg = temp.iconDay != null ? {uri:temp.iconDay} : require('../../../img/weather_default.png') ;
+                    let index = temp.updatetime.length;
+                    let timeStr = temp.updatetime.slice(index-8,index-3);
+                    let item = <View style={{justifyContent:'flex-start',alignItems:'center',marginLeft:40}} key={`weather${i}`}>
+                    <Text style={{color:'#333',fontSize:14,fontWeight:'bold'}}>{temp.temp}°</Text>
+                    <Image source = {tempImg} style={{width:15,height:15}}/>
+                    <Text style={{color:'#333',fontSize:12}}>{timeStr}</Text>
+                    </View>
+                    items.push(item);
+                }
+            }
+        }
+        return(<View style={{marginLeft:20,backgroundColor:'#efefef',marginRight:20,borderRadius:10}} ref={component=> this._view = component}{...this.props} >
+            <View style={{flexDirection:'row',justifyContent:'flex-start',alignItems:'center'}}>
+            <Image source={img} style={{width:38,height:38,marginLeft:35,marginTop:22}}/>
+            <View style={{marginLeft:43}}><Text style={{color:'#333',fontSize:24}}>{temp}°</Text>
+            <Text style={{color:'#333',fontSize:12}}>{condition}</Text></View>
+            <View style={{marginLeft:35}}><View style={{flexDirection:'row',justifyContent:'flex-start',alignItems:'center'}}>
+            <Image source={require('../../../img/park_sunraise.png')} style={{width:11.5,height:10}}/>
+            <Text style={{color:'#333',fontSize:12}}>{sunRiseStr}</Text>
+            <Image source={require('../../../img/park_sunsit.png')} style={{width:11.5,height:10,marginLeft:10}}/>
+            <Text style={{color:'#333',fontSize:12}}>{sunSetStr}</Text>
+            </View>
+            <Text style={{color:'#333',fontSize:12}}>温差: {tempGapStr}</Text>
+            </View>
+            <TouchableOpacity style={{justifyContent:'center',alignItems:'center',width:40,height:30,marginLeft:10}}
+             onPress={()=> this._jumpToDetail()}>
+            <Text>more</Text>
+            </TouchableOpacity>
+            </View>
+            <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} style={{marginTop:30,marginBottom:20,marginRight:10}}>{items}</ScrollView>
+        </View>)
+    }
+}
+
+
 
 const styles = StyleSheet.create({
     normalCell:{
@@ -170,5 +289,6 @@ const styles = StyleSheet.create({
         marginTop:17,
         marginLeft:17,
         marginRight:17,
+        
     }
 });

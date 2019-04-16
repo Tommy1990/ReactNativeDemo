@@ -4,9 +4,9 @@ import UserModel from './UserModel';
 import DeviceInfo from 'react-native-device-info';
 import { NativeEventEmitter} from 'react-native';
  export default async function fehchData(url,params,fn){
-     transData(params,(str)=>{
+     transData(params,async (str)=>{
         var request = new XMLHttpRequest();
-        request.onreadystatechange = (e)=>{
+        request.onreadystatechange =  (e)=>{
         if (request.readyState !==4){
             return;
         }
@@ -29,8 +29,25 @@ import { NativeEventEmitter} from 'react-native';
         }
         }
 
+        let model = new UserModel();
+        let token = await model.getToken();
+        let userID = await model.getUserID();
+        let devType = DeviceInfo.getSystemName();
+        let appVersion = DeviceInfo.getBuildNumber();
+        // let deviceType = DeviceInfo.getDeviceType();
+        let deviceName = DeviceInfo.getSystemVersion();
+        let system =  deviceName;
+        let time = Date.parse(new Date());
         request.open('POST',url,true);
         request.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
+        if((token != null) &&(token.length > 6)){
+            request.setRequestHeader('userid',userID);
+            request.setRequestHeader('sign',token);
+            request.setRequestHeader('appVersion',appVersion);
+            request.setRequestHeader('devType',devType);
+            request.setRequestHeader('system',system);
+            request.setRequestHeader('time',time);
+        }
         request.send(str);
      })
      
@@ -51,32 +68,10 @@ import { NativeEventEmitter} from 'react-native';
 
  }
 
-async function transData(params,fnn) {
-    var dic = {};
-    for (item in params){
-        dic[item] = params[item];
-    }
-    let model = new UserModel();
-    let token = await model.getToken();
-    let userID = await model.getUserID();
-    let devType = DeviceInfo.getSystemName();
-    let appVersion = DeviceInfo.getBuildNumber();
-    // let deviceType = DeviceInfo.getDeviceType();
-    let deviceName = DeviceInfo.getSystemVersion();
-    let system =  deviceName;
-    let time = Date.parse(new Date());
-    
-    if((token != null) &&(token.length > 6)){
-        dic.userid = userID;
-        dic.sign = token;
-        dic.appVersion = appVersion;
-        dic.devType = devType;
-        dic.system = system;
-        dic.time = time;
-    }
+function transData(params,fnn) {
     var paramStr = ''
-    for (item in dic){
-        paramStr += `${item}=${dic[item]}&`
+    for (item in params){
+        paramStr += `${item}=${params[item]}&`
     }
     let res = paramStr.slice(0,paramStr.lastIndexOf('&'));
     fnn(res);
