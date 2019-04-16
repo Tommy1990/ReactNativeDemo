@@ -82,9 +82,8 @@ export default class WeatherStationView extends Component{
         return list;
         
     }
-    _jumpToDetail = (model)=>{
-
-    }
+   
+   
     render(){
         let list = this._setData();
         let {width,height} = Dimensions.get('window');
@@ -107,12 +106,12 @@ export default class WeatherStationView extends Component{
             <View style={{height:11.5,width:1,borderRadius:0.5,backgroundColor:'#00a056',marginLeft:21}}></View>
             <Text style={{color:'#333',fontSize:14,marginLeft:10}}>今日天气</Text>
             </View>
-            <WeatherReportView weatherModel = {this.props.weatherModel}/>
+            <WeatherReportView weatherModel = {this.props.weatherModel} jumpToWeatherDetail={this.props.jumpToWeatherDetail}/>
             <View style={{alignItems:'center',justifyContent:'flex-start',flexDirection:'row',marginTop:17,marginBottom:17}}>
             <View style={{height:11.5,width:1,borderRadius:0.5,backgroundColor:'#00a056',marginLeft:21}}></View>
             <Text style={{color:'#333',fontSize:14,marginLeft:10}}>气象站数据</Text>
             </View>
-            <CollectionView list = {list} style={styles.colContainer} />
+            <CollectionView list = {list} style={styles.colContainer}  jumpToStationDetail={this.props.jumpToStationDetail}/>
             </ScrollView>
         </View>)
     }
@@ -125,7 +124,7 @@ class CollectionView extends Component{
         var items = [];
         for (i = 0;i < cols ; i ++){
             let children = this.props.list.slice(i*3,(i+1)*3);
-            let item = <ColView list = {children} key = {i} index={i}></ColView>
+            let item = <ColView list = {children} key = {i} index={i} jumpToStationDetail={this.props.jumpToStationDetail}></ColView>
             items.push(item);
 
         }
@@ -136,7 +135,7 @@ class CollectionView extends Component{
 }
 class ColView extends Component{
     _onPress = (model)=>{
-        
+        this.props.jumpToStationDetail(model);
     }
     render(){
         let num = this.props.list.length;
@@ -167,7 +166,7 @@ class WeatherReportView extends Component{
     
     
     _jumpToDetail = ()=>{
-
+        this.props.jumpToWeatherDetail();
     }
     _setData = (model)=>{
         

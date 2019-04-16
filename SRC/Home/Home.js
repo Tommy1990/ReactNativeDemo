@@ -28,11 +28,7 @@ export default class HomeScreen extends Component{
           companyId:'',
       }
   }
-  _categorySlect = (index) =>{
-      this.setState({
-          selectIndex:index,
-      })
-  }
+  
   didFocusSubscription = this.props.navigation.addListener(
       'didFocus',
       payload =>{
@@ -131,8 +127,10 @@ export default class HomeScreen extends Component{
         let {width,height} = Dimensions.get('window');
         return(<SafeAreaView style={styles.container}>
         <View style={styles.categoryScrollContiner}>
-        <ScrollView style={{flex:1,flexDirection:'row'}} horizontal={true} contentContainerStyle={{marginLeft:20}}>
-          <Button title="监测数据" onPress={() => this._categorySlect(1)} 
+        <ScrollView style={{flex:1,flexDirection:'row'}} horizontal={true} contentContainerStyle={{marginLeft:20}}
+        showVerticalScrollIndicator={false}
+        showHorizontalScrollIndicator={false}
+        ><Button title="监测数据" onPress={() => this._categorySlect(1)} 
           color = {this.state.selectIndex == 1 ? '#00a056' : '#333'}  
           fomntSize = {this.state.selectIndex == 1 ? 16 : 14} />  
           <Button title="监控数据" onPress={()=>this._categorySlect(2)} 
@@ -147,11 +145,21 @@ export default class HomeScreen extends Component{
         </ScrollView>
         </View>
         <View style={styles.bottomContainer}>
-        <ScrollView style={{flex:1}} horizontal={true} pagingEnabled={true}>
+        <ScrollView style={{flex:1}} horizontal={true} pagingEnabled={true}
+            ref={compont=> this._bottomScrollView = compont}{...this.props}
+            showVerticalScrollIndicator={false}
+            showHorizontalScrollIndicator={false}
+            onScroll = {(event) => this._onScroll(event)}
+        >
         <WeatherStationView tempNavigation={this.props.navigation} 
         model={this.state.stationModel !== null ? this.state.stationModel : null} 
-        weatherModel={this.state.weatherModel !== null ? this.state.weatherModel : null}></WeatherStationView>
+        weatherModel={this.state.weatherModel !== null ? this.state.weatherModel : null}
+        jumpToStationDetail = {this._jumpToStationDetail}
+        jumpToWeatherDetail = {this._jumpToWeatherDetail}
+        ></WeatherStationView>
         <FarmView tempNavigation={this.props.navigation} ></FarmView>
+        <View style={{width:width,height:height,backgroundColor:'red'}}></View>
+        <View style={{width:width,height:height,backgroundColor:'blue'}}></View>
         </ScrollView>
         </View>
         </SafeAreaView>)
@@ -161,6 +169,28 @@ export default class HomeScreen extends Component{
             itemID:66,
             title:'childPage'
         });
+    }
+    _jumpToStationDetail = (model) =>{
+        alert(model.webUrl);
+    }
+    _jumpToWeatherDetail = ()=>{
+        alert(12345)
+    }
+    _categorySlect = (index) =>{
+        this.setState({
+            selectIndex:index,
+        })
+        let {width,height} = Dimensions.get('window');
+        let gapX = (new Number(index) - 1)* width ;
+        this._bottomScrollView.scrollTo({x:gapX,y:0,animated:true});
+    }
+    _onScroll = (event) =>{
+        let {width,height} = Dimensions.get('window');
+        let offsetX = event.nativeEvent.contentOffset.x;
+        let index = Math.ceil(offsetX/width);
+        this.setState({
+            selectIndex:index+1,
+        })
     }
 }
 
