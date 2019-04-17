@@ -186,8 +186,9 @@ export default class HomeScreen extends Component{
         }
         url += str;
         let res = url.slice(0,url.lastIndexOf('&'));
-        alert(res);
+        // alert(res);
         manager.openurl(res);
+        // this.props.navigation.navigate('WebView',{url:res});
     }
     _jumpToWeatherDetail = ()=>{
         this.props.navigation.navigate('ParkWeather');

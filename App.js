@@ -16,6 +16,7 @@ import { ScrollView } from 'react-native-gesture-handler';
 import commenStyles from './SRC/Base/CommenStyle';
 import ParkSelectPage from './SRC/Home/ParkSelectPage';
 import ParkWeatherPage from './SRC/Home/ParkWeatherPage';
+import BaseWebView from './SRC/Base/BaseWebView';
 
 
 //登录
@@ -32,6 +33,7 @@ const HomeNav = createStackNavigator({
   ChildFirst:HomeChildPage,
   ParkSelect:ParkSelectPage,
   ParkWeather:ParkWeatherPage,
+  WebView:BaseWebView,
 },{
   initialRouteName:'Main',
 })
