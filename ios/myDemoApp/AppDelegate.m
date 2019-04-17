@@ -15,7 +15,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
   NSURL *jsCodeLocation;
-
+  _blockRotation = false;
   jsCodeLocation = [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index" fallbackResource:nil];
 
   RCTRootView *rootView = [[RCTRootView alloc] initWithBundleURL:jsCodeLocation
@@ -31,5 +31,11 @@
   [self.window makeKeyAndVisible];
   return YES;
 }
-
+- (UIInterfaceOrientationMask)application:(UIApplication *)application supportedInterfaceOrientationsForWindow:(UIWindow *)window{
+  if (_blockRotation){
+    return UIInterfaceOrientationMaskLandscapeRight;
+  }else{
+    return UIInterfaceOrientationMaskPortrait;
+  }
+}
 @end

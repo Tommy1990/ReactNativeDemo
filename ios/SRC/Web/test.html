@@ -1,0 +1,213 @@
+<html>
+<title>原生测试</title>
+<meta charset="UTF-8">
+    <style>
+        input{
+            color: black;
+            width: auto;
+            height: 80px;
+            left:20px;
+            right:20px;
+            background-color: red;
+            font-size: 32px;
+        }
+    #show{
+        color: black;
+        width: 800px;
+        height: auto;
+        background-color: lightgray;
+        font-size: 32px;
+        font-weight:bold;
+    }
+    </style>
+<body>
+<a>native回调信息：</a>
+<p>
+    <xmp id="show">
+        
+    </xmp>
+</p>
+<a>--------------------------------------------------------------</a>
+
+<br/>
+<a href="nfzr://page/baseAty/web?url=http://www.baidu.com">nfzr://page/baseAty/web?url=http://www.baidu.com</a>
+<br/>
+<a href="nfzr://page/test/list">原生页面：nfzr://page/test/list</a>
+<br/>
+<a href="nfzr://page/baseAty/photo?currentPos=1&urls=['https://fenganblogimgs.oss-cn-beijing.aliyuncs.com/blog/1fa090890c40f16da08b790e7ea0aa45.jpg','https://fenganblogimgs.oss-cn-beijing.aliyuncs.com/blog/1fa090890c40f16da08b790e7ea0aa45.jpg']">
+    原生多图页面：</a>
+<p>
+    <input type="button" value="显示原生Toast：{'toastMsg': 'js请求toast'}" onclick="nfToastTest();"
+    />
+</p>
+<p>
+    <input type="button" value="loading：{'LoadingMsg': '原生加载'}" onclick="nfShowLoadingTest();"
+    />
+    <input type="button" value="loading：{'LoadingMsg': '原生加载'}" onclick="nfHideLoadingTest();"
+    />
+</p>
+<p>
+    <input type="button" value="显示成功：{'state': '0','stateMsg': '操作成功'}"
+           onclick="nfTipTest({'state': '1','stateMsg': '操作成功'});"
+    />
+</p>
+<p>
+    <input type="button" value="显示失败：{'state': '1','stateMsg': '操作失败'}"
+           onclick="nfTipTest({'state': '2','stateMsg': '操作失败'});"
+    />
+</p>
+<p>
+    <input type="button" value="拍照：{'isSelect': '2'}" onclick="nfPhotoTest({'isSelect': '2'});"
+    />
+</p>
+<p>
+    <input type="button" value="选择图片（最大三张）：{'isSelect': '1','maxNum': '3'}"
+           onclick="nfPhotoTest({'isSelect': '1','maxNum': '6'});"
+    />
+</p>
+<p>
+<input type="button" value="上传图片" onclick="nfPostPhotoTest();"
+/>
+</p>
+<p>
+    <input type="button" value="本地存储:{'key': 'userId','value': '20'}"
+           onclick="nfCacheSaveTest({'key': 'userId','value': '20'});"
+    />
+</p>
+<p>
+    <input type="button" value="获取本地存储的userId：{'key': 'userId'}" onclick="nfCacheGetTest({'key': 'userId'});"
+    />
+</p>
+<p>
+    <input type="button" value="获取设备型号" onclick="nfDeviceTypeTest();"
+    />
+</p>
+<p>
+<input type="button" value="退出" onclick="nfPopTest();"
+/>
+</p>
+</body>
+<script src = "NFWebJavascriptBridge.js"></script>
+<script >
+    /**
+     * 显示toast短暂提示文本
+     * 参数1：native方法名
+     * 参数2：传给native的方法，json格式的字符串
+     * 参数3：回调，用于接受native的返回参数
+     */
+    function nfToastTest() {
+        //call native method
+        callHandler(
+            'nfShowToast'
+            , {'toastMsg': "加载弹窗"}
+            ,function (responseData) {
+             showResponseData(responseData)
+             }
+        );
+    }
+
+    function nfShowLoadingTest() {
+        //call native method
+
+        callHandler(
+            'nfShowLoading'
+            , {'loadingMsg': '原生加载'}
+            ,function (responseData) {
+            showResponseData(responseData)
+            });
+    }
+   function nfHideLoadingTest(){
+       callHandler(
+                   'nfHideLoading'
+                   , {'loadingMsg': '隐藏'}
+                   ,function (responseData) {
+                   showResponseData(responseData)
+                   });
+    }
+
+
+
+    function nfTipTest(text) {
+        //call native method
+        callHandler(
+            'nfTip'
+            , text
+            , function (responseData) {
+                showResponseData(responseData)
+            }
+        );
+    }
+
+    function nfPhotoTest(text) {
+        //call native method
+        callHandler(
+            'nfPhoto'
+            , text
+            , function (responseData) {
+                showResponseData(responseData)
+            }
+        );
+    }
+   function nfPostPhotoTest(text) {
+    //call native method
+       callHandler(
+                'nfPostPhoto'
+                , text
+                , function (responseData) {
+                showResponseData(responseData)
+                }
+                );
+    }
+
+    function nfCacheSaveTest(text) {
+        //call native method
+        callHandler(
+            'nfCacheSave'
+            , text
+            , function (responseData) {
+                showResponseData(responseData)
+            }
+        );
+    }
+
+    function nfCacheGetTest(text) {
+        //call native method
+        window.WebViewJavascriptBridge.callHandler(
+            'nfCacheGet'
+            , text
+            , function (responseData) {
+                showResponseData(responseData)
+            }
+        );
+    }
+
+    function nfDeviceTypeTest() {
+        //call native method
+        window.WebViewJavascriptBridge.callHandler(
+            'nfDeviceType'
+            , ''
+            , function (responseData) {
+                showResponseData(responseData)
+            }
+        );
+    }
+    function nfPopTest() {
+    //call native method
+    callHandler(
+                'nfClosePage'
+                , text
+                , function (responseData) {
+                showResponseData(responseData)
+                }
+                );
+}
+
+    function showResponseData(responseData) {
+        //将字符串转换成json对象
+        console.log(responseData);
+        document.getElementById("show").innerHTML = JSON.stringify(JSON.parse(responseData), null, 2)
+    }
+
+</script>
+
+</html>

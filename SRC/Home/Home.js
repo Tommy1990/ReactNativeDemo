@@ -1,11 +1,13 @@
 import React,{Component} from 'react';
-import {SafeAreaView,Text,TouchableOpacity,StyleSheet,Button,ScrollView,View,Dimensions,Image} from 'react-native';
+import {SafeAreaView,Text,TouchableOpacity,StyleSheet,Button,ScrollView,View,Dimensions,Image,Platform,NativeModules} from 'react-native';
 import createStackNavigator from 'react-navigation';
 import UserModel from '../Base/UserModel';
 import REQUEST_URL from '../Base/BaseWeb'
 import fehchData from '../Base/FetchData';
 import FarmView from './View/FarmView';
 import WeatherStationView from './View/WeatherStationView';
+import DeviceInfo from 'react-native-device-info';
+const manager = NativeModules.Manager;
 export default class HomeScreen extends Component{
    static navigationOptions = ({navigation})=>{
        var parkName = navigation.getParam('title','');
@@ -171,10 +173,25 @@ export default class HomeScreen extends Component{
         });
     }
     _jumpToStationDetail = (model) =>{
-        alert(model.webUrl);
+        var newModel = new Object();
+        var url = model.webUrl + '?';
+         newModel.devType = DeviceInfo.getSystemName();
+         newModel.companyId = this.state.companyId;
+         newModel.farmId = this.state.parkID;
+         newModel.chartType = model.id;
+         newModel.apiType = '2';
+         var str = '';
+        for (item in newModel){
+            str += `${item}=${newModel[item]}&`
+        }
+        url += str;
+        let res = url.slice(0,url.lastIndexOf('&'));
+        alert(res);
+        manager.openurl(res);
     }
     _jumpToWeatherDetail = ()=>{
-        alert(12345)
+        alert(Platform.OS)
+       
     }
     _categorySlect = (index) =>{
         this.setState({
