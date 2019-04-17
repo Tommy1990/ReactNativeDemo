@@ -14,6 +14,8 @@ export default class REQUEST_URL {
     RESET_PSWD   = HOME + 'Login/forgetPass'
     //获取气象站数据
     PARK_WEATHER_STATION_DATA = HOME + 'Park/sensorData'
-    //获取天气数据
+    //获取24小时天气数据
     PARK_WEATHER_REPORT_DATA = HOME + 'Parkinfo/getNowDayWeather'
+    //get 15-days-long time weather
+    PARK_WEATHER_15_REPORT_DATA = HOME + 'Parkinfo/getFifteenDayWeather';
 }

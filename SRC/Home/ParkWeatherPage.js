@@ -1,5 +1,7 @@
 import React,{Component} from 'react';
 import {Demission,SafeAreaView,View,ScrollView,TouchableOpacity,Text,ImageBackground,StatusBar,Button,Image} from 'react-native';
+import fehchData from '../Base/FetchData';
+import REQUEST_URL from '../Base/BaseWeb';
 
 export default class ParkWeatherPage extends Component{
     static navigationOptions = (navigation)=>{
@@ -7,49 +9,49 @@ export default class ParkWeatherPage extends Component{
             header:null,
         }
     }
-    _setDailyItems = (list)=>{
-        var items = [];
-        let length = list.length;
-        for (i=0;i<24;i++){
-            // let model = list[i];
-            let img = require('../../img/weather_default.png');
-            let item = <View style={{justifyContent:'flex-start',alignItems:'center',marginLeft:20}}>
-            <Text style={{color:'#fff',marginTop:10}}>--:--</Text>
-            <Image source={img} style={{width:18.5,height:19,marginTop:10}}></Image>
-            <Text style={{color:'#fff',marginTop:10}}>--°</Text>
-            </View>
-            items.push(item);
+    constructor(props){
+        super(props);
+        this.state = {
+            dailyModel:null,
+            weeklyModel:null,
         }
-
-        return items;
     }
-    _setWeekItems = (list)=>{
-        var items = [];
-        let length = list.length;
-        for(i=0;i<15;i++){
-            let img = require('../../img/weather_default.png');
-            let item = <View style={{justifyContent:'flex-start',alignItems:'center',marginLeft:10,borderRightColor:'#fff',borderRightWidth:0.5}}>
-            <Text style={{color:'#fff'}}>--</Text>
-            <Text style={{color:'#fff',fontSize:12,marginTop:10}}>--/--</Text>
-            <Text style={{color:'#fff',marginTop:10}}>--</Text>
-            <Image source={img} style={{width:18.5,height:19,marginTop:28}}></Image>
-            <Text style={{color:'#fff',marginTop:28}}>--°~--°</Text>
-            <Text style={{color:'#fff',marginTop:10}}>---</Text>
-            <Text style={{color:'#fff',marginTop:10}}></Text>
-            </View> 
-            items.push(item);
-        }
-        return items;
+    componentDidMount = ()=>{
+        let parkId = this.props.navigation.getParam('parkId','');
+        let url = new REQUEST_URL();
+        this._fetchDailyWeather(parkId,url.PARK_WEATHER_REPORT_DATA);
+        this._fetchWeeklyWeather(parkId,url.PARK_WEATHER_15_REPORT_DATA);
+    }
+    _fetchDailyWeather = (parkId,url)=>{
+        let params = {farmId:parkId};
+        fehchData(url,params,(respondes,error)=>{
+            if (error !== null){
+                alert(error.message);
+            }else{
+                this.setState({
+                    dailyModel:respondes,
+                })
+            }
+        })
+    }
+    _fetchWeeklyWeather = (parkId,url)=>{
+        let params = {farmId:parkId};
+        fehchData(url,params,(respondes,error)=>{
+            if (error !== null){
+                alert(error.message);
+            }else{
+                this.setState({
+                    weeklyModel:respondes,
+                })
+            }
+        })
     }
     render(){
-        let items = this._setDailyItems([]);
-        let weekItems = this._setWeekItems([]);
+        let items = this._setDailyItems(this.state.dailyModel);
+        let weekItems = this._setWeekItems(this.state.weeklyModel);
         let date = new Date();
         let num = date.getHours();
-        let day = date.getDay();
-        var weekday = new Array(7);
-        weekday = ['周日','周一','周二','周三','周四','周五','周六'];
-        let week = weekday[day];
+        let week = this._getWeekday(date);
         let img = ((num > 6)||(num < 18))? require('../../img/Park_weather_day.png') : require('../../img/Park_weather_night.png');
         return(
             <ImageBackground style={{width:'100%',height:'100%'}} source={img}>
@@ -82,5 +84,61 @@ export default class ParkWeatherPage extends Component{
                 
             </ImageBackground>
         )
+    }
+    _getWeekday = (date) =>{
+        let day = date.getDay();
+        var weekday = new Array(7);
+        weekday = ['周日','周一','周二','周三','周四','周五','周六'];
+        return weekday[day];
+    }
+    _setDailyItems = (model)=>{
+        var items = [];
+        if (model === null){
+            return items
+        }
+        let list = model.TwentyFour.data.hourly;
+        let length = list.length;
+        for (i=0;i<length;i++){
+            let temp = list[i];
+            let timeStr = `${temp.hour}`;
+            let img = temp.iconDay != null ? {uri:temp.iconDay}: require('../../img/weather_default.png');
+            let tempStr = temp.temp != null ? temp.temp : '--';
+            let item = <View style={{justifyContent:'flex-start',alignItems:'center',marginLeft:20}}>
+            <Text style={{color:'#fff',marginTop:10}}>{timeStr}</Text>
+            <Image source={img} style={{width:18.5,height:19,marginTop:10}}></Image>
+            <Text style={{color:'#fff',marginTop:10}}>{tempStr}°</Text>
+            </View>
+            items.push(item);
+        }
+
+        return items;
+    }
+    _setWeekItems = (model)=>{
+        var items = [];
+         if (model === null){
+            return items
+        }
+        let list = model.data.forecast;
+        let length = list.length;
+
+        for(i=0;i<length;i++){
+            let temp = list[i];
+            let date = new Date(temp.predictDate);
+            let weekStr = this._getWeekday(date);
+            let dateLength = temp.predictDate.length;
+            let dateStr = temp.predictDate.slice(length-5,length);
+            let img = {uri:temp.conditionIdDay};
+            let item = <View style={{justifyContent:'flex-start',alignItems:'center',marginLeft:10,borderRightColor:'#fff',borderRightWidth:0.5}}>
+            <Text style={{color:'#fff'}}>{weekStr}</Text>
+            <Text style={{color:'#fff',fontSize:12,marginTop:10}}>{dateStr}</Text>
+            <Text style={{color:'#fff',marginTop:10}}>{temp.conditionDay}</Text>
+            <Image source={img} style={{width:18.5,height:19,marginTop:28}}></Image>
+            <Text style={{color:'#fff',marginTop:28}}>{temp.tempNight}°~{temp.tempDay}°</Text>
+            <Text style={{color:'#fff',marginTop:10}}>{temp.windDirDay}</Text>
+            <Text style={{color:'#fff',marginTop:10}}>{Math.floor(temp.windSpeedDay)}级</Text>
+            </View> 
+            items.push(item);
+        }
+        return items;
     }
 }

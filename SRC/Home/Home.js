@@ -191,7 +191,7 @@ export default class HomeScreen extends Component{
         // this.props.navigation.navigate('WebView',{url:res});
     }
     _jumpToWeatherDetail = ()=>{
-        this.props.navigation.navigate('ParkWeather');
+        this.props.navigation.navigate('ParkWeather',{parkId:this.state.parkID});
        
     }
     _categorySlect = (index) =>{
