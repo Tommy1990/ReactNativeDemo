@@ -193,9 +193,10 @@
     }
     function nfPopTest() {
     //call native method
+    
     callHandler(
                 'nfClosePage'
-                , text
+                , {'toastMsg':"12345"}
                 , function (responseData) {
                 showResponseData(responseData)
                 }

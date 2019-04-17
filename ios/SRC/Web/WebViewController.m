@@ -54,9 +54,9 @@
   _webView.scrollView.bounces = true;
   
   if ([_url hasPrefix:@"http://"] || [_url hasPrefix:@"https://"]){
-    NSURL* tempUrl = [NSURL URLWithString:_url] ;
-//  NSString* path = [[NSBundle mainBundle] pathForResource:@"test" ofType:@"html"];
-//  NSURL* tempUrl = [NSURL URLWithString:path];
+//    NSURL* tempUrl = [NSURL URLWithString:_url] ;
+  NSString* path = [[NSBundle mainBundle] pathForResource:@"test" ofType:@"html"];
+  NSURL* tempUrl = [NSURL URLWithString:path];
     NSURLRequest* request = [NSURLRequest requestWithURL:tempUrl cachePolicy:NSURLRequestReloadIgnoringLocalAndRemoteCacheData timeoutInterval:10000];
     [_webView loadRequest:request];
   }

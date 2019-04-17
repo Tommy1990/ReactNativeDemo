@@ -12,6 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @protocol JSBridge<JSExport>
 - (void) callData:(NSString*)funcName Dic:(NSDictionary*) dic HandleFunc:(NSString*) handleFunc ID:(NSString*) ID;
+- (void) callData:(NSString*)funcName;
 
 @end
 

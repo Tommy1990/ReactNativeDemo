@@ -4,7 +4,9 @@
 		var callbackId = new Date().getTime();
         console.log(candelData)
         func("123456")
-        WebViewJavascriptBridge.callData(candelType,candelData,"callBackData",callbackId)
+//        WebViewJavascriptBridge.callDataDicHandleFuncID(candelType,candelData,"callBackData",callbackId)
+    alert("1234567");
+    WebViewJavascriptBridge.callData(candelType);
 		
 	}
 	
