@@ -15,6 +15,7 @@ import DrawerScreen from './SRC/Drawer/DrawerScreen';
 import { ScrollView } from 'react-native-gesture-handler';
 import commenStyles from './SRC/Base/CommenStyle';
 import ParkSelectPage from './SRC/Home/ParkSelectPage';
+import ParkWeatherPage from './SRC/Home/ParkWeatherPage';
 
 
 //登录
@@ -30,6 +31,7 @@ const HomeNav = createStackNavigator({
   Main:HomeScreen,
   ChildFirst:HomeChildPage,
   ParkSelect:ParkSelectPage,
+  ParkWeather:ParkWeatherPage,
 },{
   initialRouteName:'Main',
 })

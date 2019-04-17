@@ -190,7 +190,7 @@ export default class HomeScreen extends Component{
         manager.openurl(res);
     }
     _jumpToWeatherDetail = ()=>{
-        alert(Platform.OS)
+        this.props.navigation.navigate('ParkWeather');
        
     }
     _categorySlect = (index) =>{
