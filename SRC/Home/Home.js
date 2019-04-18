@@ -40,9 +40,9 @@ export default class HomeScreen extends Component{
   )
    componentDidMount(){
     this._getParkInfo();
-    manager.getLocation((error,loc)=>{
-        alert(loc);
-    })
+    // manager.getLocation((error,loc)=>{
+    //     alert(loc);
+    // })
    }
    //设置初始化内容
    _getParkInfo = async()=>{
@@ -79,6 +79,7 @@ export default class HomeScreen extends Component{
    _requestData = ()=>{
        this._fetchWeatherReportData();
        this._fetchWeatherStationData();
+       this._fetchFarmList();
    }
    //获取网络数据
    _fetchWeatherStationData = async() =>{
@@ -123,10 +124,29 @@ export default class HomeScreen extends Component{
                 weatherModel:responds,
             })
         } 
-       })
-
-       
+       })  
    } 
+   //获取地块数据
+   _fetchFarmList = async() =>{
+       let url = new REQUEST_URL();
+       let params = {farmId:this.state.parkID};
+       if (this.state.parkID == ''){
+           return;
+       }
+       this.setState({
+           farmModel:null,
+       });
+       fehchData(url.PARK_FARM_DATA,params,(responds,error)=>{
+           if (error !== null){
+               alert(error.message);
+           }else{
+               this.setState({
+                   farmModel:responds,
+               })
+           }
+       })
+       
+   }
     render(){
         
         let {width,height} = Dimensions.get('window');
@@ -162,8 +182,8 @@ export default class HomeScreen extends Component{
         jumpToStationDetail = {this._jumpToStationDetail}
         jumpToWeatherDetail = {this._jumpToWeatherDetail}
         ></WeatherStationView>
-        <FarmView tempNavigation={this.props.navigation} ></FarmView>
         <View style={{width:width,height:height,backgroundColor:'red'}}></View>
+        <FarmView tempNavigation={this.props.navigation}  farmModel = {this.state.farmModel}></FarmView>
         <View style={{width:width,height:height,backgroundColor:'blue'}}></View>
         </ScrollView>
         </View>

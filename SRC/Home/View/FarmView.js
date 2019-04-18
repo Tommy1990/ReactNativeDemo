@@ -12,11 +12,18 @@ export default class FarmView extends Component{
         this.props.tempNavigation.navigate('ChildFirst',{id:i})
    }
     render(){
+        var list = [];
+        var img = require('../../../img/image_placeholder.png')
+        if (this.props.farmModel !== null){
+            //  list = this.props.farmModel.plotInfo; 
+            // alert(JSON.stringify(this.props.farmModel))
+            //  img = {uri:this.farmModel.plotPic}  
+        }
         return(
             <View style={commenStyle.parkBottomContainer}>
             <ScrollView ref = {component => this._scrollView = component}{...this.props}>
-            <Image style={{width:'80%',height:200,marginLeft:20,borderRadius:5}} source={require('../../../img/image_placeholder.png')}/>
-            <BottomStationView tempClick={this._framBtnClick} num = {16} ref={component => this._bottomStation}{...this.props}></BottomStationView>
+            <Image style={{width:'80%',height:200,marginLeft:20,borderRadius:5}} source={img}/>
+            <BottomStationView tempClick={this._framBtnClick} list = {list} ref={component => this._bottomStation}{...this.props}></BottomStationView>
             </ScrollView>
             </View>
         )
@@ -27,11 +34,14 @@ class BottomStationView extends Component{
    
     render(){
         var items = [];
-        let row = 3;
-        let last = this.props.num % 3
-        let col = Math.ceil(17/3);
+        var col = 0;
+        if (this.props.list !== null){
+            let length = this.props.list.length;
+            col = Math.ceil(length/3);
+        }
         for (i = 0;i<col;i ++) {
-            let item = <BottomStationLineView num={i==col-1 ? last : 3} col = {i} key={i} tempClick = {this.props.tempClick} />;
+            let tempList = this.props.list.slice(i*3,(i+1)*3);
+            let item = <BottomStationLineView list={tempList} col = {i} key={i} tempClick = {this.props.tempClick} />;
             items.push(item);
         }
         return(<View ref={component => this._view = component} {...this.props}>{items}</View>)
@@ -48,15 +58,16 @@ class BottomStationLineView extends Component{
     }
     render(){
         var items = [];
-        let num = this.props.num;
+        let num = this.props.list.length;
         let col = this.props.col;
         
         for (i = 0;i<num;i ++) {
             let index = col*3 + i;
+            let model = this.props.list[i];
             let item = <TouchableOpacity style={[styles.normalCell,{backgroundColor:'#00a056'}]} 
             key={index}
             onPress = {()=> this._parkBtnClick(index)} >
-            <Text style={[styles.cellTitle]}>{`W${index }地块`}</Text></TouchableOpacity>;
+            <Text style={[styles.cellTitle]}>{model.nf_plotName}</Text></TouchableOpacity>;
             items.push(item);
         }
         return(<View style={styles.colContainer} ref={component => this._view = component} {...this.props}>{items}</View>)

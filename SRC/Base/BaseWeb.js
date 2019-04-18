@@ -18,4 +18,6 @@ export default class REQUEST_URL {
     PARK_WEATHER_REPORT_DATA = HOME + 'Parkinfo/getNowDayWeather'
     //get 15-days-long time weather
     PARK_WEATHER_15_REPORT_DATA = HOME + 'Parkinfo/getFifteenDayWeather';
+    //get farms info
+    PARK_FARM_DATA = HOME + 'App/Park/plotData';
 }
