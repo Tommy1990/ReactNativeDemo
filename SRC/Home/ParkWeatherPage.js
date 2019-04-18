@@ -18,6 +18,10 @@ export default class ParkWeatherPage extends Component{
     }
     componentDidMount = ()=>{
         let parkId = this.props.navigation.getParam('parkId','');
+        let parkName = this.props.navigation.getParam('parkName','----');
+        this.setState({
+            parkName:parkName,
+        })
         let url = new REQUEST_URL();
         this._fetchDailyWeather(parkId,url.PARK_WEATHER_REPORT_DATA);
         this._fetchWeeklyWeather(parkId,url.PARK_WEATHER_15_REPORT_DATA);
@@ -52,6 +56,17 @@ export default class ParkWeatherPage extends Component{
         let date = new Date();
         let num = date.getHours();
         let week = this._getWeekday(date);
+        var tempStr = "--";
+        var weatherStr = '-- --°~--° -- -级';
+        var localStr = week + "  " +this.state.parkName;
+        if (this.state.dailyModel !== null){
+            let tempGap = this._getTempGap(this.state.dailyModel.TwentyFour.data.hourly);
+            let model = this.state.dailyModel.OneDay.data.condition;
+            tempStr = `${model.temp}`;
+            weatherStr = model.condition + ' ' + tempGap + model.windDir + ' ' + Math.floor(model.windSpeed) + '级';
+        }
+        
+       
         let img = ((num > 6)||(num < 18))? require('../../img/Park_weather_day.png') : require('../../img/Park_weather_night.png');
         return(
             <ImageBackground style={{width:'100%',height:'100%'}} source={img}>
@@ -61,9 +76,9 @@ export default class ParkWeatherPage extends Component{
                 <Button title='back' color='#fff' onPress={()=> this.props.navigation.goBack()} style={{marginLeft:21}}></Button>
                 <Text style={{fontSize:16,color:'#fff',marginLeft:90}}>未来15日天气</Text>
                 </View>
-                <View style={{width:'100%',alignItems:'center',marginTop:30}}><Text style={{fontSize:45,color:'#fff'}}>--°</Text></View>
-                <View style={{width:'100%',alignItems:'center',marginTop:15}}><Text style={{color:'#fff'}}> --- </Text></View>
-                <View style={{width:'100%',alignItems:'center',marginTop:15}}><Text style={{color:'#fff'}}>{week}</Text></View> 
+                <View style={{width:'100%',alignItems:'center',marginTop:30}}><Text style={{fontSize:45,color:'#fff'}}>{tempStr}°</Text></View>
+                <View style={{width:'100%',alignItems:'center',marginTop:15}}><Text style={{color:'#fff'}}>{weatherStr}</Text></View>
+                <View style={{width:'100%',alignItems:'center',marginTop:15}}><Text style={{color:'#fff'}}>{localStr}</Text></View> 
                 <ScrollView 
                 style={{width:'100%',height:105,borderColor:'#fff',borderBottomWidth:0.5,borderTopWidth:0.5,marginTop:80}}
                 horizontal={true}
@@ -91,6 +106,21 @@ export default class ParkWeatherPage extends Component{
         weekday = ['周日','周一','周二','周三','周四','周五','周六'];
         return weekday[day];
     }
+    _getTempGap = (list)=>{
+        var max = new Number(list[0].temp);
+        var min = max;
+        for (i=1; i< list.length;i++){
+            let tempModel = list[i];
+            let num = new Number(tempModel.temp);
+            if (num < min){
+                min = num;
+            }else if (num > max){
+                max = num
+            }
+        }
+
+        return `  ${min}°~${max}°  `
+    }
     _setDailyItems = (model)=>{
         var items = [];
         if (model === null){
@@ -103,7 +133,7 @@ export default class ParkWeatherPage extends Component{
             let timeStr = `${temp.hour}`;
             let img = temp.iconDay != null ? {uri:temp.iconDay}: require('../../img/weather_default.png');
             let tempStr = temp.temp != null ? temp.temp : '--';
-            let item = <View style={{justifyContent:'flex-start',alignItems:'center',marginLeft:20}}>
+            let item = <View style={{justifyContent:'flex-start',alignItems:'center',marginLeft:20}} key={`daily${i}`}>
             <Text style={{color:'#fff',marginTop:10}}>{timeStr}</Text>
             <Image source={img} style={{width:18.5,height:19,marginTop:10}}></Image>
             <Text style={{color:'#fff',marginTop:10}}>{tempStr}°</Text>
@@ -128,7 +158,7 @@ export default class ParkWeatherPage extends Component{
             let dateLength = temp.predictDate.length;
             let dateStr = temp.predictDate.slice(length-5,length);
             let img = {uri:temp.conditionIdDay};
-            let item = <View style={{justifyContent:'flex-start',alignItems:'center',marginLeft:10,borderRightColor:'#fff',borderRightWidth:0.5}}>
+            let item = <View style={{justifyContent:'flex-start',alignItems:'center',marginLeft:10,borderRightColor:'#fff',borderRightWidth:0.5}} key={`week${i}`}>
             <Text style={{color:'#fff'}}>{weekStr}</Text>
             <Text style={{color:'#fff',fontSize:12,marginTop:10}}>{dateStr}</Text>
             <Text style={{color:'#fff',marginTop:10}}>{temp.conditionDay}</Text>
