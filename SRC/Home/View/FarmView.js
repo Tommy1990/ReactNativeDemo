@@ -14,15 +14,17 @@ export default class FarmView extends Component{
     render(){
         var list = [];
         var img = require('../../../img/image_placeholder.png')
-        if (this.props.farmModel !== null){
-            //  list = this.props.farmModel.plotInfo; 
+        if (this.props.farmModel != null){
+             list = this.props.farmModel.plotInfo; 
             // alert(JSON.stringify(this.props.farmModel))
-            //  img = {uri:this.farmModel.plotPic}  
+             img = {uri:this.props.farmModel.plotPic}  
+            
         }
         return(
             <View style={commenStyle.parkBottomContainer}>
             <ScrollView ref = {component => this._scrollView = component}{...this.props}>
-            <Image style={{width:'80%',height:200,marginLeft:20,borderRadius:5}} source={img}/>
+            <View style={{justifyContent:'center',alignItems:'center'}}>
+            <Image style={{width:'80%',height:200,marginLeft:20,borderRadius:5}} source={img}/></View> 
             <BottomStationView tempClick={this._framBtnClick} list = {list} ref={component => this._bottomStation}{...this.props}></BottomStationView>
             </ScrollView>
             </View>
@@ -60,11 +62,13 @@ class BottomStationLineView extends Component{
         var items = [];
         let num = this.props.list.length;
         let col = this.props.col;
-        
+        let {width,height} = Dimensions.get('window');
+        let gap = 20
+        let btnWidth = (width - 20*5)/3;
         for (i = 0;i<num;i ++) {
             let index = col*3 + i;
             let model = this.props.list[i];
-            let item = <TouchableOpacity style={[styles.normalCell,{backgroundColor:'#00a056'}]} 
+            let item = <TouchableOpacity style={[styles.normalCell,{backgroundColor:'#00a056',width:btnWidth}]} 
             key={index}
             onPress = {()=> this._parkBtnClick(index)} >
             <Text style={[styles.cellTitle]}>{model.nf_plotName}</Text></TouchableOpacity>;
@@ -80,6 +84,7 @@ const styles = StyleSheet.create({
         height:40,
         marginLeft:20,
         justifyContent:'center',
+        alignItems: 'center',
     },
     cellTitle:{
         color:'#333',
