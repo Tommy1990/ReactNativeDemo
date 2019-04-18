@@ -40,6 +40,9 @@ export default class HomeScreen extends Component{
   )
    componentDidMount(){
     this._getParkInfo();
+    manager.getLocation((error,loc)=>{
+        alert(loc);
+    })
    }
    //设置初始化内容
    _getParkInfo = async()=>{

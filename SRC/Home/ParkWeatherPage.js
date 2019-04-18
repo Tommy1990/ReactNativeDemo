@@ -25,6 +25,7 @@ export default class ParkWeatherPage extends Component{
         let url = new REQUEST_URL();
         this._fetchDailyWeather(parkId,url.PARK_WEATHER_REPORT_DATA);
         this._fetchWeeklyWeather(parkId,url.PARK_WEATHER_15_REPORT_DATA);
+        
     }
     _fetchDailyWeather = (parkId,url)=>{
         let params = {farmId:parkId};

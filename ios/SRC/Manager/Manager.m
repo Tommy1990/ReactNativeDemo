@@ -24,6 +24,9 @@ RCT_EXPORT_METHOD(openurl:(NSString*)url){
       
     }];
   }];
-  
 };
+
+RCT_EXPORT_METHOD(getLocation:(RCTResponseSenderBlock)callback){
+  callback(@[[NSNull null],@"上海"]);
+}
 @end
