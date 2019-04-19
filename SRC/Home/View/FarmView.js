@@ -2,7 +2,6 @@ import React,{Component} from 'react';
 import {View,TouchableOpacity,Text,ScrollView,StyleSheet,Image,Dimensions} from 'react-native';
 import commenStyle from '../../Base/CommenStyle';
 import UserModel from '../../Base/UserModel';
-
 export default class FarmView extends Component{
     
    setNativeProps = (nativeProps) => {
@@ -11,7 +10,9 @@ export default class FarmView extends Component{
    _framBtnClick = (i)=>{
         this.props.tempNavigation.navigate('ChildFirst',{id:i})
    }
+    
     render(){
+        
         var list = [];
         var img = require('../../../img/image_placeholder.png')
         if (this.props.farmModel != null){
@@ -35,6 +36,7 @@ export default class FarmView extends Component{
 class BottomStationView extends Component{
    
     render(){
+       
         var items = [];
         var col = 0;
         if (this.props.list !== null){

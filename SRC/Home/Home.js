@@ -7,6 +7,7 @@ import fehchData from '../Base/FetchData';
 import FarmView from './View/FarmView';
 import WeatherStationView from './View/WeatherStationView';
 import DeviceInfo from 'react-native-device-info';
+import getLocInfo from '../Base/GetUseInfo';
 const manager = NativeModules.Manager;
 export default class HomeScreen extends Component{
    static navigationOptions = ({navigation})=>{
@@ -148,7 +149,7 @@ export default class HomeScreen extends Component{
        
    }
     render(){
-        
+       
         let {width,height} = Dimensions.get('window');
         return(<SafeAreaView style={styles.container}>
         <View style={styles.categoryScrollContiner}>
