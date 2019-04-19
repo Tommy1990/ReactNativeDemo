@@ -24,3 +24,4 @@ cnwebsite/translated_docs
 cnwebsite/yarn-error.log
 yongfu.xcuserdatad/
 ios/build/
+node_modules
