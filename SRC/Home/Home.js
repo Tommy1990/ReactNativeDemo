@@ -8,6 +8,7 @@ import FarmView from './View/FarmView';
 import WeatherStationView from './View/WeatherStationView';
 import DeviceInfo from 'react-native-device-info';
 import Modal from 'react-native-modal';
+import VideoListView from './View/VideoListView';
 const manager = NativeModules.Manager;
 export default class HomeScreen extends Component{
    static navigationOptions = ({navigation})=>{
@@ -81,6 +82,7 @@ export default class HomeScreen extends Component{
        this._fetchWeatherReportData();
        this._fetchWeatherStationData();
        this._fetchFarmList();
+       this._fetchVideoList();
    }
    //获取网络数据
    _fetchWeatherStationData = async() =>{
@@ -148,6 +150,26 @@ export default class HomeScreen extends Component{
        })
        
    }
+   //获取摄像头列表
+   _fetchVideoList= async() =>{
+       var url = new REQUEST_URL();
+       let paras = {page:1,limit:99,farmId:this.state.parkID,status:1}
+       if (this.state.parkID == ''){
+        return;
+        } 
+        this.setState({
+            videoListModel:null
+        });
+        fehchData(url.PARK_VIDEO_LIST_DATA,paras,(respond,error)=>{
+            if (error != null){
+                alert(error.message);
+            }else{
+                this.setState({
+                    videoListModel:respond,
+                })
+            }
+        })
+   }
     render(){
        
         let {width,height} = Dimensions.get('window');
@@ -183,7 +205,7 @@ export default class HomeScreen extends Component{
         jumpToStationDetail = {this._jumpToStationDetail}
         jumpToWeatherDetail = {this._jumpToWeatherDetail}
         ></WeatherStationView>
-        <View style={{width:width,height:height,backgroundColor:'red'}}></View>
+        <VideoListView jumpfunc = {this._videoJump} videoListModel={this.state.videoListModel}></VideoListView>
         <FarmView showfunc = {this._showFarmInfo}  farmModel = {this.state.farmModel}></FarmView>
         <View style={{width:width,height:height,backgroundColor:'blue'}}></View>
         </ScrollView>
@@ -196,6 +218,9 @@ export default class HomeScreen extends Component{
             itemID:66,
             title:'childPage'
         });
+    }
+    _videoJump = (model) =>{
+        
     }
     _showFarmInfo= (model) =>{
         this.setState({
@@ -261,17 +286,42 @@ class FarmInfoShowView extends Component{
             list = this.props.model.plantInfo;
             title = `${this.props.model.nf_plotName}地块种植信息`;
         }
+        
         const deviceWidth = Dimensions.get('window').width;
         // const deviceHeight = Platform.OS === 'ios' ? Dimensions.get('window').height : require('react-native-extra-dimensions-android').get('REAL_WINDOW_HEIGHT');
         let viewWidth = deviceWidth - 42;
-        
+        var items = [];
+        for (i=0; i < list.length;i++){
+            let temp = list[i];
+            let plantTime = new Number(temp.nf_plantTime);
+            let pickTime = new Number(temp.nf_firstPickTime);
+            let plantTimeStr  = (new Date(plantTime)).toISOString().slice(0,10);
+            let pickTimeStr = (new Date(pickTime)).toISOString().slice(0,10);
+            let item = (<View style={{justifyContent:'flex-start',alignItems:'flex-start'}} key={`farm${i}`}>
+             <View style={{flexDirection:'row',justifyContent:'flex-start',alignItems:"center",marginTop:10}}>
+             <View style={{height:13,width:2,borderRadius:1,backgroundColor:'#00a056',marginLeft:21}}></View>
+             <Text style={{color:'#333',fontSize:15,marginLeft:5}}>{temp.nf_seedlingName}</Text></View>  
+            <Text style={{marginTop:15,marginLeft:23}}>苗源: {temp.nf_manufactorName}</Text>
+            <Text style={{marginTop:10,marginLeft:23}}>种植年份: {plantTimeStr}</Text>
+            <Text style={{marginTop:10,marginLeft:23}}>首摘年份: {pickTimeStr}</Text>
+            <Text style={{marginTop:10,marginLeft:23}}>种植方式:  {temp.nf_plantType}</Text>
+            <Text style={{marginTop:10,marginLeft:23}}>种植数量:  {temp.nf_plantNum}株</Text>
+            <View style = {{flexDirection:'row',justifyContent:'flex-start',alignItems:"flex-start",marginLeft:23,marginTop:10,marginRight:60}}>
+            <Text style={{color:'#333'}}>备注: </Text>
+            <Text style={{color:'#333',fontSize:15}}>{temp.nf_note}</Text></View>
+            </View>)
+
+            items.push(item);
+        }
         return(
             <Modal ref={compont => this._modal = compont}{...this.props} 
             isVisible = {this.props.show}
             onBackdropPress = {()=> this.props.swip()}
             >
-            <View style={{marginLeft:21,width:viewWidth,height:'70%',backgroundColor:'#fff'}}>
-            <ScrollView ></ScrollView>
+            <View style={{width:viewWidth,height:'70%',backgroundColor:'#fff',justifyContent:'flex-start',alignItems:'center',borderRadius:5}}>
+            <Text style={{color:'#333',fontSize:16,marginTop:17,marginBottom:17}}>{title}</Text> 
+
+            <ScrollView style={{borderTopColor:'#EFEFEF',borderTopWidth:0.5,width:'100%'}}>{items}</ScrollView>
             </View>
             </Modal>
         )
