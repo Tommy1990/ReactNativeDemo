@@ -7,8 +7,8 @@ export default class FarmView extends Component{
    setNativeProps = (nativeProps) => {
         this._bottomStation.setNativeProps(nativeProps);
    }
-   _framBtnClick = (i)=>{
-        this.props.tempNavigation.navigate('ChildFirst',{id:i})
+   _framBtnClick = (model)=>{
+        this.props.showfunc(model);
    }
     
     render(){
@@ -53,12 +53,10 @@ class BottomStationView extends Component{
 }
 class BottomStationLineView extends Component{
    
-    _parkBtnClick = async(id)=>{
-        alert(`press on ${id}`);
-        this.props.tempClick(id);
-        let model = new UserModel();
-        let company = await model.getDefaultCompany();
-        console.log(`1234567890=${company.companyName}`)
+    _parkBtnClick = (model)=>{
+        
+        this.props.tempClick(model);
+        
     }
     render(){
         var items = [];
@@ -72,7 +70,7 @@ class BottomStationLineView extends Component{
             let model = this.props.list[i];
             let item = <TouchableOpacity style={[styles.normalCell,{backgroundColor:'#00a056',width:btnWidth}]} 
             key={index}
-            onPress = {()=> this._parkBtnClick(index)} >
+            onPress = {()=> this._parkBtnClick(model)} >
             <Text style={[styles.cellTitle]}>{model.nf_plotName}</Text></TouchableOpacity>;
             items.push(item);
         }

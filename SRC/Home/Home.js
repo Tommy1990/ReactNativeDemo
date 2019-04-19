@@ -7,7 +7,7 @@ import fehchData from '../Base/FetchData';
 import FarmView from './View/FarmView';
 import WeatherStationView from './View/WeatherStationView';
 import DeviceInfo from 'react-native-device-info';
-import getLocInfo from '../Base/GetUseInfo';
+import Modal from 'react-native-modal';
 const manager = NativeModules.Manager;
 export default class HomeScreen extends Component{
    static navigationOptions = ({navigation})=>{
@@ -184,10 +184,11 @@ export default class HomeScreen extends Component{
         jumpToWeatherDetail = {this._jumpToWeatherDetail}
         ></WeatherStationView>
         <View style={{width:width,height:height,backgroundColor:'red'}}></View>
-        <FarmView tempNavigation={this.props.navigation}  farmModel = {this.state.farmModel}></FarmView>
+        <FarmView showfunc = {this._showFarmInfo}  farmModel = {this.state.farmModel}></FarmView>
         <View style={{width:width,height:height,backgroundColor:'blue'}}></View>
         </ScrollView>
         </View>
+        <FarmInfoShowView swip={this._swipCloseFarmInfo} model = {this.state.showFarmModel} show={this.state.showFarmInfo}></FarmInfoShowView>
         </SafeAreaView>)
     }
     _onPress = ()=>{
@@ -195,6 +196,18 @@ export default class HomeScreen extends Component{
             itemID:66,
             title:'childPage'
         });
+    }
+    _showFarmInfo= (model) =>{
+        this.setState({
+            showFarmInfo:true,
+            showFarmModel:model,
+        })
+    }
+    _swipCloseFarmInfo = () =>{
+        this.setState({
+            showFarmInfo:false,
+            showFarmModel:null,
+        })
     }
     _jumpToStationDetail = (model) =>{
         var newModel = new Object();
@@ -233,6 +246,35 @@ export default class HomeScreen extends Component{
         this.setState({
             selectIndex:index+1,
         })
+    }
+}
+
+class FarmInfoShowView extends Component{
+    setNativeProps(nativeProps){
+        this._modal.setNativeProps(nativeProps);
+    }
+    render(){
+        var list = [];
+        var title = '地块种植数据'
+
+        if (this.props.model != null){
+            list = this.props.model.plantInfo;
+            title = `${this.props.model.nf_plotName}地块种植信息`;
+        }
+        const deviceWidth = Dimensions.get('window').width;
+        // const deviceHeight = Platform.OS === 'ios' ? Dimensions.get('window').height : require('react-native-extra-dimensions-android').get('REAL_WINDOW_HEIGHT');
+        let viewWidth = deviceWidth - 42;
+        
+        return(
+            <Modal ref={compont => this._modal = compont}{...this.props} 
+            isVisible = {this.props.show}
+            onBackdropPress = {()=> this.props.swip()}
+            >
+            <View style={{marginLeft:21,width:viewWidth,height:'70%',backgroundColor:'#fff'}}>
+            <ScrollView ></ScrollView>
+            </View>
+            </Modal>
+        )
     }
 }
 
