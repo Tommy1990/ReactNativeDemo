@@ -10,6 +10,8 @@ target 'myDemoApp' do
   target 'myDemoApp-tvOSTests' do
     inherit! :search_paths
     # Pods for testing
+    pod 'react-native-video', :path => '../node_modules/react-native-video'
+
   end
 
   target 'myDemoAppTests' do
@@ -24,7 +26,7 @@ target 'myDemoApp-tvOS' do
   # use_frameworks!
 
   # Pods for myDemoApp-tvOS
-
+ pod 'react-native-video', path: '../node_modules/react-native-video'
   target 'myDemoApp-tvOSTests' do
     inherit! :search_paths
     # Pods for testing

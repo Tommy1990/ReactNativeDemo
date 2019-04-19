@@ -45,6 +45,7 @@
 		96CC7E132266B4CB00DF78CF /* NFWebJavascriptBridge.js in Resources */ = {isa = PBXBuildFile; fileRef = 96CC7DE72266B4CB00DF78CF /* NFWebJavascriptBridge.js */; };
 		96CC7E1A2266B5F000DF78CF /* JSDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 96CC7E192266B5F000DF78CF /* JSDelegate.m */; };
 		96CC7E1D2266FA5F00DF78CF /* test.html in Resources */ = {isa = PBXBuildFile; fileRef = 96CC7E1C2266FA5F00DF78CF /* test.html */; };
+		96CC7EAA2269C90D00DF78CF /* libRCTVideo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 96CC7E882269B92D00DF78CF /* libRCTVideo.a */; };
 		96DE84A7223F67BE00E1E7F7 /* CalendarManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 96DE84A6223F67BE00E1E7F7 /* CalendarManager.m */; };
 		A7080C6722578DB400E26348 /* libRNCAsyncStorage.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A7080C642256F84400E26348 /* libRNCAsyncStorage.a */; settings = {ATTRIBUTES = (Required, ); }; };
 		A7080C6822578E1200E26348 /* libRNGestureHandler.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 96A829992235F4B6008E3018 /* libRNGestureHandler.a */; };
@@ -355,6 +356,20 @@
 			remoteGlobalIDString = ED296FEE214C9CF800B7C4FE;
 			remoteInfo = "jsiexecutor-tvOS";
 		};
+		96CC7E872269B92D00DF78CF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 96CC7E702269B92D00DF78CF /* RCTVideo.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 134814201AA4EA6300B7C361;
+			remoteInfo = RCTVideo;
+		};
+		96CC7E892269B92D00DF78CF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 96CC7E702269B92D00DF78CF /* RCTVideo.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 641E28441F0EEC8500443AF6;
+			remoteInfo = "RCTVideo-tvOS";
+		};
 		A7080C632256F84400E26348 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 5F3A00A6FE754D0782765EDB /* RNCAsyncStorage.xcodeproj */;
@@ -412,6 +427,7 @@
 		96CC7E192266B5F000DF78CF /* JSDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JSDelegate.m; sourceTree = "<group>"; };
 		96CC7E1B2266B67E00DF78CF /* JSBridge.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JSBridge.h; sourceTree = "<group>"; };
 		96CC7E1C2266FA5F00DF78CF /* test.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = test.html; sourceTree = "<group>"; };
+		96CC7E702269B92D00DF78CF /* RCTVideo.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTVideo.xcodeproj; path = "../node_modules/react-native-video/ios/RCTVideo.xcodeproj"; sourceTree = "<group>"; };
 		96DE84A5223F67BE00E1E7F7 /* CalendarManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CalendarManager.h; sourceTree = "<group>"; };
 		96DE84A6223F67BE00E1E7F7 /* CalendarManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CalendarManager.m; sourceTree = "<group>"; };
 		A1164527CC1D4AB9BA55E348 /* libRNDeviceInfo-tvOS.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = "libRNDeviceInfo-tvOS.a"; sourceTree = "<group>"; };
@@ -437,6 +453,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				96CC7EAA2269C90D00DF78CF /* libRCTVideo.a in Frameworks */,
 				A7080C6822578E1200E26348 /* libRNGestureHandler.a in Frameworks */,
 				A7080C6722578DB400E26348 /* libRNCAsyncStorage.a in Frameworks */,
 				961E88222249D7EF0098B9BB /* RSKImageCropper.framework in Frameworks */,
@@ -638,6 +655,7 @@
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				96CC7E702269B92D00DF78CF /* RCTVideo.xcodeproj */,
 				5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */,
 				146833FF1AC3E56700842450 /* React.xcodeproj */,
 				00C302A71ABCB8CE00DB3ED1 /* RCTActionSheet.xcodeproj */,
@@ -760,6 +778,15 @@
 			children = (
 				96A829992235F4B6008E3018 /* libRNGestureHandler.a */,
 				96A8299B2235F4B6008E3018 /* libRNGestureHandler-tvOS.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		96CC7E712269B92D00DF78CF /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				96CC7E882269B92D00DF78CF /* libRCTVideo.a */,
+				96CC7E8A2269B92D00DF78CF /* libRCTVideo.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -939,6 +966,10 @@
 				{
 					ProductGroup = 00C302E01ABCB9EE00DB3ED1 /* Products */;
 					ProjectRef = 00C302DF1ABCB9EE00DB3ED1 /* RCTVibration.xcodeproj */;
+				},
+				{
+					ProductGroup = 96CC7E712269B92D00DF78CF /* Products */;
+					ProjectRef = 96CC7E702269B92D00DF78CF /* RCTVideo.xcodeproj */;
 				},
 				{
 					ProductGroup = 139FDEE71B06529A00C62182 /* Products */;
@@ -1257,6 +1288,20 @@
 			fileType = archive.ar;
 			path = "libjsiexecutor-tvOS.a";
 			remoteRef = 96B6F300223106B2006E64ED /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		96CC7E882269B92D00DF78CF /* libRCTVideo.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRCTVideo.a;
+			remoteRef = 96CC7E872269B92D00DF78CF /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		96CC7E8A2269B92D00DF78CF /* libRCTVideo.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libRCTVideo.a;
+			remoteRef = 96CC7E892269B92D00DF78CF /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		A7080C642256F84400E26348 /* libRNCAsyncStorage.a */ = {
