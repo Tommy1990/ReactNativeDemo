@@ -220,7 +220,7 @@ export default class HomeScreen extends Component{
         });
     }
     _videoJump = (model) =>{
-        
+        this.props.navigation.navigate('ParkVideoDetail',{model:model})
     }
     _showFarmInfo= (model) =>{
         this.setState({

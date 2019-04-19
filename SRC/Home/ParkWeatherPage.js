@@ -4,7 +4,7 @@ import fehchData from '../Base/FetchData';
 import REQUEST_URL from '../Base/BaseWeb';
 
 export default class ParkWeatherPage extends Component{
-    static navigationOptions = (navigation)=>{
+    static navigationOptions = ({navigation})=>{
         return {
             header:null,
         }

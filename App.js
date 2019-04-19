@@ -17,6 +17,7 @@ import commenStyles from './SRC/Base/CommenStyle';
 import ParkSelectPage from './SRC/Home/ParkSelectPage';
 import ParkWeatherPage from './SRC/Home/ParkWeatherPage';
 import BaseWebView from './SRC/Base/BaseWebView';
+import ParkVideoDetailPage from './SRC/Home/ParkVideoDetailPage';
 
 
 //登录
@@ -34,6 +35,7 @@ const HomeNav = createStackNavigator({
   ParkSelect:ParkSelectPage,
   ParkWeather:ParkWeatherPage,
   WebView:BaseWebView,
+  ParkVideoDetail:ParkVideoDetailPage
 },{
   initialRouteName:'Main',
 })
