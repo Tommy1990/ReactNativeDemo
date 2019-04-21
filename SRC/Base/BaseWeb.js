@@ -30,4 +30,10 @@ export default class REQUEST_URL {
     PARK_VIDEO_EZ_CONTROL_START = 'https://open.ys7.com/api/lapp/device/ptz/start'
     //EZ control stop
     PARK_VIDEO_EZ_CONTROL_STOP  = 'https://open.ys7.com/api/lapp/device/ptz/stop'
+    //EZ save point 
+    PARK_VIDEO_EZ_CONTROL_POINT_SAVE = 'https://open.ys7.com/api/lapp/device/preset/add'
+    //EZ move to point
+    PARK_VIDEO_EZ_CONTROL_MOVE_POINT = 'https://open.ys7.com/api/lapp/device/preset/move'
+    //EZ clean point
+    PARK_VIDEO_EZ_CLEAN_POINT = 'https://open.ys7.com/api/lapp/device/preset/clear'
 }

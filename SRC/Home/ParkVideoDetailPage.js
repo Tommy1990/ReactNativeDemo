@@ -101,6 +101,59 @@ export default class ParkVideoDetailPage extends Component{
         }
         return (<SafeAreaView style={commenStyles.containerNormal}>
             <Video source={videoSource} style={{width:'100%',height:300}}></Video>
+             <View style={{width:'100%',justifyContent:'space-evenly',alignItems:'center',marginTop:17,flexDirection:'row'}}>
+                <TouchableOpacity hitSlop={{top:20,left:20,bottom:20,right:20}}
+                style = {{marginLeft:20}}
+                >
+                <Text>保存位置</Text>
+                </TouchableOpacity>
+                <TouchableOpacity hitSlop={{top:20,left:20,bottom:20,right:20}}
+                style = {{marginLeft:20}}
+                >
+                <Text>复位</Text>
+                </TouchableOpacity>
+            </View>
+            <View style={{width:'100%',justifyContent:'center',alignItems:'center',marginTop:17}}>
+                <TouchableOpacity hitSlop={{top:20,left:20,bottom:20,right:20}}
+                onPressIn={()=> this._videStartMove(0)}>
+                onPressOut = {() => this._videStartMove(0)}>
+                <Text>上</Text>
+                </TouchableOpacity>
+            </View>
+            <View style={{width:'100%',flexDirection:'row',justifyContent:'center',alignItems:"center",marginTop:17}}>
+                <TouchableOpacity 
+                 onPressIn={()=> this._videStartMove(8)}>
+                onPressOut = {() => this._videStartMove(8)}
+                hitSlop={{top:20,left:20,bottom:20,right:20}} style={{marginRight:20}}>
+                    <Text>➕</Text>
+                </TouchableOpacity>
+                <TouchableOpacity 
+                 onPressIn={()=> this._videStartMove(2)}>
+                onPressOut = {() => this._videStartMove(2)}
+                hitSlop={{top:20,left:20,bottom:20,right:20}} style={{marginRight:20}}>
+                    <Text>左</Text>
+                </TouchableOpacity>
+                <TouchableOpacity 
+                 onPressIn={()=> this._videStartMove(3)}>
+                onPressOut = {() => this._videStartMove(3)}
+                hitSlop={{top:20,left:20,bottom:20,right:20}} style={{marginLeft:20}}>
+                    <Text>右</Text>
+                </TouchableOpacity>
+                <TouchableOpacity 
+                 onPressIn={()=> this._videStartMove(9)}>
+                onPressOut = {() => this._videStartMove(9)}
+                hitSlop={{top:20,left:20,bottom:20,right:20}} style={{marginLeft:20}}>
+                    <Text>➖</Text>
+                </TouchableOpacity>
+            </View>
+            <View style={{width:'100%',justifyContent:'center',alignItems:'center',marginTop:17}}>
+                <TouchableOpacity
+                 onPressIn={()=> this._videStartMove(1)}>
+                onPressOut = {() => this._videStartMove(1)}
+                 hitSlop={{top:20,left:20,bottom:20,right:20}}>
+                <Text>下</Text>
+                </TouchableOpacity>
+            </View>
         </SafeAreaView>)
     }
 }
