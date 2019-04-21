@@ -18,7 +18,10 @@ export default class VideoListView extends Component{
         if (this.props.videoListModel != null){
              list = this.props.videoListModel.list; 
             // alert(JSON.stringify(this.props.farmModel))
-             img = {uri:this.props.videoListModel.list[0].nf_cameraDistribute}  
+            if (this.props.videoListModel.list[0].nf_cameraDistribute.length != 0){
+                img = {uri:this.props.videoListModel.list[0].nf_cameraDistribute}
+            } 
+               
             
         }
         return(

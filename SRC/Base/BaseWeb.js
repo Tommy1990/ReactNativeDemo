@@ -22,4 +22,8 @@ export default class REQUEST_URL {
     PARK_FARM_DATA = HOME + 'App/Park/plotData';
     //get video list info
     PARK_VIDEO_LIST_DATA = HOME + 'Com/Video/farmCameraList'
+    //get video info
+    PARK_VIDEO_DETAIL_INFO = HOME + 'Com/Video/getCameraInfo';
+    //get EZ token
+    PARK_VIDEO_EZ_TOKEN = HOME + 'Com/Video/getAccessToken';
 }
