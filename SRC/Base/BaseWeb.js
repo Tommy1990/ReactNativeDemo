@@ -26,4 +26,8 @@ export default class REQUEST_URL {
     PARK_VIDEO_DETAIL_INFO = HOME + 'Com/Video/getCameraInfo';
     //get EZ token
     PARK_VIDEO_EZ_TOKEN = HOME + 'Com/Video/getAccessToken';
+    //EZ Control start
+    PARK_VIDEO_EZ_CONTROL_START = 'https://open.ys7.com/api/lapp/device/ptz/start'
+    //EZ control stop
+    PARK_VIDEO_EZ_CONTROL_STOP  = 'https://open.ys7.com/api/lapp/device/ptz/stop'
 }

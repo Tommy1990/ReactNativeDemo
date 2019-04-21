@@ -51,6 +51,45 @@ export default class ParkVideoDetailPage extends Component{
             }
         })
     }
+    _videStartMove = (direction) =>{
+        let url = new REQUEST_URL();
+        if ((this.props.videoModel.nf_device_serial != null) && (this.props.token != null)){
+            return
+        }
+        let para = {accessToken:this.props.token,
+            deviceSerial:this.props.videoModel.nf_device_serial ,
+            channelNo:1,
+            direction:direction,
+            speed:1
+        }
+        fehchData(url.PARK_VIDEO_EZ_CONTROL_START,para,(respond,error)=>{
+            if (error !== null){
+                alert(error.message);
+                this._videoStopAll();
+            }
+        })
+    }
+    _videoStopMove = (direction) =>{
+        let url = new REQUEST_URL();
+        if ((this.props.videoModel.nf_device_serial != null) && (this.props.token != null)){
+            return
+        }
+        let para = {accessToken:this.props.token,
+            deviceSerial:this.props.videoModel.nf_device_serial ,
+            channelNo:1,
+            direction:direction
+        }
+        fehchData(url.PARK_VIDEO_EZ_CONTROL_STOP,para,(respond,error)=>{
+            if (error !== null){
+                alert(error.message);
+            }
+        })
+    }
+    _videoStopAll = async() => {
+        for ( i = 0; i < 12; i++){
+            await this._videoStopMove(i);
+        }
+    }
     render(){
         let model = this.props.navigation.getParam('model',null);
         var videoSource = {uri:''};
