@@ -64,7 +64,27 @@ const TabNavigator = createBottomTabNavigator({
   TabHome:HomeNav,
   TabSetting:SettingNav,
 },{
-  initialRouteName:'TabHome'
+  initialRouteName:'TabHome',
+  defaultNavigationOptions:({navigation}) => ({
+    tabBarIcon: ({ focused, horizontal, tintColor }) => {
+      const { routeName } = navigation.state;
+      
+      let iconName;
+      if (routeName === 'TabHome') {
+        iconName = '园区';
+      } else if (routeName === 'TabSetting') {
+        iconName = '工作';
+      }
+
+     
+      return (<View><Text style={{color:focused? '#00a056':'#333'}}>{iconName}</Text></View>);
+    },
+  }),
+  tabBarOptions:{
+    showLabel:false,
+    activeTintColor:'#00a056',
+    inactiveTintColor:'#333',
+  }
 })
 //抽屉导航
 const DrawerNav = createDrawerNavigator({
