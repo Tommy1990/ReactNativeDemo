@@ -51,19 +51,7 @@ import { NativeEventEmitter} from 'react-native';
         request.send(str);
      })
      
-    // try {
-    //     let response = await fetch(url,{
-    //         method:'POST',
-    //         headers:{
-    //             'Content-Type': 'application/x-www-form-urlencoded', 
-    //         },
-    //         body:res,
-    //     });
-       
-    //     fn(response,null);
-    // }catch (error) {
-    //     fn(null,error);
-    // }
+    
     
 
  }

@@ -17,7 +17,8 @@
     "react-native-image-crop-picker": "^0.23.1",
     "react-native-modal": "^9.0.0",
     "react-native-video": "^4.4.1",
-    "react-navigation": "^3.8.1"
+    "react-navigation": "^3.8.1",
+    "workerpool": "^3.1.2"
   },
   "devDependencies": {
     "babel-core": "^7.0.0-bridge.0",
