@@ -2,6 +2,7 @@ import React from 'react';
 
 const HOME = 'http://iot-api.qa.nongfaziran.com/';
 
+// const HOME = 'http://iot-api.pro.nongfaziran.com/';
 
 export default class REQUEST_URL {
     //登录
@@ -12,6 +13,8 @@ export default class REQUEST_URL {
     VALIDE_MSG = HOME + 'App/Login/codeValidate'
     //修改密码
     RESET_PSWD   = HOME + 'App/Login/forgetPass'
+    //reset default company
+    MINE_RESET_COMPANY = HOME + 'App/Generalitems/changeDefaultCom'
     //获取气象站数据
     PARK_WEATHER_STATION_DATA = HOME + 'App/Park/sensorData'
     //获取24小时天气数据

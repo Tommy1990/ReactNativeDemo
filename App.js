@@ -18,6 +18,7 @@ import ParkSelectPage from './SRC/Home/ParkSelectPage';
 import ParkWeatherPage from './SRC/Home/ParkWeatherPage';
 import BaseWebView from './SRC/Base/BaseWebView';
 import ParkVideoDetailPage from './SRC/Home/ParkVideoDetailPage';
+import CompanySelectPage from './SRC/Setting/CompanySelectPage';
 
 
 //登录
@@ -42,6 +43,7 @@ const HomeNav = createStackNavigator({
 //设置
 const SettingNav = createStackNavigator({
   Main:SettingScreen,
+  CompanySelect:CompanySelectPage,
 })
 HomeNav.navigationOptions = ({navigation}) => {
   let tabBarVisible = true;
@@ -64,7 +66,7 @@ const TabNavigator = createBottomTabNavigator({
   TabHome:HomeNav,
   TabSetting:SettingNav,
 },{
-  initialRouteName:'TabHome',
+  initialRouteName:'TabSetting',
   defaultNavigationOptions:({navigation}) => ({
     tabBarIcon: ({ focused, horizontal, tintColor }) => {
       const { routeName } = navigation.state;

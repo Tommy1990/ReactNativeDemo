@@ -7,7 +7,7 @@ import { NativeEventEmitter} from 'react-native';
      transData(params,async (str)=>{
         var request = new XMLHttpRequest();
         request.onreadystatechange =  (e)=>{
-        if (request.readyState !==4){
+        if (request.readyState !== 4){
             return;
         }
         if (request.status === 200){
