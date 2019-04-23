@@ -84,7 +84,7 @@ export default class UserModel{
         let list = await this.getCompanyList();
         for(i = 0;i < list.length;i++){
             let model = list[i];
-            if (model.userInCompanyStatus == '1'){
+            if ((model.userInCompanyStatus == '1')&& (model.isDefault == '1')){
                 return model;
             }
             if (i == (list.length-1)){

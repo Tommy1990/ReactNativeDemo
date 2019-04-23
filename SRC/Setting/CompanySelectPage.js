@@ -39,14 +39,14 @@ export default class CompanySelectPage extends Component{
         let model = new UserModel();
         
         fehchData(url.MINE_RESET_COMPANY,para,(respond,error)=>{
-            alert(JSON.stringify(respond))
-            // if (error != null){
-            //     alert(error.message);
-            // }else{
+            // alert(JSON.stringify(respond))
+            if (error != null){
+                alert(error.message);
+            }else{
                 
-            //     model.cleanLoginData();
-            //     this.props.navigation.navigate('Loading')
-            // }
+                model.cleanLoginData();
+                this.props.navigation.navigate('Loading')
+            }
         })
     }
     render(){
