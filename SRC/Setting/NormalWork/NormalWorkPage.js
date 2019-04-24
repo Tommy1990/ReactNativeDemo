@@ -1,11 +1,12 @@
 import React,{Component} from 'react';
-import {SafeAreaView,View,ScrollView,FlatList,TouchableOpacity,Text} from 'react-native';
+import {SafeAreaView,View,ScrollView,FlatList,TouchableOpacity,Text,Image} from 'react-native';
 
 export default class NormalWorkPage extends Component{
-    static navigtionOptions = ({navigation}) => {
-
+    static navigationOptions = ({navigation}) => {
+       
         return {
-            header:<View style={{flexDirection:'row',justifyContent:'flex-start',width:'100%',height:64}}><Text>12345</Text></View>
+            headerTitle:<Text style={{color:'#00a056'}}>123456</Text>,
+            headerBackImage:<Image source={require('../../../img/back.png')} style={{width:10,height:17,marginLeft:21.5}}/>,
         }
     }
     render(){

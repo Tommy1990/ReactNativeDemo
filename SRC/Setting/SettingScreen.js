@@ -8,7 +8,6 @@ export default class SettingScreen extends Component{
         return{
             header:<HeaderView tempNavigation={navigation}/> ,
             headerBackTitle: null,
-            
         }
     }
     constructor(props){
@@ -54,7 +53,7 @@ export default class SettingScreen extends Component{
         </SafeAreaView>)
     }
     _jumpToSelectItem = (model)=>{
-        alert(model.id)
+        
         if (model.id == 0){
             this.props.navigation.navigate('Normalwork');
         }
