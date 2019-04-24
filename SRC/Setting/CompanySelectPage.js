@@ -7,7 +7,8 @@ export default class CompanySelectPage extends Component{
     static navigationOptions = ({navigation}) =>{
 
         return{
-            title:'设置默认公司'
+            title:'设置默认公司',
+            
         }
     }
     constructor(props){

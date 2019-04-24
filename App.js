@@ -19,6 +19,7 @@ import ParkWeatherPage from './SRC/Home/ParkWeatherPage';
 import BaseWebView from './SRC/Base/BaseWebView';
 import ParkVideoDetailPage from './SRC/Home/ParkVideoDetailPage';
 import CompanySelectPage from './SRC/Setting/CompanySelectPage';
+import NormalWorkPage from './SRC/Setting/NormalWork/NormalWorkPage';
 
 
 //登录
@@ -44,6 +45,7 @@ const HomeNav = createStackNavigator({
 const SettingNav = createStackNavigator({
   Main:SettingScreen,
   CompanySelect:CompanySelectPage,
+  Normalwork:NormalWorkPage
 })
 HomeNav.navigationOptions = ({navigation}) => {
   let tabBarVisible = true;
