@@ -53,7 +53,17 @@ export default class NormalWorkPage extends Component{
         }
     }
     componentDidMount(){
-        this._setData();
+        this._setData();this.listener = DeviceEventEmitter.addListener('hideListView',(e)=>{
+            if (e !== null){
+                alert(e.simpleName)
+               this.setState({
+                   company:e
+               })
+            }
+        })
+    }
+    componentWillUnmount(){
+        this.listener.remove();
     }
     _setData = async()=>{
         let model = new UserModel();
@@ -114,23 +124,25 @@ class CompanyListView extends Component{
             toValue:0,
             duration:1000,
         }).start();
+        DeviceEventEmitter.emit('hideListView',model);
     }
     render(){
         let items = [];
        for (i=0; i< this.state.list.length;i++){
            let model = this.state.list[i];
             let item = (
-            <View style={{width:'100%',alignItems:'center',justifyContent:'center',height:44}}>
-                <TouchableOpacity>
-                <Text style={{color: model.isdefault ? '#00a056' : '#333',fontSize:16}}>{model.simpleName}</Text>
+            <View style={{width:'100%',alignItems:'center',justifyContent:'center',height:44,backgroundColor:'#fff'}} key={i}>
+                <TouchableOpacity hitSlop={{top:10,bottom:10,left:20,right:20}} onPress={()=> this._hidelist(model)}>
+                <Text style={{color: '#333',fontSize:16}}>{model.simpleName}</Text>
                 </TouchableOpacity>
             </View>
             
           )
             items.push(item)
        }
+       
        return( 
-        <Animated.ScrollView style={{...this.props.style,height:this.state.animatedheight,backgroundColor:'#000',opacity:0.03,width:'100%'}} ref={component => this._view = component}>
+        <Animated.ScrollView style={{...this.props.style,height:this.state.animatedheight,backgroundColor:'rgba(0,0,0,0.03)',width:'100%'}} ref={component => this._view = component}>
         {items}
         </Animated.ScrollView>
        )
