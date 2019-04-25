@@ -39,4 +39,7 @@ export default class REQUEST_URL {
     PARK_VIDEO_EZ_CONTROL_MOVE_POINT = 'https://open.ys7.com/api/lapp/device/preset/move'
     //EZ clean point
     PARK_VIDEO_EZ_CLEAN_POINT = 'https://open.ys7.com/api/lapp/device/preset/clear'
+
+    //get normal project list
+    WORK_NORMAL_PROJECT_LIST =  HOME + 'App/Generalitems/projectList'
 }

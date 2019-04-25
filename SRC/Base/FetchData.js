@@ -24,7 +24,7 @@ import { NativeEventEmitter} from 'react-native';
         }else{
             let error = new Error();
             error.message = '网络错误'
-            console.log(`1234567890error=${JSON.stringify(error)}`)
+            console.log(`1234567890 error status=${JSON.stringify(error.status)}`)
             fn(null, error);
         }
         }
