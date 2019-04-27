@@ -4,10 +4,21 @@ import UserModel from '../Base/UserModel';
 import Modal from 'react-native-modal';
 
 export default class SettingScreen extends Component{
-    static navigationOptions = ({navigation}) =>{
+    static navigationOptions =  ({navigation}) =>{
         return{
-            header:<HeaderView tempNavigation={navigation}/> ,
+            
             headerBackTitle: null,
+            headerLeft:(<TouchableOpacity style={{marginLeft:21}}
+            onPress={()=> navigation.openDrawer()}
+             hitSlop={{top:20,left:20,right:20,bottom:20}}>
+                <Image source={require('../../img/mine.png')} style={{width:20,height:24}} resizeMode='contain'/>
+            </TouchableOpacity>),
+            headerTitle:<HeaderView/>,
+            headerRight:(<TouchableOpacity onPress={()=> navigation.navigate('CompanySelect')}
+            style={{marginRight:21}}
+            hitSlop={{top:20,right:20,bottom:20,left:20}}>
+                <Text>切换公司</Text>
+            </TouchableOpacity>)
         }
     }
     constructor(props){
@@ -119,6 +130,7 @@ class ColView extends Component{
         )
     }
 }
+
 //顶部视图
 class HeaderView extends Component{
     _setCompany = async() =>{
@@ -130,13 +142,7 @@ class HeaderView extends Component{
         })
         
     }
-    _jumpToSelectCompany = ()=>{
-
-        if (this.props.company === null){
-            return
-        }
-        this.props.tempNavigation.navigate('CompanySelect',{company:this.state.company});
-    }
+   
     constructor(props){
         super(props);
         this.state={
@@ -146,32 +152,14 @@ class HeaderView extends Component{
     componentDidMount(){
         this._setCompany();
     }
-    _openDrawer = ()=>{
-        this.props.tempNavigation.openDrawer();
-    }
+    
     render(){
         var companyName = ''
         if (this.state.company !== null){
             companyName = this.state.company.simpleName
         }
-        return <View style = {{flexDirection:'row',
-        width:'100%',
-        marginTop:20,
-       
-        height:44,
-        justifyContent:'space-between',
-        borderBottomColor:'#ddd',
-        borderBottomWidth:1,
-        alignItems:'center'}}>
-        <TouchableOpacity hitSlop={{left:20,top:20,right:20,bottom:20}}
-        onPress = {()=>this._openDrawer()}>
-        <Image source={require('../../img/mine.png')} style={{width:19.5,height:24,marginLeft:24}}></Image>
-        </TouchableOpacity>
-        <Text style={{color:'#333',fontSize:18,fontWeight:'bold'}}>{companyName}</Text>
-        <TouchableOpacity hitSlop={{left:20,top:20,right:20,bottom:20}} style={{marginRight:20}}
-        onPress={()=> this._jumpToSelectCompany()}>
-        <Text>切换公司</Text>
-        </TouchableOpacity>
-         </View>
+        return (
+            <Text style={{color:'#333',fontSize:18,fontWeight:'bold'}}>{companyName}</Text>
+        ) 
     }
 }

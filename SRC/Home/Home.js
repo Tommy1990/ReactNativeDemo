@@ -15,7 +15,11 @@ export default class HomeScreen extends Component{
        var parkName = navigation.getParam('title','');
        return{
            headerTitle:(<Text style={{color:'#00a056',fontSize:20,fontWeight:'bold'}}>{parkName}</Text>),
-           headerLeft:(<Button onPress={()=> navigation.openDrawer()} title="openDrawer" color='#333' fontSize={15}/>),
+           headerLeft:(<TouchableOpacity hitSlop={{top:20,right:20,bottom:20,left:20}} 
+           onPress={()=> navigation.openDrawer()}
+           style={{marginLeft:21}}>
+               <Image source={require('../../img/mine.png')} style={{width:20,height:24}} resizeMode='contain'/>
+           </TouchableOpacity>),
            headerRight:(<Button onPress= {() =>{
              let parkID = navigation.getParam('id','');
              navigation.navigate('ParkSelect',{id:parkID});

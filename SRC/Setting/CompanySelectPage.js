@@ -1,14 +1,13 @@
 import React,{Component} from 'react';
-import {SafeAreaView,View,FlatList,StyleSheet,TouchableOpacity,Text} from 'react-native';
+import {SafeAreaView,View,FlatList,StyleSheet,TouchableOpacity,Text,Image} from 'react-native';
 import UserModel from '../Base/UserModel';
 import REQUEST_URL from '../Base/BaseWeb';
 import fehchData from '../Base/FetchData';
 export default class CompanySelectPage extends Component{
     static navigationOptions = ({navigation}) =>{
-
         return{
             title:'设置默认公司',
-            
+            headerBackImage:(<Image source={require('../../img/back.png')} resizeMode='contain' style={{width:10,height:17,marginLeft:21}} />)
         }
     }
     constructor(props){
@@ -26,7 +25,7 @@ export default class CompanySelectPage extends Component{
        
         let model = new UserModel();
         let list = await model.getCompanyList();
-        let company = this.props.navigation.getParam('company','');
+        let company = await model.getDefaultCompany();
         this.setState({
             companyList:list,
             selectCompany:company,
