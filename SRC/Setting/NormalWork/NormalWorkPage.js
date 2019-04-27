@@ -13,9 +13,10 @@ export default class NormalWorkPage extends Component{
             headerRight:(<TouchableOpacity hitSlop = {{left:20,right:20,top:20,bottom:20}}
                 style={{marginRight:21.75}}
             onPress = {()=>{
-                alert(navigation.getParam('company',''))
+                navigation.navigate('NormalSelect',{})
             }}
-            ><Text style={{color:'#333',fontSize:14}}>筛选</Text></TouchableOpacity>)
+            ><Text style={{color:'#333',fontSize:14}}>筛选</Text></TouchableOpacity>),
+            headerBackTitle: null,
         }
     }
     constructor(props){
@@ -47,7 +48,6 @@ export default class NormalWorkPage extends Component{
         })
         this.listener = DeviceEventEmitter.addListener('hideListView',(e)=>{
             if (e !== null){
-                alert(e.simpleName)
                this.setState({
                 selectCompany:e
                })
@@ -118,7 +118,6 @@ export default class NormalWorkPage extends Component{
             delayStr = this.state.titlemodel.four.number;
         }
         return(<SafeAreaView style={{position:'relative'}}>
-       <CompanyListView style={{position:'absolute',top:0,left:0}} defaultCompany={this.state.selectCompany}></CompanyListView>
        <View style={{flexDirection:'row',width:'100%',height:90.5,justifyContent:'flex-start',alignItems:'center',borderBottomColor:'#eee',borderBottomWidth:1}}>
        <View style={{marginLeft:36.5,width:50,alignItems:'center'}}>
         <TouchableOpacity 
@@ -163,6 +162,7 @@ export default class NormalWorkPage extends Component{
         }
         keyExtractor ={(item,index)=> index}
         />
+        <CompanyListView style={{position:'absolute',top:0,left:0}} defaultCompany={this.state.selectCompany}></CompanyListView>
         </SafeAreaView>)
     }
     _categoryPress = async (condition)=>{
@@ -193,7 +193,6 @@ export default class NormalWorkPage extends Component{
             numStr = `${model.nf_proPlan}%`
             let num = new Number(model.nf_endTime);
             let date = new Date(num * 1000);
-            alert(JSON.stringify(date))
             timeStr = date.toISOString().slice(0,10);
             switch (model.nf_proStatus) {
                 case '0':
@@ -274,7 +273,6 @@ export default class NormalWorkPage extends Component{
         this._setData();
         this.listener = DeviceEventEmitter.addListener('hideListView',(e)=>{
             if (e !== null){
-                alert(e.simpleName)
                this.setState({
                    company:e
                })
