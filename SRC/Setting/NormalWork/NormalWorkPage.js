@@ -7,13 +7,14 @@ import fehchData from '../../Base/FetchData';
 export default class NormalWorkPage extends Component{
    
     static navigationOptions = ({navigation}) => { 
+        
         return {
             headerTitle:<HeaderView/>,
             headerBackImage:<Image source={require('../../../img/back.png')} style={{width:10,height:17,marginLeft:21.5}}/>,
             headerRight:(<TouchableOpacity hitSlop = {{left:20,right:20,top:20,bottom:20}}
                 style={{marginRight:21.75}}
             onPress = {()=>{
-                navigation.navigate('NormalSelect',{})
+                DeviceEventEmitter.emit('jumpToConditionSelect',null);
             }}
             ><Text style={{color:'#333',fontSize:14}}>筛选</Text></TouchableOpacity>),
             headerBackTitle: null,
@@ -52,6 +53,9 @@ export default class NormalWorkPage extends Component{
                 selectCompany:e
                })
             }
+        })
+        this.listener = DeviceEventEmitter.addListener('jumpToConditionSelect',()=>{
+            this._jumpToSelect();
         })
         this._setData();
     }
@@ -99,7 +103,7 @@ export default class NormalWorkPage extends Component{
                     titlemodel:respond.projectNum,
                     prolist:list
                 })
-                console.log(`1234567890 list =========${JSON.stringify(respond)}`);
+                
             }
         });
    }
@@ -172,6 +176,9 @@ export default class NormalWorkPage extends Component{
         });
         
         this._fetchListData();
+    }
+    _jumpToSelect = ()=>{
+        this.props.navigation.navigate('NormalSelect',this.state.selectCompany);
     }
 }
  class ProlistCellView extends Component{

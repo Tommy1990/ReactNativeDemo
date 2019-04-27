@@ -1,5 +1,6 @@
 import React,{Component} from 'react';
 import {SafeAreaView,View,SectionList,ScrollView,TouchableOpacity,Text,Image,FlatList,Dimensions} from 'react-native';
+import UserModel from '../../Base/UserModel';
 export default class NormalWorkSelectPage extends Component{
     static navigationOptions = ({navigation}) =>{
 
@@ -20,7 +21,8 @@ export default class NormalWorkSelectPage extends Component{
         this.state = {
             proStatusList:[],
             proRelationList:[],
-            monthList:[]
+            monthList:[],
+            parks:[],
         }
     }
     componentDidMount(){
@@ -39,12 +41,29 @@ export default class NormalWorkSelectPage extends Component{
             let model = {title:`${i}月`,id:`${i}`};
             monthList.push(model);
         }
+        let model = new UserModel();
+        let companyList = await model.getCompanyList();
+        let selectID = this.props.navigation.getParam('id','');
+        for (i = 0;i <companyList.length;i++ ){
+            let company = companyList[i];
+            if (company.id === selectID){
+                console.log(`=======${JSON.stringify(company)}`)
+                let list = company.park;
+                let tempList = []
+                for (j=0;j<list.length;j++){
+                    let temp = {title:list[j].nf_farmName,id:list[i].id}
+                    tempList.push(temp);
+                }
+                this.setState({
+                    parks:tempList,
+                })
+            }
+        }
         this.setState({
             proStatusList:proStatusList,
             proRelationList:proRelationList,
             monthList:monthList
         })
-
     }
     render(){
         return(
@@ -53,6 +72,7 @@ export default class NormalWorkSelectPage extends Component{
                 style={{width:'100%',height:'100%'}}
                 data={[{des:'项目进度',data:this.state.proStatusList},
                 {des:'项目关系',data:this.state.proRelationList},
+                {des:'园区', data:this.state.parks},
                 {des:'时间',data:this.state.monthList}
                 ]}
                 renderItem = {({item})=>{
