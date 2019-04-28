@@ -4,6 +4,7 @@ import UserModel from '../../Base/UserModel';
 import Modal from 'react-native-modal';
 import REQUEST_URL from '../../Base/BaseWeb';
 import fehchData from '../../Base/FetchData';
+import { NavigationEvents } from 'react-navigation';
 export default class NormalWorkPage extends Component{
    
     static navigationOptions = ({navigation}) => { 
@@ -27,10 +28,12 @@ export default class NormalWorkPage extends Component{
             showCompanyListView:false,
             proStatus:'',
             userid:'',
+            proRelation:'',
             creatId:'',
             paticiptatedId:'',
             copyId:'',
             approvalId:'',
+            parksStr:'',
             nf_type:'',
             time:'',
             titleCondition:'all',
@@ -38,6 +41,21 @@ export default class NormalWorkPage extends Component{
             titlemodel:null,
             prolist:[],
         }
+    }
+    _pageFouce = ()=>{
+        let changed = this.props.navigation.getParam('changed',false)
+        if (!changed){return}
+        let proStatusStr = this.props.navigation.getParam('proStatusStr','')
+        let proRelationStr = this.props.navigation.getParam('proRelationStr','')
+        let parksStr = this.props.navigation.getParam('parksStr','')
+        let timeStr = this.props.navigation.getParam('timeStr','')
+        this.setState({
+            proStatus:proStatusStr,
+            proRelation:proRelationStr,
+            parksStr:parksStr,
+            time:timeStr,
+            titleCondition:'all',
+        })
     }
     componentDidMount(){
          this.listener = DeviceEventEmitter.addListener('showCompanyList',(e)=>{
@@ -63,6 +81,7 @@ export default class NormalWorkPage extends Component{
         this.listener.remove();
     }
     _setData = async()=>{
+
         let model = new UserModel();
         let company = await model.getDefaultCompany();
         let userid = await model.getUserID();
@@ -73,7 +92,34 @@ export default class NormalWorkPage extends Component{
         this._fetchListData();
     }
    _fetchListData = async()=>{
-       
+       let arr = this.state.proRelation.split(',');
+       for (i=0;i< arr.length;i++){
+            let str = arr[i];
+            switch (str) {
+                case '0':
+                    this.setState({
+                        createId:this.state.userid
+                    })
+                    break;
+                case '1':
+                    this.setState({
+                        participateId:this.state.userid
+                    })
+                    break;
+                case '2':
+                    this.setState({
+                        copyId:this.state.userid
+                    })
+                    break;
+                case '3':
+                    this.setState({
+                        approvalId:this.state.userid
+                    })
+                    break;
+                default:
+                    break;
+            }
+       }
         let param = {
             nf_companyId:this.state.selectCompany.id,
             nf_proStatus:this.state.proStatus,
@@ -82,13 +128,13 @@ export default class NormalWorkPage extends Component{
             copyId:this.state.copyId,
             approvalId:this.state.approvalId,
             limit:'20',
+            pickId:this.state.parksStr,
             nf_type:this.state.nf_type,
             time:this.state.time,
             titleCondition:this.state.titleCondition,
             page:`${this.state.page}`,
         }
         let url = new REQUEST_URL();
-        console.log(`1234567890 param =======${JSON.stringify(param)}`)
         fehchData(url.WORK_NORMAL_PROJECT_LIST,param,(respond,error) => {
             if(error !== null){
                 alert(error.message);
@@ -122,6 +168,7 @@ export default class NormalWorkPage extends Component{
             delayStr = this.state.titlemodel.four.number;
         }
         return(<SafeAreaView style={{position:'relative'}}>
+        <NavigationEvents onDidFocus ={payload => this._pageFouce()}/>
        <View style={{flexDirection:'row',width:'100%',height:90.5,justifyContent:'flex-start',alignItems:'center',borderBottomColor:'#eee',borderBottomWidth:1}}>
        <View style={{marginLeft:36.5,width:50,alignItems:'center'}}>
         <TouchableOpacity 
@@ -169,16 +216,26 @@ export default class NormalWorkPage extends Component{
         <CompanyListView style={{position:'absolute',top:0,left:0}} defaultCompany={this.state.selectCompany}></CompanyListView>
         </SafeAreaView>)
     }
+    
     _categoryPress = async (condition)=>{
        
         await this.setState({
             titleCondition:condition,
+            proStatus:'',
+            proRelation:'',
+            parksStr:'',
+            time:'',
         });
         
         this._fetchListData();
     }
     _jumpToSelect = ()=>{
-        this.props.navigation.navigate('NormalSelect',this.state.selectCompany);
+        this.props.navigation.navigate('NormalSelect',{company:this.state.selectCompany,
+            proStatusStr:this.state.proStatus,
+            proRelationStr:this.state.proRelation,
+            parksStr:this.state.parksStr,
+            timeStr:this.state.time,
+        });
     }
 }
  class ProlistCellView extends Component{
