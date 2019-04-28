@@ -3,6 +3,7 @@ import {SafeAreaView,View,ScrollView,Slider,TouchableOpacity,Text,Image,DeviceEv
 import REQUEST_URL from '../../Base/BaseWeb';
 import fehchData from '../../Base/FetchData';
 import UserModel from '../../Base/UserModel';
+import ProjecttitleView from './View/ProjecttitleView';
 export default class NoramlDetailPage extends Component{
     static navigationOptions = ({navigation}) => {
 
@@ -69,7 +70,10 @@ export default class NoramlDetailPage extends Component{
         }
         return(
             <SafeAreaView>
-
+                <ScrollView style={{width:'100%',backgroundColor:'#eee'}}>
+                    <ProjecttitleView model ={this.props.projectModel}/>
+                </ScrollView>
+                
             </SafeAreaView>
         )
     }
@@ -94,7 +98,7 @@ class HeaderRightView extends Component{
    }
    render(){
        let items = []
-    //    if (this.state.show){
+       if (this.state.show){
            let item = (<TouchableOpacity
             style ={{alignItems:'flex-end'}} 
             onPress = {()=> DeviceEventEmitter.emit('showEditionOption',null)}
@@ -102,9 +106,9 @@ class HeaderRightView extends Component{
                 <Text style={{color:'#333',fontSize:14}}>编辑</Text>
             </TouchableOpacity>)
             items.push(item)
-    //    }else{
-    //        items.pop();
-    //    }
+       }else{
+           items.pop();
+       }
        return(
            <View style={{position:'relative',width:89,marginRight:21}}>
                 {items}
