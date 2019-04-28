@@ -156,7 +156,7 @@ export default class NormalWorkPage extends Component{
     render(){
        const {width,height} = Dimensions.get('window');
        let gap = (width - 50*4 -36.5 - 36.5)/3;
-       let listheight = height - 90.5
+       let listheight = height - 90.5 - 100
         let allStr = '99+'
         let ongoingStr = '99+'
         let approvedStr = '99+'
@@ -208,15 +208,31 @@ export default class NormalWorkPage extends Component{
         showsVerticalScrollIndicator={false}
         showsHorizontalScrollIndicator={false}
         data={this.state.prolist}
+        
         renderItem = {({item}) =>
-           <ProlistCellView item ={item} />
+           <ProlistCellView item ={item}  cellPress={this._jumpToProjectDetail}/>
         }
         keyExtractor ={(item,index)=> index}
         />
+        
         <CompanyListView style={{position:'absolute',top:0,left:0}} defaultCompany={this.state.selectCompany}></CompanyListView>
+        <View style={{position:'absolute',bottom:-44,left:0,width:'100%'}}>
+        <TouchableOpacity 
+        onPress={()=> this._creatProject()}
+        style={{width:'100%',height:50,justifyContent:'center',alignItems:'center',backgroundColor:'#00a056'}}>
+            <Text style={{color:'#fff',fontSize:18}}>+ 发布项目</Text>
+        </TouchableOpacity>
+        </View>
         </SafeAreaView>)
     }
-    
+    _jumpToProjectDetail = (project)=>{
+       this.props.navigation.navigate('NormalDetail',{
+           projectId:project.id
+       })
+    }
+    _creatProject = ()=>{
+        alert('creat project')
+    }
     _categoryPress = async (condition)=>{
        
         await this.setState({
@@ -300,7 +316,9 @@ export default class NormalWorkPage extends Component{
             }
         }
         return(
-            <View style={{justifyContent:'flex-start',padding:22,flex:1,borderBottomColor:'#eee',borderBottomWidth:1}}>
+            <TouchableOpacity
+            onPress={()=> this.props.cellPress(this.props.item)}
+             style={{justifyContent:'flex-start',padding:22,flex:1,borderBottomColor:'#eee',borderBottomWidth:1}}>
                <View style={{flex:1,flexDirection:'row',justifyContent:'space-between'}}>
                 <View>
                     <View style={{flexDirection:'row',justifyContent:'flex-start'}}>
@@ -322,7 +340,7 @@ export default class NormalWorkPage extends Component{
                    <Text style={{color:statueColor,fontSize:16,marginLeft:10}}>{numStr}</Text>   
                 </View>
                 <Text style={{color:'#333',fontSize:12}}>结束时间: {timeStr} </Text>
-            </View>
+            </TouchableOpacity>
         )
      }
  }

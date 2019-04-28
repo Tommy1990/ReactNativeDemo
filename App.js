@@ -21,7 +21,7 @@ import ParkVideoDetailPage from './SRC/Home/ParkVideoDetailPage';
 import CompanySelectPage from './SRC/Setting/CompanySelectPage';
 import NormalWorkPage from './SRC/Setting/NormalWork/NormalWorkPage';
 import NormalWorkSelectPage from './SRC/Setting/NormalWork/NormalWorkSelectPage';
-
+import NoramlDetailPage from './SRC/Setting/NormalWork/NormalDetailPage';
 //登录
 const LoginNav = createStackNavigator({
   Login:LoginScreen,
@@ -47,6 +47,7 @@ const SettingNav = createStackNavigator({
   CompanySelect:CompanySelectPage,
   Normalwork:NormalWorkPage,
   NormalSelect:NormalWorkSelectPage,
+  NormalDetail:NoramlDetailPage,
 })
 HomeNav.navigationOptions = ({navigation}) => {
   let tabBarVisible = true;
