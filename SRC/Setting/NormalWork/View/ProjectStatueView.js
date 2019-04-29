@@ -35,7 +35,7 @@ export default class ProjectStatueView extends Component{
         let beginTime = model.nf_beginTime;
         let endTime = model.nf_endTime;
         let finishTime = model.nf_finshTime;
-        alert(time.getNowYMDStr(finishTime))
+        
         this.setState({
             timeColor:(finishTime - endTime > 0 || endTime - now > 0) ? '#00a056' : 'red'
         })

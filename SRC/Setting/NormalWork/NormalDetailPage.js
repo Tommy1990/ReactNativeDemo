@@ -1,5 +1,5 @@
 import React,{Component} from 'react';
-import {SafeAreaView,View,ScrollView,Slider,TouchableOpacity,Text,Image,DeviceEventEmitter,Animated} from 'react-native';
+import {SafeAreaView,View,ScrollView,Slider,TouchableOpacity,Text,Image,DeviceEventEmitter,Animated,Dimensions} from 'react-native';
 import REQUEST_URL from '../../Base/BaseWeb';
 import fehchData from '../../Base/FetchData';
 import UserModel from '../../Base/UserModel';
@@ -19,6 +19,7 @@ export default class NoramlDetailPage extends Component{
         this.state = {
             projectId:'',
             projectModel:null,
+            selectBtn:0,
         }
     }
     componentDidMount(){
@@ -62,6 +63,8 @@ export default class NoramlDetailPage extends Component{
         if (this.state.projectModel === null){
             return <SafeAreaView/>
         }
+        let {width,height} = Dimensions.get('window');
+        let btnWidth = (width - 13.5*2)/3
         let model = this.state.projectModel;
         let creatId = model.nf_createUserId.id;
         if ((creatId == this.state.userid)&&(model.nf_proStatus == '1')){
@@ -74,10 +77,61 @@ export default class NoramlDetailPage extends Component{
                 <ScrollView style={{width:'100%',backgroundColor:'#eee'}}>
                     <ProjecttitleView model ={this.state.projectModel}/>
                     <ProjectStatueView model ={this.state.projectModel}/>
+                    <View style={{flexDirection:'row',margin:13.5,height:44}}>
+                    <TouchableOpacity 
+                    hitSlop={{top:10,bottom:10,left:10,right:10}}
+                    onPress={()=> this._btnClick(0)}
+                    style={{width:btnWidth,justifyContent:'center',alignItems:'center',borderRightWidth:0.5,borderRightColor:'#333',height:14}}>
+                    <Text style={{fontSize:15,color:this.state.selectBtn == 0 ? '#00a056' :'#333'}} >项目详情</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                    hitSlop={{top:10,bottom:10,left:10,right:10}}
+                    onPress={()=> this._btnClick(1)}
+                    style={{width:btnWidth,flexDirection:'row',justifyContent:'center',alignItems:'center',borderRightWidth:0.5,borderRightColor:'#333',height:14}}>
+                    <Text style={{fontSize:15,color:this.state.selectBtn == 1 ? '#00a056' :'#333'}} >日志</Text>
+                    <Text style={{fontSize:12,color:this.state.selectBtn == 1 ? '#00a056' :'#333'}}>(0)</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity 
+                    hitSlop={{top:10,bottom:10,left:10,right:10}}
+                    onPress={()=> this._btnClick(2)}
+                    style={{width:btnWidth,flexDirection:'row',justifyContent:'center',alignItems:'center',height:14}}>
+                    <Text style={{fontSize:15,color:this.state.selectBtn == 2 ? '#00a056' :'#333'}} >评论</Text>
+                    <Text style={{fontSize:12,color:this.state.selectBtn == 2 ? '#00a056' :'#333'}}>(0)</Text>
+                    </TouchableOpacity>
+                    </View>
+                    <ScrollView 
+                    style={{width:'100%'}} 
+                    pagingEnabled={true}
+                    onScroll={(event)=>{
+                        this._onScroll(event);
+                    }}
+                    ref={(component)=> this._bottomScrollView = component}{...this.props}
+                    horizontal={true}>
+                        <View style={{width:width,height:height,backgroundColor:'#00a056'}}></View>
+                        <View style={{width:width,height:height,backgroundColor:'red'}}></View>
+                        <View style={{width:width,height:height,backgroundColor:'blue'}}></View>
+                    </ScrollView>
                 </ScrollView>
                 
             </SafeAreaView>
         )
+    }
+
+    _btnClick = (type)=>{
+        this.setState({
+            selectBtn:type
+        })
+        let {width,height} = Dimensions.get('window');
+        let gapX = type* width ;
+        this._bottomScrollView.scrollTo({x:gapX,y:0,animated:true});
+    }
+    _onScroll = (event)=>{
+        let {width,height} = Dimensions.get('window');
+        let offsetX = event.nativeEvent.contentOffset.x;
+        let index = Math.ceil(offsetX/width);
+        this.setState({
+            selectBtn:index,
+        })
     }
 }
 
