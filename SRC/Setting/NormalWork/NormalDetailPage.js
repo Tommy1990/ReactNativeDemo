@@ -5,6 +5,7 @@ import fehchData from '../../Base/FetchData';
 import UserModel from '../../Base/UserModel';
 import ProjecttitleView from './View/ProjecttitleView';
 import ProjectStatueView from './View/ProjectStatueView';
+import ProjectDetailView from './View/ProjectDetailView';
 export default class NoramlDetailPage extends Component{
     static navigationOptions = ({navigation}) => {
 
@@ -65,6 +66,7 @@ export default class NoramlDetailPage extends Component{
         }
         let {width,height} = Dimensions.get('window');
         let btnWidth = (width - 13.5*2)/3
+        let scrollViewHeight = height - 44 - 24 - 63
         let model = this.state.projectModel;
         let creatId = model.nf_createUserId.id;
         if ((creatId == this.state.userid)&&(model.nf_proStatus == '1')){
@@ -74,7 +76,7 @@ export default class NoramlDetailPage extends Component{
         }
         return(
             <SafeAreaView>
-                <ScrollView style={{width:'100%',backgroundColor:'#eee'}}>
+                <ScrollView style={{width:'100%',backgroundColor:'#eee'}} ref={component=> this._scrollView=component}{...this.props}>
                     <ProjecttitleView model ={this.state.projectModel}/>
                     <ProjectStatueView model ={this.state.projectModel}/>
                     <View style={{flexDirection:'row',margin:13.5,height:44}}>
@@ -107,9 +109,9 @@ export default class NoramlDetailPage extends Component{
                     }}
                     ref={(component)=> this._bottomScrollView = component}{...this.props}
                     horizontal={true}>
-                        <View style={{width:width,height:height,backgroundColor:'#00a056'}}></View>
-                        <View style={{width:width,height:height,backgroundColor:'red'}}></View>
-                        <View style={{width:width,height:height,backgroundColor:'blue'}}></View>
+                        <ProjectDetailView height={scrollViewHeight}></ProjectDetailView>
+                        <View style={{width:width,height:scrollViewHeight,backgroundColor:'red'}}></View>
+                        <View style={{width:width,height:scrollViewHeight,backgroundColor:'blue'}}></View>
                     </ScrollView>
                 </ScrollView>
                 
@@ -132,6 +134,10 @@ export default class NoramlDetailPage extends Component{
         this.setState({
             selectBtn:index,
         })
+    }
+    _scrollTomiddle = ()=>{
+        let gapY = 100 + 200;
+        this._scrollView.scrollTo({x:0,y:gapY,animated:true});
     }
 }
 
