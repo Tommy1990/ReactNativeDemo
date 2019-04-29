@@ -226,6 +226,7 @@ export default class NormalWorkPage extends Component{
         </SafeAreaView>)
     }
     _jumpToProjectDetail = (project)=>{
+        // alert(JSON.stringify(project))
        this.props.navigation.navigate('NormalDetail',{
            projectId:project.id
        })

@@ -4,6 +4,7 @@ import REQUEST_URL from '../../Base/BaseWeb';
 import fehchData from '../../Base/FetchData';
 import UserModel from '../../Base/UserModel';
 import ProjecttitleView from './View/ProjecttitleView';
+import ProjectStatueView from './View/ProjectStatueView';
 export default class NoramlDetailPage extends Component{
     static navigationOptions = ({navigation}) => {
 
@@ -71,7 +72,8 @@ export default class NoramlDetailPage extends Component{
         return(
             <SafeAreaView>
                 <ScrollView style={{width:'100%',backgroundColor:'#eee'}}>
-                    <ProjecttitleView model ={this.props.projectModel}/>
+                    <ProjecttitleView model ={this.state.projectModel}/>
+                    <ProjectStatueView model ={this.state.projectModel}/>
                 </ScrollView>
                 
             </SafeAreaView>
