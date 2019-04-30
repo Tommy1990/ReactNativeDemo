@@ -6,6 +6,7 @@ import UserModel from '../../Base/UserModel';
 import ProjecttitleView from './View/ProjecttitleView';
 import ProjectStatueView from './View/ProjectStatueView';
 import ProjectDetailView from './View/ProjectDetailView';
+import ProjectDailyView from './View/ProjectDailyView';
 export default class NoramlDetailPage extends Component{
     static navigationOptions = ({navigation}) => {
 
@@ -21,6 +22,11 @@ export default class NoramlDetailPage extends Component{
             projectId:'',
             projectModel:null,
             selectBtn:0,
+            dailyCurrentPage:1,
+            dailyTotal:1,
+            dailyList:[],
+            dailyNum:0,
+            msgNum:0,
         }
     }
     componentDidMount(){
@@ -31,6 +37,7 @@ export default class NoramlDetailPage extends Component{
             })
         }
         this._fetchProjectdetail(projectId);
+        this._fetchDailyData(projectId);
         this._setData();
     }
     _fetchProjectdetail = (projectId)=>{
@@ -50,6 +57,26 @@ export default class NoramlDetailPage extends Component{
                     projectModel:respond,
                 })
 
+            }
+        })
+    }
+    _fetchDailyData = (projectId)=>{
+        let url = new REQUEST_URL()
+        let para = {projectId:projectId,page:this.state.dailyNum,limit:10}
+        fehchData(url.WORK_NORMAL_PROJECT_DAILY_DATA,para,(respond,error)=>{
+            if(error !== null){
+                alert(error.message)
+            }else{
+                if(respond.data !== null){
+                    this.setState({
+                        dailyList:respond.data
+                    })
+                }
+                this.setState({
+                    dailyCurrentPage:respond.current_page,
+                    dailyTotal:respond.pageCount,
+                    dailyNum:respond.count,
+                })
             }
         })
     }
@@ -91,14 +118,14 @@ export default class NoramlDetailPage extends Component{
                     onPress={()=> this._btnClick(1)}
                     style={{width:btnWidth,flexDirection:'row',justifyContent:'center',alignItems:'center',borderRightWidth:0.5,borderRightColor:'#333',height:14}}>
                     <Text style={{fontSize:15,color:this.state.selectBtn == 1 ? '#00a056' :'#333'}} >日志</Text>
-                    <Text style={{fontSize:12,color:this.state.selectBtn == 1 ? '#00a056' :'#333'}}>(0)</Text>
+                    <Text style={{fontSize:12,color:this.state.selectBtn == 1 ? '#00a056' :'#333'}}>({this.state.dailyNum})</Text>
                     </TouchableOpacity>
                     <TouchableOpacity 
                     hitSlop={{top:10,bottom:10,left:10,right:10}}
                     onPress={()=> this._btnClick(2)}
                     style={{width:btnWidth,flexDirection:'row',justifyContent:'center',alignItems:'center',height:14}}>
                     <Text style={{fontSize:15,color:this.state.selectBtn == 2 ? '#00a056' :'#333'}} >评论</Text>
-                    <Text style={{fontSize:12,color:this.state.selectBtn == 2 ? '#00a056' :'#333'}}>(0)</Text>
+                    <Text style={{fontSize:12,color:this.state.selectBtn == 2 ? '#00a056' :'#333'}}>({this.state.msgNum})</Text>
                     </TouchableOpacity>
                     </View>
                     <ScrollView 
@@ -112,8 +139,10 @@ export default class NoramlDetailPage extends Component{
                         <ProjectDetailView 
                         scrollFunc = {this._verticalScroll}
                         height={scrollViewHeight} 
-                        model ={this.state.projectModel}></ProjectDetailView>
-                        <View style={{width:width,height:scrollViewHeight,backgroundColor:'red'}}></View>
+                        model ={this.state.projectModel}/>
+                        <ProjectDailyView list={this.state.dailyList} 
+                        scrollFunc = {this._verticalScroll}
+                        height={scrollViewHeight}/>
                         <View style={{width:width,height:scrollViewHeight,backgroundColor:'blue'}}></View>
                     </ScrollView>
                 </ScrollView>
@@ -140,7 +169,7 @@ export default class NoramlDetailPage extends Component{
     }
    
     _verticalScroll = (offsetY)=>{
-        let gapY = offsetY < 20  ?  0 : 100 + 240;
+        let gapY = offsetY < 20  ?  0 : 100 + 220;
         this._scrollView.scrollTo({x:0,y:gapY,animated:true});
     }
 }
