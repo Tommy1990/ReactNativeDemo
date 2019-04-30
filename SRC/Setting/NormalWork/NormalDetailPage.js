@@ -109,7 +109,10 @@ export default class NoramlDetailPage extends Component{
                     }}
                     ref={(component)=> this._bottomScrollView = component}{...this.props}
                     horizontal={true}>
-                        <ProjectDetailView height={scrollViewHeight}></ProjectDetailView>
+                        <ProjectDetailView 
+                        scrollFunc = {this._verticalScroll}
+                        height={scrollViewHeight} 
+                        model ={this.state.projectModel}></ProjectDetailView>
                         <View style={{width:width,height:scrollViewHeight,backgroundColor:'red'}}></View>
                         <View style={{width:width,height:scrollViewHeight,backgroundColor:'blue'}}></View>
                     </ScrollView>
@@ -135,8 +138,9 @@ export default class NoramlDetailPage extends Component{
             selectBtn:index,
         })
     }
-    _scrollTomiddle = ()=>{
-        let gapY = 100 + 200;
+   
+    _verticalScroll = (offsetY)=>{
+        let gapY = offsetY < 20  ?  0 : 100 + 240;
         this._scrollView.scrollTo({x:0,y:gapY,animated:true});
     }
 }
