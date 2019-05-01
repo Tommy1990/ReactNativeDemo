@@ -7,6 +7,7 @@ import ProjecttitleView from './View/ProjecttitleView';
 import ProjectStatueView from './View/ProjectStatueView';
 import ProjectDetailView from './View/ProjectDetailView';
 import ProjectDailyView from './View/ProjectDailyView';
+import ProjectMsgView from './View/ProjectMsgView';
 export default class NoramlDetailPage extends Component{
     static navigationOptions = ({navigation}) => {
 
@@ -27,6 +28,9 @@ export default class NoramlDetailPage extends Component{
             dailyList:[],
             dailyNum:0,
             msgNum:0,
+            msgTotal:1,
+            msgCurrentPage:1,
+            msgList:[],
         }
     }
     componentDidMount(){
@@ -52,7 +56,7 @@ export default class NoramlDetailPage extends Component{
             if (error!== null){
                 alert(error.message)
             }else{
-               console.log(`1111111111${JSON.stringify(respond)}`)
+               console.log(`${JSON.stringify(respond)}`)
                 this.setState({
                     projectModel:respond,
                 })
@@ -76,6 +80,26 @@ export default class NoramlDetailPage extends Component{
                     dailyCurrentPage:respond.current_page,
                     dailyTotal:respond.pageCount,
                     dailyNum:respond.count,
+                })
+            }
+        })
+    }
+    _fetchMSGData = (projectId)=>{
+        let url = new REQUEST_URL();
+        let para = {projectId:projectId,page:this.state.msgCurrentPage,limit:10}
+        fehchData(url.WORK_NORMAL_PROJECT_MSG_DATA,para,(respond,error)=>{
+            if(error !== null){
+                alert(error.message)
+            }else{
+                if(respond.data !== null){
+                    this.setState({
+                        msgList:respond.data
+                    })
+                }
+                this.setState({
+                    msgCurrentPage:respond.current_page,
+                    msgTotal:respond.pageCount,
+                    msgNum:respond.count,
                 })
             }
         })
@@ -124,7 +148,7 @@ export default class NoramlDetailPage extends Component{
                     hitSlop={{top:10,bottom:10,left:10,right:10}}
                     onPress={()=> this._btnClick(2)}
                     style={{width:btnWidth,flexDirection:'row',justifyContent:'center',alignItems:'center',height:14}}>
-                    <Text style={{fontSize:15,color:this.state.selectBtn == 2 ? '#00a056' :'#333'}} >评论</Text>
+                    <Text style={{fontSize:15,color:this.state.selectBtn == 2 ? '#00a056' :'#333'}} >留言板</Text>
                     <Text style={{fontSize:12,color:this.state.selectBtn == 2 ? '#00a056' :'#333'}}>({this.state.msgNum})</Text>
                     </TouchableOpacity>
                     </View>
@@ -140,10 +164,16 @@ export default class NoramlDetailPage extends Component{
                         scrollFunc = {this._verticalScroll}
                         height={scrollViewHeight} 
                         model ={this.state.projectModel}/>
+                        
                         <ProjectDailyView list={this.state.dailyList} 
                         scrollFunc = {this._verticalScroll}
                         height={scrollViewHeight}/>
-                        <View style={{width:width,height:scrollViewHeight,backgroundColor:'blue'}}></View>
+
+                        <ProjectMsgView 
+                        list={this.state.msgList}
+                        scrollFunc = {this._verticalScroll}
+                        height={scrollViewHeight}
+                        />
                     </ScrollView>
                 </ScrollView>
                 

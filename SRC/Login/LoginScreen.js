@@ -45,7 +45,7 @@ export default class LoginScreen extends Component{
     _vaildLogbtnEnable(){
         let phone = this.state.phone;
         let pswd = this.state.pwd;
-        return ((phone.length == 11) && (pswd.length > 5) && (pswd.length < 17))
+        return ((phone.length == 11) && (pswd.length > 4) && (pswd.length < 17))
     }
     _loginBtnclick = () => {
         this._phoneInput.blur();

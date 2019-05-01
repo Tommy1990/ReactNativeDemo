@@ -46,4 +46,6 @@ export default class REQUEST_URL {
     WORK_NORMAL_PROJECT_DETAIL  = HOME + 'App/Projects/selectProjectInfo'
     //get normal project daily data
     WORK_NORMAL_PROJECT_DAILY_DATA = HOME + 'App/Projects/projectLogList'
+    //get normal project msg data
+    WORK_NORMAL_PROJECT_MSG_DATA    = HOME + 'App/Generalitems/getGeneralLeavingMessageList'
 }

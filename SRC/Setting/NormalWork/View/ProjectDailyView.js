@@ -14,6 +14,7 @@ export default class ProjectDailyView extends Component{
         data={this.props.list}
         renderItem = {({item})=> <DailyCell model={item}/>}
         onScrollEndDrag = {(event)=> this._scrolling(event)}
+        keyExtractor={(item, index) => index}
         ></FlatList>)
     }
     _scrolling = (event)=>{
