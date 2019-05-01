@@ -46,6 +46,7 @@ class DailyCell extends Component{
             farmStr += plotStr.slice(0,plotStr.length -1) + ')' + ','
         }
         farmStr = farmStr.slice(0,farmStr.length-1);
+        let urlList = JSON.parse(model.nf_img);
         let machineStr = model.nf_mechanicalHouse
         let workContent = model.nf_workContent
         return(<View style={{margin:13.5,borderRadius:5,backgroundColor:'#fff'}}>
@@ -57,7 +58,7 @@ class DailyCell extends Component{
             <Text>物料使用情况: </Text>
             <Text>{materialStr}</Text>
             </View>
-            <View style={{borderBottomColor:'#eee',borderBottomWidth:1,margin:18}}>
+            <View style={{borderBottomColor:'#eee',borderBottomWidth:1,marginLeft:18,marginRight:18,marginTop:8,paddingBottom:8}}>
             <Text>用工量: {workerStr} 小时</Text>
             </View>
             <View style={{flexDirection:'row',justifyContent:'flex-start',alignItems:'flex-start',margin:18,borderBottomColor:'#eee',borderBottomWidth:1,paddingBottom:8}}>
@@ -67,13 +68,48 @@ class DailyCell extends Component{
             <View style={{borderBottomColor:'#eee',borderBottomWidth:1,margin:18,paddingBottom:8}}>
             <Text>机械台班: {machineStr} 小时</Text>
             </View>
-            <View style={{borderBottomColor:'#eee',borderBottomWidth:1,margin:18,paddingBottom:8}}>
+            <View style={{borderBottomColor:'#eee',borderBottomWidth:1,
+            marginRight:18,marginLeft:18,paddingBottom:8,flexDirection:'row',alignItems:'flex-start',justifyContent:'flex-start'}}>
             <Text>工作照片: </Text>
+            <PictureView list ={urlList}/>
             </View>
             <View style={{flexDirection:'row',justifyContent:'flex-start',alignItems:'flex-start',margin:18,borderBottomColor:'#eee',borderBottomWidth:1,paddingBottom:8}}>
             <Text>工作内容: </Text>
             <Text style={{width:250}}>{workContent}</Text>
             </View>
         </View>)
+    }
+}
+class PictureView extends Component{
+    render(){
+        let {width} = Dimensions.get('window');
+        let totalWidth = width - 103 
+        let viewWidth = (width - 103 - 38 - 50)/3
+        let gap = 25
+        let items = []
+        let list = this.props.list;
+        if (list.length === 0){
+            return <View/>
+        }
+        for (i=0;i< list.length;i++){
+            let img = list[i].length > 10 ? {uri:list[i]} : require('../../../../img/image_placeholder.png')
+            let item = <Image 
+            source = {img}
+            style={{flexWarp:'warp',width:viewWidth,height:viewWidth,marginRight:25,backgroundColor:'#00a056',marginBottom:25}}>
+
+            </Image>
+            items.push(item)
+        }
+        
+        return(
+            <View style={{marginLeft:17,marginRight:6,
+            flexDirection:'row',
+            width: totalWidth,
+             flexWrap: 'wrap',
+             display:'flex',
+            alignItems:'flex-start',justifyContent:'flex-start'}}>
+            {items}
+            </View>
+        )
     }
 }
