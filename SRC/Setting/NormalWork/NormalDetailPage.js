@@ -1,5 +1,5 @@
 import React,{Component} from 'react';
-import {SafeAreaView,View,ScrollView,Slider,TouchableOpacity,Text,Image,DeviceEventEmitter,Animated,Dimensions} from 'react-native';
+import {SafeAreaView,View,ScrollView,Slider,TouchableOpacity,Text,Image,DeviceEventEmitter,Animated,Dimensions,TextInput} from 'react-native';
 import REQUEST_URL from '../../Base/BaseWeb';
 import fehchData from '../../Base/FetchData';
 import UserModel from '../../Base/UserModel';
@@ -42,6 +42,7 @@ export default class NoramlDetailPage extends Component{
         }
         this._fetchProjectdetail(projectId);
         this._fetchDailyData(projectId);
+        this._fetchMSGData(projectId);
         this._setData();
     }
     _fetchProjectdetail = (projectId)=>{
@@ -104,6 +105,19 @@ export default class NoramlDetailPage extends Component{
             }
         })
     }
+    _postMsg = (content,voiceStr,voiceSecond) =>{
+        let url = new REQUEST_URL();
+        let  para = {projectId:this.state.projectId,content:content,voice:voiceStr,second:voiceSecond}
+        fehchData(url.WORK_NORMAL_PROJECT_MSG_POST,para,(respond,error)=>{
+            if(error !== null){
+                alert(error.message)
+            }else{
+                alert(JSON.stringify(respond))
+                DeviceEventEmitter.emit('submitMsgSuccess','')
+            }
+        })
+        
+    }
     _setData = async()=>{
         let model = new UserModel();
         let userid = await model.getUserID();
@@ -126,7 +140,7 @@ export default class NoramlDetailPage extends Component{
             DeviceEventEmitter.emit('showEdit',false) 
         }
         return(
-            <SafeAreaView>
+            <View>
                 <ScrollView style={{width:'100%',backgroundColor:'#eee'}} ref={component=> this._scrollView=component}{...this.props}>
                     <ProjecttitleView model ={this.state.projectModel}/>
                     <ProjectStatueView model ={this.state.projectModel}/>
@@ -164,7 +178,7 @@ export default class NoramlDetailPage extends Component{
                         scrollFunc = {this._verticalScroll}
                         height={scrollViewHeight} 
                         model ={this.state.projectModel}/>
-                        
+
                         <ProjectDailyView list={this.state.dailyList} 
                         scrollFunc = {this._verticalScroll}
                         height={scrollViewHeight}/>
@@ -176,8 +190,9 @@ export default class NoramlDetailPage extends Component{
                         />
                     </ScrollView>
                 </ScrollView>
-                
-            </SafeAreaView>
+                <BottomMsgView style={{position:'absolute',bottom:0,leading:0,width:width,height:70}}
+                submit={this._submitMsg} ></BottomMsgView>
+            </View>
         )
     }
 
@@ -193,6 +208,8 @@ export default class NoramlDetailPage extends Component{
         let {width,height} = Dimensions.get('window');
         let offsetX = event.nativeEvent.contentOffset.x;
         let index = Math.ceil(offsetX/width);
+       
+        DeviceEventEmitter.emit('showMsgView',index)
         this.setState({
             selectBtn:index,
         })
@@ -201,6 +218,9 @@ export default class NoramlDetailPage extends Component{
     _verticalScroll = (offsetY)=>{
         let gapY = offsetY < 20  ?  0 : 100 + 220;
         this._scrollView.scrollTo({x:0,y:gapY,animated:true});
+    }
+    _submitMsg = (value) =>{
+        this._postMsg(value,'',0);
     }
 }
 
@@ -301,5 +321,81 @@ class HeaderRightAnimatedView extends Component{
         return (<Animated.ScrollView style={{...this.props.style,height:fadeAnimate,width:89,borderRadius:5,backgroundColor:'#eee'}}>
             {item}
             </Animated.ScrollView>)
+    }
+}
+class BottomMsgView extends Component{
+    constructor(props){
+        super(props);
+        this.state = {
+            height: new Animated.Value(0),
+            btnEnable:false,
+            value:''
+        }
+    }
+    componentDidMount(){
+        this.listener = DeviceEventEmitter.addListener('showMsgView',(e)=>{
+            if (e=== 2){
+                this._showView()
+            }else{
+                this._hideView()
+            }
+        }) 
+        this.listener = DeviceEventEmitter.addListener('submitMsgSuccess',()=>{
+            this.setState({
+                value:'',
+                btnEnable:false
+            })
+            this._textInput.clear();
+        })
+    }
+    componentWillUnmount(){
+        this.listener.remove();
+    }
+    
+    _showView = ()=>{
+        Animated.timing(this.state.height,this.setState({
+            height:70
+        }),1000);
+    }
+    _hideView = ()=>{
+        Animated.timing(this.state.height,this.setState({
+            height:0
+        }),1000);     
+    }
+    _valueChanged = (value)=>{
+        if (value.length > 5){
+            this.setState({
+                btnEnable:true
+            })
+        }
+        this.setState({
+            value:value
+        })
+    }
+    _submitClick = ()=>{
+        this.props.submit(this.state.value);
+    }
+    render(){
+        let {width } = Dimensions.get('window');
+        let viewWidth = width - 17 - 83
+        let disable = !this.state.btnEnable
+        return(
+            <Animated.ScrollView style={{...this.props.style,height:this.state.height}}>
+                <View style={{width:'100%',height:70,justifyContent:'flex-start',alignItems:'center',flexDirection:'row',backgroundColor:'#fff'}}>
+                    <TextInput style={{borderRadius:8,borderWidth:1,borderColor:'#eee',
+                    height:32,marginLeft:17,width:viewWidth,paddingLeft:8}}
+                        placeholder='请输入留言内容'
+                        maxLength = {150}
+                        onChangeText = {(text)=> this._valueChanged(text)}
+                        ref={component => this._textInput = component}
+                    />
+                    <TouchableOpacity style={{marginLeft:12,borderRadius: 8,width:64,height:32,
+                    backgroundColor: disable ? '#eee':'#00a056',alignItems:'center',justifyContent:'center'}}
+                    onPress={()=> this._submitClick()}>
+                            <Text>发送</Text>
+                    </TouchableOpacity>
+                </View>
+            </Animated.ScrollView>
+        )
     }
 }

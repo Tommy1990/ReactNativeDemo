@@ -48,4 +48,9 @@ export default class REQUEST_URL {
     WORK_NORMAL_PROJECT_DAILY_DATA = HOME + 'App/Projects/projectLogList'
     //get normal project msg data
     WORK_NORMAL_PROJECT_MSG_DATA    = HOME + 'App/Generalitems/getGeneralLeavingMessageList'
+
+    //post text Msg
+    WORK_NORMAL_PROJECT_MSG_POST    = HOME + 'App/Projects/projectLeavingMessage'
+    //post voice msg
+    WORK_NORMAL_PROJECT_VOICE_MSG   = 'http://oss.nfzr365.com/api/oss/upload'
 }
