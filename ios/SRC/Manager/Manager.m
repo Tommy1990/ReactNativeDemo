@@ -10,6 +10,8 @@
 #import <React/RCTBridgeModule.h>
 #import "AppDelegate.h"
 #import "WebViewController.h"
+#import "VoiceManger.h"
+
 @implementation Manager
 RCT_EXPORT_MODULE();
 RCT_EXPORT_METHOD(openurl:(NSString*)url){
@@ -28,5 +30,17 @@ RCT_EXPORT_METHOD(openurl:(NSString*)url){
 
 RCT_EXPORT_METHOD(getLocation:(RCTResponseSenderBlock)callback){
   callback(@[[NSNull null],@"上海"]);
+}
+RCT_EXPORT_METHOD(startRecode){
+  [[VoiceManger defaultManger] startRecord];
+}
+RCT_EXPORT_METHOD(endRecode:(RCTResponseSenderBlock)callback){
+  [[VoiceManger defaultManger]endRecordVoice];
+  [[VoiceManger defaultManger] getLocalRecodData:^(NSData * _Nonnull data, double length) {
+    callback(@[data,[NSNumber numberWithDouble:length]]);
+  }];
+}
+RCT_EXPORT_METHOD(stopRecode){
+  [[VoiceManger defaultManger] stopRecord];
 }
 @end

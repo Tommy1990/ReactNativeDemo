@@ -49,6 +49,7 @@
 		96DE84A7223F67BE00E1E7F7 /* CalendarManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 96DE84A6223F67BE00E1E7F7 /* CalendarManager.m */; };
 		A7080C6722578DB400E26348 /* libRNCAsyncStorage.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A7080C642256F84400E26348 /* libRNCAsyncStorage.a */; settings = {ATTRIBUTES = (Required, ); }; };
 		A7080C6822578E1200E26348 /* libRNGestureHandler.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 96A829992235F4B6008E3018 /* libRNGestureHandler.a */; };
+		A741088C227C1FAB00C4CE91 /* VoiceManger.m in Sources */ = {isa = PBXBuildFile; fileRef = A741088B227C1FAB00C4CE91 /* VoiceManger.m */; };
 		ADBDB9381DFEBF1600ED6528 /* libRCTBlob.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ADBDB9271DFEBF0700ED6528 /* libRCTBlob.a */; };
 		ED297163215061F000B7C4FE /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED297162215061F000B7C4FE /* JavaScriptCore.framework */; };
 		ED2971652150620600B7C4FE /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED2971642150620600B7C4FE /* JavaScriptCore.framework */; };
@@ -432,6 +433,8 @@
 		96DE84A6223F67BE00E1E7F7 /* CalendarManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CalendarManager.m; sourceTree = "<group>"; };
 		A1164527CC1D4AB9BA55E348 /* libRNDeviceInfo-tvOS.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = "libRNDeviceInfo-tvOS.a"; sourceTree = "<group>"; };
 		A687D7F1A4F94C6B87A9AE49 /* libRNGestureHandler-tvOS.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = "libRNGestureHandler-tvOS.a"; sourceTree = "<group>"; };
+		A741088A227C1FAB00C4CE91 /* VoiceManger.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VoiceManger.h; sourceTree = "<group>"; };
+		A741088B227C1FAB00C4CE91 /* VoiceManger.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VoiceManger.m; sourceTree = "<group>"; };
 		ADBDB91F1DFEBF0600ED6528 /* RCTBlob.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTBlob.xcodeproj; path = "../node_modules/react-native/Libraries/Blob/RCTBlob.xcodeproj"; sourceTree = "<group>"; };
 		CE6F19C7EA6A4617AAE63E94 /* libimageCropPicker.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libimageCropPicker.a; sourceTree = "<group>"; };
 		DD6BC5554CA64F5D9EF8E696 /* libRNGestureHandler.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNGestureHandler.a; sourceTree = "<group>"; };
@@ -731,6 +734,7 @@
 		963C3DE72265CBA60069B947 /* SRC */ = {
 			isa = PBXGroup;
 			children = (
+				A7410886227C1F4600C4CE91 /* VoiceManager */,
 				963C3DEC2265CE240069B947 /* Manager */,
 				963C3DE82265CBB90069B947 /* Web */,
 			);
@@ -797,6 +801,15 @@
 				A7080C642256F84400E26348 /* libRNCAsyncStorage.a */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		A7410886227C1F4600C4CE91 /* VoiceManager */ = {
+			isa = PBXGroup;
+			children = (
+				A741088A227C1FAB00C4CE91 /* VoiceManger.h */,
+				A741088B227C1FAB00C4CE91 /* VoiceManger.m */,
+			);
+			path = VoiceManager;
 			sourceTree = "<group>";
 		};
 		ADBDB9201DFEBF0600ED6528 /* Products */ = {
@@ -1401,6 +1414,7 @@
 			files = (
 				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
+				A741088C227C1FAB00C4CE91 /* VoiceManger.m in Sources */,
 				96DE84A7223F67BE00E1E7F7 /* CalendarManager.m in Sources */,
 				963C3DEF2265CE490069B947 /* Manager.m in Sources */,
 				963C3DEB2265CBF30069B947 /* WebViewController.m in Sources */,
