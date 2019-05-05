@@ -51,11 +51,12 @@ class ItemView extends Component{
             </View>)
         }
         let timeStr = (new DateModel()).getYMDHms(model.nf_addtime);
+        let img = model.nf_headPhoto.length < 6 ? require('../../../../img/mine.png') : {uri:model.nf_headPhoto}
         return(
             <View style={{margin:13.5,backgroundColor:'#fff'}}>
             <View style={{flexDirection:'row',justifyContent:'flex-start'}}>
                 <View style={{margin:15,justifyContent:'flex-start',alignItems:'center'}}>
-                    <Image source={{uri:model.nf_headPhoto}} 
+                    <Image source={img} 
                     style={{width:29,height:29,borderRadius:14.5,borderWidth:1,borderColor:'#eee'}} 
                     resizeMode='contain'></Image>
                     <Text style={{marginTop:8}}>{model.nf_name}</Text>

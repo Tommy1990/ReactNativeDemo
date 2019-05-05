@@ -1,5 +1,6 @@
 import React,{Component} from 'react';
-import {SafeAreaView,View,ScrollView,Slider,TouchableOpacity,Text,Image,DeviceEventEmitter,Animated,Dimensions,TextInput} from 'react-native';
+import {SafeAreaView,View,ScrollView,Slider,TouchableOpacity,Text,Image,DeviceEventEmitter,Animated,Dimensions,TextInput,
+NativeModules} from 'react-native';
 import REQUEST_URL from '../../Base/BaseWeb';
 import fehchData from '../../Base/FetchData';
 import UserModel from '../../Base/UserModel';
@@ -8,6 +9,7 @@ import ProjectStatueView from './View/ProjectStatueView';
 import ProjectDetailView from './View/ProjectDetailView';
 import ProjectDailyView from './View/ProjectDailyView';
 import ProjectMsgView from './View/ProjectMsgView';
+const manager = NativeModules.Manager;
 export default class NoramlDetailPage extends Component{
     static navigationOptions = ({navigation}) => {
 
@@ -105,6 +107,9 @@ export default class NoramlDetailPage extends Component{
             }
         })
     }
+    _postVoiceData = (voiceData,voiceSecond)=>{
+        
+    }
     _postMsg = (content,voiceStr,voiceSecond) =>{
         let url = new REQUEST_URL();
         let  para = {projectId:this.state.projectId,content:content,voice:voiceStr,second:voiceSecond}
@@ -112,7 +117,11 @@ export default class NoramlDetailPage extends Component{
             if(error !== null){
                 alert(error.message)
             }else{
-                alert(JSON.stringify(respond))
+                this.setState({
+                    content:'',
+                    voiceStr:'',
+                    voiceSecond:0
+                })
                 DeviceEventEmitter.emit('submitMsgSuccess','')
             }
         })
@@ -192,10 +201,29 @@ export default class NoramlDetailPage extends Component{
                 </ScrollView>
                 <BottomMsgView style={{position:'absolute',bottom:0,leading:0,width:width,height:70}}
                 submit={this._submitMsg} ></BottomMsgView>
+                <View style = {{position:'absolute',right:11.5,bottom:226.5,
+                         width:52,height:52,borderRadius:26,backgroundColor:'#00a056'}}>
+                     <TouchableOpacity style={{flex:1,alignItems:'center',justifyContent:'center'}}
+                     onPressIn= {()=> this._recoderPress()}
+                     onPressOut={()=> this._recoderTouchupInside()}>
+                    <Image source={require('../../../img/voice_btn.png')} style={{width:20,height:26}} resizeMode='contain'/>
+                    </TouchableOpacity>
+                </View>
+                
             </View>
         )
     }
+    _recoderPress = ()=>{
+        
+        manager.startRecode();
+    }
+    _recoderTouchupInside = ()=>{
+        
+        manager.endRecode((error,arr)=>{
+            console.log(`0000000=== callback ${JSON.stringify(arr)}`)
 
+        })
+    }
     _btnClick = (type)=>{
         this.setState({
             selectBtn:type

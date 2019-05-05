@@ -33,12 +33,15 @@ RCT_EXPORT_METHOD(getLocation:(RCTResponseSenderBlock)callback){
 }
 RCT_EXPORT_METHOD(startRecode){
   [[VoiceManger defaultManger] startRecord];
+  NSLog(@"0000000===start ios");
 }
 RCT_EXPORT_METHOD(endRecode:(RCTResponseSenderBlock)callback){
   [[VoiceManger defaultManger]endRecordVoice];
   [[VoiceManger defaultManger] getLocalRecodData:^(NSData * _Nonnull data, double length) {
-    callback(@[data,[NSNumber numberWithDouble:length]]);
+    callback(@[[NSNull null],@[data,[NSNumber numberWithDouble:length]]]);
   }];
+  NSLog(@"0000000===end ios");
+  
 }
 RCT_EXPORT_METHOD(stopRecode){
   [[VoiceManger defaultManger] stopRecord];
