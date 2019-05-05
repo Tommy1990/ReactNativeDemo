@@ -9,6 +9,7 @@ import ProjectStatueView from './View/ProjectStatueView';
 import ProjectDetailView from './View/ProjectDetailView';
 import ProjectDailyView from './View/ProjectDailyView';
 import ProjectMsgView from './View/ProjectMsgView';
+// import UploadData from '../../Base/UpLoadData';
 const manager = NativeModules.Manager;
 export default class NoramlDetailPage extends Component{
     static navigationOptions = ({navigation}) => {
@@ -108,7 +109,13 @@ export default class NoramlDetailPage extends Component{
         })
     }
     _postVoiceData = (voiceData,voiceSecond)=>{
-        
+    //    UploadData([voiceData],'voideo/mp4','voice',(respond,error)=>{
+    //        if(error !== null){
+    //            alert(error.message)
+    //        }else{
+    //            this._postMsg('',respond.data[0].ossInfo.ossUrl,voiceSecond)
+    //        }
+    //    }) 
     }
     _postMsg = (content,voiceStr,voiceSecond) =>{
         let url = new REQUEST_URL();

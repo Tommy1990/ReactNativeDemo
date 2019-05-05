@@ -13,9 +13,9 @@ NS_ASSUME_NONNULL_BEGIN
 @interface VoiceManger : NSObject
 + (instancetype)defaultManger;
 - (void) startRecord;
-- (void) endRecordVoice;
+- (void) endRecordVoiceWithData:(void (^)(NSData* data,double length)) bloc;
 - (void) stopRecord;
--(void)getLocalRecodData:(void (^)(NSData* data,double length)) block;
+//-(void)getLocalRecodData:(void (^)(NSData* data,double length)) block;
 @end
 
 NS_ASSUME_NONNULL_END
