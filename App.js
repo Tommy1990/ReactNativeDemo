@@ -99,37 +99,14 @@ const DrawerNav = createDrawerNavigator({
   SettingPage:SettingScreen,
   // Drawer:DrawerScreen,
 },{
-  drawerWidth:200,
+  drawerWidth:300,
   contentComponent: props =>{
     var {height,width} = Dimensions.get('window')
-  return(<ScrollView style={{flex:1}}>
-    <SafeAreaView style={{height:height,alignItems:'center',justifyContent:'flex-start'}}>
-    <View style={{flex:4}}>
-    <TouchableOpacity
-       onPress = {()=> props.navigation.navigate('HomePage')}
-       style={{marginTop:20}}>
-       <Text style={{color:'blue',fontSize:16}}>跳转到主导航</Text>
-       </TouchableOpacity>
-    </View>
-    <View style={{flex:1,justifyContent:"center"}}>
-    <TouchableOpacity
-       onPress = {async()=> {
-        this._logout(props);
-       } }>
-       <Text style={{color:'blue',fontSize:16}}>退出</Text>
-       </TouchableOpacity>
-    </View> 
-    </SafeAreaView>
-   </ScrollView>)
+  return(
+    <DrawerScreen tempNav = {props.navigation}/>
+   )
   },
 })
-
-_logout = async(props) => {
-  let model = new UserModel();
-  await model.cleanLoginData();
-  props.navigation.navigate('Loading')
-}
-
 
 const SwitchNav = createSwitchNavigator({
   // Tab:TabNavigator,
