@@ -46,20 +46,22 @@ RCT_EXPORT_METHOD(endRecode:(RCTResponseSenderBlock)callback){
   [[NSOperationQueue mainQueue] addOperationWithBlock:^{
     __weak typeof(self) weakSelf = self;
     
-    [weakSelf.voiceManager endRecordVoiceWithData:^(NSData * data, double length) {
-      callback(@[[NSNull null],@[data,[NSNumber numberWithDouble:length]]]);
+    [weakSelf.voiceManager endRecordVoiceWithData:^(NSString * filePath, double length) {
+      callback(@[[NSNull null],@[filePath,[NSNumber numberWithDouble:length]]]);
     }];
-    
   }];
-  NSLog(@"0000000===end ios");
-  
 }
 RCT_EXPORT_METHOD(stopRecode){
   [[NSOperationQueue mainQueue] addOperationWithBlock:^{
     __weak typeof(self) weakSelf = self;
-    
     [weakSelf.voiceManager stopRecord];
   }];
   
+}
+RCT_EXPORT_METHOD(cleanVoice){
+  [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+    __weak typeof(self) weakSelf = self;
+    [weakSelf.voiceManager clearOldVoice];
+  }];
 }
 @end

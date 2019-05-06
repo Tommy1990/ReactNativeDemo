@@ -78,7 +78,7 @@ static VoiceManger* manger = nil;
   _startTime = [[NSDate new] timeIntervalSince1970];
   
 }
--(void)endRecordVoiceWithData:(void (^)(NSData* data,double length)) block{
+-(void)endRecordVoiceWithData:(void (^)(NSString* filePath,double length)) block{
 //  if(!recoder.isRecording){
 //    return;
 //  }
@@ -87,20 +87,21 @@ static VoiceManger* manger = nil;
   if (type != AVAuthorizationStatusAuthorized){
     return;
   }
-  [self getLocalRecodData:^(NSData * data, double length) {
-    block(data,length);
+  [self getLocalRecodData:^(NSString* filePath, double length) {
+    block(filePath,length);
   }];
 }
 -(void)clearOldVoice{
   NSFileManager* fileManager = [NSFileManager defaultManager];
   [fileManager removeItemAtPath:_filePath error:nil];
 }
--(void)getLocalRecodData:(void (^)(NSData* data,double length)) block {
+-(void)getLocalRecodData:(void (^)(NSString* filePath,double length)) block {
   _endTime = [[NSDate new] timeIntervalSince1970];
-  NSData* data = [NSData dataWithContentsOfURL:[NSURL URLWithString:_filePath]];
+//  NSData* data = [NSData dataWithContentsOfFile:_filePath];
+  
   double length = _endTime - _startTime;
-  block(data,length);
-  [self clearOldVoice];
+  block(_filePath,length);
+//  [self clearOldVoice];
   
 }
 -(void)stopRecord{
