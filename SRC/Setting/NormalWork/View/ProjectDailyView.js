@@ -15,12 +15,17 @@ export default class ProjectDailyView extends Component{
         renderItem = {({item})=> <DailyCell model={item}/>}
         onScrollEndDrag = {(event)=> this._scrolling(event)}
         keyExtractor={(item, index) => index}
+        onEndReached={()=> this._listscrollToEnd()}
+        onEndReachedThreshold = {0.5}
         ></FlatList>)
     }
     _scrolling = (event)=>{
         let gapY = event.nativeEvent.contentOffset.y;
         
         this.props.scrollFunc(gapY);
+    }
+    _listscrollToEnd = ()=>{
+        this.props.dailyRefreshing();
     }
 }
 class DailyCell extends Component{

@@ -76,8 +76,14 @@ export default class NoramlDetailPage extends Component{
                 alert(error.message)
             }else{
                 if(respond.data !== null){
+                    let list = this.state.dailyList;
+                    if (this.state.dailyCurrentPage !== 1){
+                        list = [...list,...respond.data];
+                    }else{
+                        list = respond.data;
+                    }
                     this.setState({
-                        dailyList:respond.data
+                        dailyList:list
                     })
                 }
                 this.setState({
@@ -89,7 +95,7 @@ export default class NoramlDetailPage extends Component{
         })
     }
     _fetchMSGData = (projectId)=>{
-        alert(projectId);
+        alert(this.state.msgCurrentPage)
         let url = new REQUEST_URL();
         let para = {projectId:projectId,page:this.state.msgCurrentPage,limit:10}
         fehchData(url.WORK_NORMAL_PROJECT_MSG_DATA,para,(respond,error)=>{
@@ -97,8 +103,14 @@ export default class NoramlDetailPage extends Component{
                 alert(error.message)
             }else{
                 if(respond.data !== null){
+                    let list=this.state.msgList;
+                    if (this.state.msgCurrentPage !== 1){
+                        list = [...list,...respond.data]
+                    }else{
+                        list = respond.data;
+                    }
                     this.setState({
-                        msgList:respond.data
+                        msgList:list
                     })
                 }
                 this.setState({
@@ -120,7 +132,6 @@ export default class NoramlDetailPage extends Component{
        }) 
     }
     _postMsg = (content,voiceStr,voiceSecond) =>{
-        alert(this.state.projectId);
         let url = new REQUEST_URL();
         let  para = {projectId:this.state.projectId,content:content,voice:voiceStr,second:voiceSecond}
         fehchData(url.WORK_NORMAL_PROJECT_MSG_POST,para,(respond,error)=>{
@@ -130,6 +141,7 @@ export default class NoramlDetailPage extends Component{
                 alert(JSON.stringify(respond))
                 this.setState({
                     content:'',
+
                     voiceStr:'',
                     voiceSecond:0
                 })
@@ -201,12 +213,14 @@ export default class NoramlDetailPage extends Component{
 
                         <ProjectDailyView list={this.state.dailyList} 
                         scrollFunc = {this._verticalScroll}
-                        height={scrollViewHeight}/>
+                        height={scrollViewHeight}
+                        dailyRefreshing={this._dailyRefreshing}/>
 
                         <ProjectMsgView 
                         list={this.state.msgList}
                         scrollFunc = {this._verticalScroll}
                         height={scrollViewHeight}
+                        msgRefreshing ={this._MSGRefreshing}
                         />
                     </ScrollView>
                 </ScrollView>
@@ -223,6 +237,31 @@ export default class NoramlDetailPage extends Component{
                 
             </View>
         )
+    }
+    _MSGRefreshing = async()=>{
+        
+        let total = this.state.msgTotal;
+        let current = this.state.msgCurrentPage*1 + 1;
+        if (current > total){
+            // alert('已经到底了')
+        }else{
+            await this.setState({
+                msgCurrentPage:current
+            })
+            this._fetchMSGData(this.state.projectId);
+        }
+    }
+    _dailyRefreshing = async()=>{
+        let total = this.state.dailyTotal;
+        let current = this.state.dailyCurrentPage*1 + 1;
+        if (current > total){
+            // alert('已经到底了');
+        }else{
+            await this.setState({
+                dailyCurrentPage:current
+            })
+            this._fetchDailyData(this.state.projectId);
+        }
     }
     _recoderPress = ()=>{
         

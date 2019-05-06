@@ -15,6 +15,8 @@ export default class ProjectMsgView extends Component{
                 renderItem = {({item})=> <ItemView model={item}/>}
                 onScrollEndDrag = {(event)=> this._scrolling(event)}
                 keyExtractor={(item, index) => index}
+                onEndReached={()=> this._listscrollToEnd()}
+                onEndReachedThreshold = {0.5}
             > 
             </FlatList>
            
@@ -23,6 +25,9 @@ export default class ProjectMsgView extends Component{
     _scrolling = (event)=>{
         let gapY = event.nativeEvent.contentOffset.y;
         this.props.scrollFunc(gapY);
+    }
+    _listscrollToEnd = ()=>{
+        this.props.msgRefreshing();
     }
 }
 class ItemView extends Component{

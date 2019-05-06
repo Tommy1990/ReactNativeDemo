@@ -149,11 +149,11 @@ export default class NormalWorkPage extends Component{
             if(error !== null){
                 alert(error.message);
             }else{
-                let list = []
+                let list = this.state.list;
                 if (this.state.currentPage === 1){
                     list = respond.data
                 }else{
-                    list += respond.data
+                    list = [...list,...respond.data];
                 }
                 this.setState({
                     titlemodel:respond.projectNum,
@@ -247,9 +247,9 @@ export default class NormalWorkPage extends Component{
     }
     _listscrollToEnd = async()=>{
         let total = this.state.totalPage;
-        let current = this.state.currentPage + 1;
+        let current = this.state.currentPage*1 + 1;
         if (current > total){
-            alert('已经到底了')
+            // alert('已经到底了')
             return
         }else{
             await this.setState({
