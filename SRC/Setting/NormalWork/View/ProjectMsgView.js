@@ -38,12 +38,13 @@ class ItemView extends Component{
         if (model.nf_content.length === 0){
             let actualWidth = (model.nf_second / 60) * voiceWidth  + 30
             actualWidth = actualWidth < 60 ? 60 : actualWidth
-            item = (<View style={{width:actualWidth,flexDirection:'row',justifyContent:'flex-start',alignItems:'center'}}>
+            item = (<View style={{width:actualWidth,marginTop:21,flexDirection:'row',justifyContent:'flex-start',alignItems:'flex-start'}}>
                  <TouchableOpacity style={{width:(actualWidth-30),height:28,
                    backgroundColor:'#00a056',justifyContent:'center',alignItems:'flex-start',borderRadius:8}}>
-                    <Image source={require('../../../../img/voice_btn.png')} style={{width:9,height:11,marginRight:8}}/>
+                    <Image source={require('../../../../img/voice_play.png')} style={{width:9,height:11,marginLeft:8}}/>
+                    
                  </TouchableOpacity>
-                 <Text style={{marginLeft:11}}>{model.nf_second}s</Text>
+                 <Text style={{marginLeft:11,marginTop:5}}>{model.nf_second}s</Text>
             </View>)
         }else{
             item = (<View style={{width:strWidth,borderRadius:8,backgroundColor:'#00a056',marginTop:13}}>
@@ -57,8 +58,8 @@ class ItemView extends Component{
             <View style={{flexDirection:'row',justifyContent:'flex-start'}}>
                 <View style={{margin:15,justifyContent:'flex-start',alignItems:'center'}}>
                     <Image source={img} 
-                    style={{width:29,height:29,borderRadius:14.5,borderWidth:1,borderColor:'#eee'}} 
-                    resizeMode='contain'></Image>
+                    style={{width:29,height:29,borderRadius:14.5,borderWidth:1,borderColor:'#eee',margin:2}} 
+                    resizeMode='center'></Image>
                     <Text style={{marginTop:8}}>{model.nf_name}</Text>
                 </View>
                 {item}

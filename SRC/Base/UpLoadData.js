@@ -1,37 +1,67 @@
 
-import RNFetchBlob from 'react-native-fetch-blob';
 import React from 'react';
 import {Platform} from 'react-native';
-export default function UploadData(list,type,key,fnn){
+import UserModel from './UserModel';
+import DeviceInfo from 'react-native-device-info';
+export default async function UploadData(list,type,key,fnn){
     let url = 'http://oss.nfzr365.com/api/oss/upload'
     let OS = Platform.OS;
     let path = OS === 'ios' ? list[0].replace('file:///','') : list[0];
-    let body = [{
-        name:'dir',data:'app'
-    },{
-        name:'type',data:'0'
-    },{
-        name:'pic0',
-        filename:key || 'file',
-        data:RNFetchBlob.wrap(path)
-    }];
-   RNFetchBlob
-   .fetch('POST',url,{
-       'Content-Type':'multipart/form-data'
-   },body)
-   .uploadProgress((written,total)=>{
-    console.log(`111111111111111 loading ${written}`)
-   })
-   .progress((received,total)=>{
-
-   })
-   .then((respond)=>{
-       console.log(`111111111111111 success`)
-        fnn(JSON.parse(respond),null);
-   })
-   .catch((err)=>{
-       console.log(`111111111111111 fail ${err.message}`)
-        fnn(null.err);
-   })
+    let body = new FormData();
+    body.append('dir','app');
+    body.append('type','0');
+    body.append('voice0',{
+        type:'video/mp4',
+        uri:path,
+        name:'voice0',
+    });
+   
+    let xhr = new XMLHttpRequest();
+    xhr.open('POST',url);
+    if(xhr.upload){
+        xhr.upload.onprogress = (event)=>{
+            if(event.lengthComputable){
+                let perent = event.loaded / event.total.toFixed(2);
+            }
+        }
+    }
+    xhr.onload = ()=>{
+        if(xhr.status !== 200){
+            let error = new Error('网络连接失败');
+            fnn(null,error);
+            return;
+        }
+        if(!xhr.responseText){
+            let error = new Error('网络加载失败');
+            fnn(null,error);
+            return;
+        }
+        let respond;
+        try{
+            respond = JSON.parse(xhr.response);
+            fnn(respond,null);
+        }catch(err){
+            fnn(null,err)
+        }
+    }
+    let model = new UserModel();
+        let token = await model.getToken();
+        let userID = await model.getUserID();
+        let devType = DeviceInfo.getSystemName();
+        let appVersion = DeviceInfo.getBuildNumber();
+        // let deviceType = DeviceInfo.getDeviceType();
+        let deviceName = DeviceInfo.getSystemVersion();
+        let system =  deviceName;
+        let time = Date.parse(new Date());
+        xhr.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
+        if((token != null) &&(token.length > 6)){
+            xhr.setRequestHeader('userid',userID);
+            xhr.setRequestHeader('sign',token);
+            xhr.setRequestHeader('appVersion',appVersion);
+            xhr.setRequestHeader('devType',devType);
+            xhr.setRequestHeader('system',system);
+            xhr.setRequestHeader('time',time);
+        }
+    xhr.send(body);
     
 }

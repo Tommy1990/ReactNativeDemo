@@ -38,7 +38,7 @@ export default class NoramlDetailPage extends Component{
     }
     componentDidMount(){
         let projectId = this.props.navigation.getParam('projectId','')
-        if (projectId.length > 0){
+        if (projectId.length !== ''){
             this.setState({
                 projectId:projectId
             })
@@ -89,6 +89,7 @@ export default class NoramlDetailPage extends Component{
         })
     }
     _fetchMSGData = (projectId)=>{
+        alert(projectId);
         let url = new REQUEST_URL();
         let para = {projectId:projectId,page:this.state.msgCurrentPage,limit:10}
         fehchData(url.WORK_NORMAL_PROJECT_MSG_DATA,para,(respond,error)=>{
@@ -109,23 +110,24 @@ export default class NoramlDetailPage extends Component{
         })
     }
     _postVoiceData = (voiceData,voiceSecond)=>{
-        console.log(`11111111111111 start upload`)
        UploadData([voiceData],'voideo/mp4','voice',(respond,error)=>{
            if(error !== null){
-               alert(error.message)
+               alert(JSON.stringify(error))
            }else{
-               alert(JSON.stringify(respond))
                this._postMsg('',respond.data[0].ossInfo.ossUrl,voiceSecond)
+               manager.cleanVoice();
            }
        }) 
     }
     _postMsg = (content,voiceStr,voiceSecond) =>{
+        alert(this.state.projectId);
         let url = new REQUEST_URL();
         let  para = {projectId:this.state.projectId,content:content,voice:voiceStr,second:voiceSecond}
         fehchData(url.WORK_NORMAL_PROJECT_MSG_POST,para,(respond,error)=>{
             if(error !== null){
                 alert(error.message)
             }else{
+                alert(JSON.stringify(respond))
                 this.setState({
                     content:'',
                     voiceStr:'',
@@ -230,7 +232,6 @@ export default class NoramlDetailPage extends Component{
         
         manager.endRecode((error,arr)=>{
             if (error === null){
-                alert(JSON.stringify(arr))
                 this._postVoiceData(arr[0],arr[1]);
             }
 
