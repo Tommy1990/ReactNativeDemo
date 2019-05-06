@@ -40,6 +40,8 @@ export default class NormalWorkPage extends Component{
             page:1,
             titlemodel:null,
             prolist:[],
+            totalPage:1,
+            currentPage:1,
         }
     }
     _pageFouce = ()=>{
@@ -55,6 +57,7 @@ export default class NormalWorkPage extends Component{
             parksStr:parksStr,
             time:timeStr,
             titleCondition:'all',
+           
         })
     }
     componentDidMount(){
@@ -90,6 +93,13 @@ export default class NormalWorkPage extends Component{
             userid:userid
         })
         this._fetchListData();
+    }
+    _headerRefreshing = async()=>{
+        this.setState({
+            currentPage:1,
+        })
+        this._listView.refreshing = true;
+        await this._fetchListData();
     }
    _fetchListData = async()=>{
        let arr = this.state.proRelation.split(',');
@@ -132,7 +142,7 @@ export default class NormalWorkPage extends Component{
             nf_type:this.state.nf_type,
             time:this.state.time,
             titleCondition:this.state.titleCondition,
-            page:`${this.state.page}`,
+            page:`${this.state.currentPage}`,
         }
         let url = new REQUEST_URL();
         fehchData(url.WORK_NORMAL_PROJECT_LIST,param,(respond,error) => {
@@ -140,16 +150,19 @@ export default class NormalWorkPage extends Component{
                 alert(error.message);
             }else{
                 let list = []
-                if (this.state.page === 1){
+                if (this.state.currentPage === 1){
                     list = respond.data
                 }else{
                     list += respond.data
                 }
                 this.setState({
                     titlemodel:respond.projectNum,
-                    prolist:list
+                    prolist:list,
+                    currentPage:respond.current_page,
+                    totalPage:respond.pageCount,
                 })
                 
+                this._listView.refreshing = false;
             }
         });
    }
@@ -204,13 +217,20 @@ export default class NormalWorkPage extends Component{
        </View>
        </View>
         <FlatList 
+         ref = {component => this._listView = component} {...this.props}
         style={{width:'100%',height:listheight}}
         showsVerticalScrollIndicator={false}
         showsHorizontalScrollIndicator={false}
         data={this.state.prolist}
-        
+        onEndReached={()=> this._listscrollToEnd()}
+        onEndReachedThreshold = {0.5}
+        refreshing= {false}
+        onRefresh = {()=>{
+            this._headerRefreshing();
+        }}
         renderItem = {({item}) =>
            <ProlistCellView item ={item}  cellPress={this._jumpToProjectDetail}/>
+            // <Text>{JSON.stringify(item)}</Text>
         }
         keyExtractor ={(item,index)=> index}
         />
@@ -224,6 +244,19 @@ export default class NormalWorkPage extends Component{
         </TouchableOpacity>
         </View>
         </SafeAreaView>)
+    }
+    _listscrollToEnd = async()=>{
+        let total = this.state.totalPage;
+        let current = this.state.currentPage + 1;
+        if (current > total){
+            alert('已经到底了')
+            return
+        }else{
+            await this.setState({
+                currentPage:current
+            })
+            this._fetchListData();
+        }
     }
     _jumpToProjectDetail = (project)=>{
         // alert(JSON.stringify(project))
