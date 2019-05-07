@@ -5,7 +5,7 @@ export default class MineStructPage extends Component{
     static navigationOptions = {
        header:null
     }
-    reder(){
+    render(){
         return(
             <SafeAreaView style={{backgroundColor:'red'}}>
 
