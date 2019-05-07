@@ -22,6 +22,11 @@ import CompanySelectPage from './SRC/Setting/CompanySelectPage';
 import NormalWorkPage from './SRC/Setting/NormalWork/NormalWorkPage';
 import NormalWorkSelectPage from './SRC/Setting/NormalWork/NormalWorkSelectPage';
 import NoramlDetailPage from './SRC/Setting/NormalWork/NormalDetailPage';
+import MineStructPage from './SRC/Mine/MineStructPage';
+import MineInfoPage from './SRC/Mine/MineInfoPage';
+import MineMsgPage from './SRC/Mine/MIneMsgPage';
+import MineChangePage from './SRC/Mine/MineChangeCompany';
+import MineSettingPage from './SRC/Mine/MineSettingPage';
 //登录
 const LoginNav = createStackNavigator({
   Login:LoginScreen,
@@ -95,8 +100,11 @@ const TabNavigator = createBottomTabNavigator({
 //抽屉导航
 const DrawerNav = createDrawerNavigator({
   TabNav:TabNavigator,
-  HomePage:HomeScreen,
-  SettingPage:SettingScreen,
+  MimeStruct:MineStructPage,
+  MineInfo:MineInfoPage,
+  MineMsg:MineMsgPage,
+  MineChange:MineChangePage,
+  MineSetting:MineSettingPage,
   // Drawer:DrawerScreen,
 },{
   drawerWidth:300,

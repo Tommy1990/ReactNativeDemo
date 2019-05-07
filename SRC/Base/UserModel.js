@@ -7,12 +7,14 @@ export default class UserModel{
        this.setUserID(param.userInfo.userId);
        this.setUserName(param.userInfo.userName);
        this.setCompanyList(JSON.stringify(param.companyInfo));
+       this.setUserModel(param);
     }
     cleanLoginData(){
         this.setToken('');
         this.setUserID('');
         this.setUserName(''); 
         this.setCompanyList('');
+        this.setUserModel('');
     }
     getToken = async()=>{
         try {
@@ -53,6 +55,23 @@ export default class UserModel{
             return sign;
         }catch(error){
             return '';
+        }
+    }
+    getUserModel = async()=>{
+        try{
+            let model = await AsyncStorage.getItem('USERMODEL');
+
+            return JSON.parse(model);
+        }catch(error){
+            return '';
+        }
+    }
+    setUserModel = async(value)=>{
+        try{
+            let str = JSON.stringify(value);
+            await AsyncStorage.setItem('USERMODEL',str);
+        }catch(error){
+            console.log(error.message);
         }
     }
     setUserName = async(value)=>{
