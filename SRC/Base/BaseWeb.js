@@ -53,4 +53,6 @@ export default class REQUEST_URL {
     WORK_NORMAL_PROJECT_MSG_POST    = HOME + 'App/Projects/projectLeavingMessage'
     //post voice msg
     WORK_NORMAL_PROJECT_VOICE_MSG   = 'http://oss.nfzr365.com/api/oss/upload'
+    //get persons in company
+    MINE_STRUCT_DATA                = HOME + 'App/Company/frameworkSelect'
 }

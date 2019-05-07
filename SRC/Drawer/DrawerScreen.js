@@ -36,7 +36,7 @@ export default class DrawerScreen extends Component{
             navStr='MineInfo';
             break;
             case 2:
-            navStr ='MineStruct';
+            navStr ='MimeStruct';
             break;
             case 3:
             navStr = 'MineMsg';

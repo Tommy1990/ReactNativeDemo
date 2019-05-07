@@ -1,15 +1,113 @@
 import React,{Component} from 'react';
-import {SafeAreaView} from 'react-native';
+import {SafeAreaView,View,FlatList,TouchableOpacity,Text,Image,Platform,Dimensions,DeviceEventEmitter} from 'react-native';
+import CompanyListView from '../Setting/NormalWork/View/ComapnyListView';
+import UserModel from '../Base/UserModel';
+import REQUEST_URL from '../Base/BaseWeb';
+import fehchData from '../Base/FetchData';
 
 export default class MineStructPage extends Component{
-    static navigationOptions = {
-       header:null
-    }
-    render(){
-        return(
-            <SafeAreaView style={{backgroundColor:'red'}}>
+   constructor(props){
+       super(props);
+       this.state={
+        selectCompany:null,
+        branchList:[],
+        personList:[],
+       }
+   }
+   componentDidMount(){
+    this._setData();
+    this.listener = DeviceEventEmitter.addListener('hideListView',(e)=>{
+        if (e!== null){
+            this.setState({
+                selectCompany:e,
+            })
+            this._fetchData(e);
+        }
+    })
+   }
+   componentWillUnmount(){
+       this.listener.remove();
+   }
+   _setData = async() =>{
+        let model = new UserModel();
+        let defaultCompany = await model.getDefaultCompany();
+        this.setState({
+            selectCompany:defaultCompany
+        });
+        this._fetchData(defaultCompany);
+   }
+   _fetchData = (company)=>{
+       let url = new REQUEST_URL();
+       let para = {companyId:company.id}
+       fehchData(url.MINE_STRUCT_DATA,para,(respond,err)=>{
+           if (err !== null){
+               alert(err.message)
+           }else{
+              this.setState({
+                  branchList:respond.branch,
+                  personList: respond.branch.length > 0 ? respond.branch[0].userInfo : [],
+              })   
+           }
+       })
+   }
 
-            </SafeAreaView>
+   _onPress = ()=>{
+     DeviceEventEmitter.emit('showCompanyList','')
+   }
+   _backPress = ()=>{
+       this.props.navigation.goBack();
+   }
+    render(){
+        let {width,height} = Dimensions.get('window');
+        let statueHeight = 44 + 20
+        if (Platform.OS === 'ios' && height>811){
+            statueHeight = 44 + 44
+        }
+        let companyStr = ''
+        if (this.state.selectCompany !== null){
+            companyStr = this.state.selectCompany.simpleName;
+        }
+        return(
+            <View style={{flex:1,backgroundColor:'#fff'}}>
+                <View style={{width:'100%',height:statueHeight,borderBottomWidth:1,borderBottomColor:'#eee',
+                position:'relative',alignItems:'flex-end',justifyContent:'flex-start',flexDirection:'row',position:'relative'}}>
+                <TouchableOpacity 
+                onPress= {()=> this._backPress()}
+                hitSlop={{left:20,right:20,top:20,bottom:10}}
+                style={{alignItems:'center',justifyContent:'center',marginLeft:21,marginBottom:16.5}}>
+                <Image source={require('../../img/back.png')} style={{width:10,height:17}} resizeMode='contain'></Image>
+                </TouchableOpacity>
+                <TouchableOpacity
+                onPress = {()=> this._onPress()}
+                hitSlop={{top:10,bottom:10}}
+                style={{width:width-62,marginBottom:16.5,justifyContent:'center',alignItems:'center'}}>
+                <Text style={{fontSize:18,fontWeight:'bold'}}>{companyStr}[切换]</Text>
+                </TouchableOpacity>
+                <CompanyListView style={{position:'absolute',top:statueHeight,left:0}} defaultCompany={this.state.selectCompany}/>
+                </View>
+                <View style={{width:'100%',height:height-statueHeight,flexDirection:'row'}}>
+                    <FlatList
+                    data={this.state.branchList}
+                    renderItem={({item})=> 
+                         (<View style={{flex:1,height:53,alignItems:'center',justifyContent:'center',borderBottomColor:'#eee',
+                         borderBottomWidth:0.5}}>
+                            <Text style={{color:'#333'}}>{item.branchName}</Text>
+                         </View>)
+                    }
+                    keyExtractor= {({item,index})=> index}
+                    style={{width:'33%',height:'100%',borderRightWidth:1,borderRightColor:'#eee'}}/>
+                    <FlatList
+                    data={this.state.personList}
+                    renderItem = {({item})=>(
+                        <View style={{flex:1,height:41,alignItems:'center',justifyContent:'center',borderBottomColor:'#eee',
+                        borderBottomWidth:0.5}}>
+                            <Text style={{color:'#333'}}>{item.userName}</Text>
+                         </View>
+                    )}
+                    style={{width:'67%',height:'100%'}}/>
+                </View>
+            </View>
         )
     }
 }
+

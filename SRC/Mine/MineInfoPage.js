@@ -25,7 +25,7 @@ export default class MineInfoPage extends Component{
         })
     }
     _backBtnPress = ()=>{
-        this.props.navigation.navigate('TabNav')
+        this.props.navigation.goBack();
     }
     render(){
         let OS = Platform.OS;
