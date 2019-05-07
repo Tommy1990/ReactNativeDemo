@@ -31,7 +31,7 @@ export default class DrawerScreen extends Component{
    }
    _pressBtn = (index)=>{
         let navStr = ''
-        switch (navStr){
+        switch (index){
             case 1:
             navStr='MineInfo';
             break;

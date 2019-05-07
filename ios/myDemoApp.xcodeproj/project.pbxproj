@@ -42,7 +42,6 @@
 		961E88222249D7EF0098B9BB /* RSKImageCropper.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 961E88212249D7EF0098B9BB /* RSKImageCropper.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		963C3DEB2265CBF30069B947 /* WebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 963C3DEA2265CBF30069B947 /* WebViewController.m */; };
 		963C3DEF2265CE490069B947 /* Manager.m in Sources */ = {isa = PBXBuildFile; fileRef = 963C3DEE2265CE490069B947 /* Manager.m */; };
-		965A83E2227FD8E700BAA3CC /* libRNFetchBlob.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 965A83DF227FD8AB00BAA3CC /* libRNFetchBlob.a */; };
 		96CC7E132266B4CB00DF78CF /* NFWebJavascriptBridge.js in Resources */ = {isa = PBXBuildFile; fileRef = 96CC7DE72266B4CB00DF78CF /* NFWebJavascriptBridge.js */; };
 		96CC7E1A2266B5F000DF78CF /* JSDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 96CC7E192266B5F000DF78CF /* JSDelegate.m */; };
 		96CC7E1D2266FA5F00DF78CF /* test.html in Resources */ = {isa = PBXBuildFile; fileRef = 96CC7E1C2266FA5F00DF78CF /* test.html */; };
@@ -51,7 +50,6 @@
 		A7080C6722578DB400E26348 /* libRNCAsyncStorage.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A7080C642256F84400E26348 /* libRNCAsyncStorage.a */; settings = {ATTRIBUTES = (Required, ); }; };
 		A7080C6822578E1200E26348 /* libRNGestureHandler.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 96A829992235F4B6008E3018 /* libRNGestureHandler.a */; };
 		A741088C227C1FAB00C4CE91 /* VoiceManger.m in Sources */ = {isa = PBXBuildFile; fileRef = A741088B227C1FAB00C4CE91 /* VoiceManger.m */; };
-		ADBDB9381DFEBF1600ED6528 /* libRCTBlob.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ADBDB9271DFEBF0700ED6528 /* libRCTBlob.a */; };
 		ED297163215061F000B7C4FE /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED297162215061F000B7C4FE /* JavaScriptCore.framework */; };
 		ED2971652150620600B7C4FE /* JavaScriptCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED2971642150620600B7C4FE /* JavaScriptCore.framework */; };
 /* End PBXBuildFile section */
@@ -316,13 +314,6 @@
 			remoteGlobalIDString = E72EC1401F7ABB5A0001BC90;
 			remoteInfo = "RNDeviceInfo-tvOS";
 		};
-		965A83DE227FD8AB00BAA3CC /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 965A83AF227FD8AB00BAA3CC /* RNFetchBlob.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = A15C300E1CD25C330074CB35;
-			remoteInfo = RNFetchBlob;
-		};
 		96A829982235F4B6008E3018 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 87219F4483854C7BB31A95C5 /* RNGestureHandler.xcodeproj */;
@@ -431,7 +422,6 @@
 		963C3DEA2265CBF30069B947 /* WebViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WebViewController.m; sourceTree = "<group>"; };
 		963C3DED2265CE490069B947 /* Manager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Manager.h; sourceTree = "<group>"; };
 		963C3DEE2265CE490069B947 /* Manager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Manager.m; sourceTree = "<group>"; };
-		965A83AF227FD8AB00BAA3CC /* RNFetchBlob.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNFetchBlob.xcodeproj; path = "../node_modules/react-native-fetch-blob/ios/RNFetchBlob.xcodeproj"; sourceTree = "<group>"; };
 		96CC7DE72266B4CB00DF78CF /* NFWebJavascriptBridge.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = NFWebJavascriptBridge.js; sourceTree = "<group>"; };
 		96CC7E182266B5F000DF78CF /* JSDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JSDelegate.h; sourceTree = "<group>"; };
 		96CC7E192266B5F000DF78CF /* JSDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JSDelegate.m; sourceTree = "<group>"; };
@@ -466,14 +456,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				965A83E2227FD8E700BAA3CC /* libRNFetchBlob.a in Frameworks */,
 				96CC7EAA2269C90D00DF78CF /* libRCTVideo.a in Frameworks */,
 				A7080C6822578E1200E26348 /* libRNGestureHandler.a in Frameworks */,
 				A7080C6722578DB400E26348 /* libRNCAsyncStorage.a in Frameworks */,
 				961E88222249D7EF0098B9BB /* RSKImageCropper.framework in Frameworks */,
 				961E87C02249D6030098B9BB /* QBImagePicker.framework in Frameworks */,
 				ED297163215061F000B7C4FE /* JavaScriptCore.framework in Frameworks */,
-				ADBDB9381DFEBF1600ED6528 /* libRCTBlob.a in Frameworks */,
 				11D1A2F320CAFA9E000508D9 /* libRCTAnimation.a in Frameworks */,
 				146834051AC3E58100842450 /* libReact.a in Frameworks */,
 				00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */,
@@ -669,7 +657,6 @@
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
-				965A83AF227FD8AB00BAA3CC /* RNFetchBlob.xcodeproj */,
 				96CC7E702269B92D00DF78CF /* RCTVideo.xcodeproj */,
 				5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */,
 				146833FF1AC3E56700842450 /* React.xcodeproj */,
@@ -774,14 +761,6 @@
 				963C3DEE2265CE490069B947 /* Manager.m */,
 			);
 			path = Manager;
-			sourceTree = "<group>";
-		};
-		965A83B0227FD8AB00BAA3CC /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				965A83DF227FD8AB00BAA3CC /* libRNFetchBlob.a */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 		96A8296E2235F4B4008E3018 /* Recovered References */ = {
@@ -1020,10 +999,6 @@
 				{
 					ProductGroup = 963C3DDD226060950069B947 /* Products */;
 					ProjectRef = ECB90238799B4770AB91C2CA /* RNDeviceInfo.xcodeproj */;
-				},
-				{
-					ProductGroup = 965A83B0227FD8AB00BAA3CC /* Products */;
-					ProjectRef = 965A83AF227FD8AB00BAA3CC /* RNFetchBlob.xcodeproj */;
 				},
 				{
 					ProductGroup = 96A829942235F4B6008E3018 /* Products */;
@@ -1284,13 +1259,6 @@
 			fileType = archive.ar;
 			path = "libRNDeviceInfo-tvOS.a";
 			remoteRef = 963C3DE3226060960069B947 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		965A83DF227FD8AB00BAA3CC /* libRNFetchBlob.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libRNFetchBlob.a;
-			remoteRef = 965A83DE227FD8AB00BAA3CC /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		96A829992235F4B6008E3018 /* libRNGestureHandler.a */ = {
