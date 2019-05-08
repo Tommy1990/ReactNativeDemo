@@ -11,9 +11,9 @@ export default async function UploadData(list,type,key,fnn){
     body.append('dir','app');
     body.append('type','0');
     body.append('voice0',{
-        type:'video/mp4',
+        type:type,
         uri:path,
-        name:'voice0',
+        name:`${key}0`,
     });
    
     let xhr = new XMLHttpRequest();

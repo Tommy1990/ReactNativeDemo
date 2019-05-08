@@ -65,5 +65,6 @@ export default class REQUEST_URL {
     MINE_MSG_READ           = HOME + 'App/News/updateNoticeMessageDeputyStatus'
     // msg all read
     MINE_MSG_ALL_READ       = HOME + 'App/News/updateAllNoticeMessage'
-
+    // reset head icon
+    MINE_INFO_RESET_ICON    = HOME + 'App/User/updateHeadImage'
 }

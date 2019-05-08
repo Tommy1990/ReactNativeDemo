@@ -14,6 +14,8 @@ target 'myDemoApp' do
 
     pod 'react-native-fetch-blob', :path => '../node_modules/react-native-fetch-blob'
 
+    pod 'react-native-image-picker', :path => '../node_modules/react-native-image-picker'
+
   end
 
   target 'myDemoAppTests' do

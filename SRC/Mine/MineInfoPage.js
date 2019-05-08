@@ -1,6 +1,20 @@
 import React,{Component} from 'react';
 import {SafeAreaView,View,Image,ImageBackground,TouchableOpacity,StatusBar,Text,Dimensions,Platform} from 'react-native';
-import UserModel from "../Base/UserModel"
+import UserModel from "../Base/UserModel";
+import ImagePicker from'react-native-image-picker';
+import UploadData from '../Base/UpLoadData';
+import REQUEST_URL from '../Base/BaseWeb';
+import fehchData from '../Base/FetchData';
+const options = {
+    permissionDenied:{
+        title:'打开相机',
+        text:'请允许使用相机',
+        reTryTitle:'再次尝试',
+        okTitle:'确定'
+    },
+    
+
+}
 export default class MineInfoPage extends Component{
     static navigationOptions = {
        header:null
@@ -14,7 +28,9 @@ export default class MineInfoPage extends Component{
     }
     componentDidMount(){
         this._setData();
+        
     }
+    
     _setData = async()=>{
         let model = new UserModel();
         let defaultComapny = await model.getDefaultCompany();
@@ -22,6 +38,40 @@ export default class MineInfoPage extends Component{
         this.setState({
             company:defaultComapny,
             user:userModel,
+        })
+    }
+
+    _setIconBtnPress = ()=>{
+        ImagePicker.launchImageLibrary(options,(respond)=>{
+          
+            let uri = respond.uri  
+            this._postImg(uri)
+        })
+    }
+    _postImg = (uri)=>{
+        UploadData([uri],'image/jpeg','jpeg',(respond,err)=>{
+            if(err !== null){
+                alert(err.message)
+            }else{
+                this._resetImg(respond[0].ossInfo.ossUrl)
+            }
+        })
+    }
+    _resetImg = async(headerStr)=>{
+        let url = new REQUEST_URL();
+        let para = {head_photo:headerStr}
+        alert(headerStr)
+        fehchData(url.MINE_INFO_RESET_ICON,para,async (respond,err)=>{
+            if (err !== null){
+                alert(err.message)
+            }else{
+                alert(ok)
+                let model = new UserModel();
+                let userModel = await model.getUserModel(); 
+                userModel.userInfo.headPhoto =  headerStr
+                await model.setUserModel(userModel);
+                this._setData()
+            }
         })
     }
     _backBtnPress = ()=>{
@@ -77,7 +127,9 @@ export default class MineInfoPage extends Component{
                 </ImageBackground>
                 <View style={{position:'absolute',top:91.5,left:imgMarginLeft,width:126,height:126,overflow:'hidden',
                 borderRadius:63,backgroundColor:'#fff'}}>
-                    <TouchableOpacity style={{flex:1,position:'relative',borderRadius:63}}>
+                    <TouchableOpacity 
+                    onPress = {()=> this._setIconBtnPress()}
+                    style={{flex:1,position:'relative',borderRadius:63}}>
                         <ImageBackground source={img} style={{flex:1,alignItems:'center',justifyContent:'flex-end',borderRadius:63}} resizeMode='contain'>
                         <View style={{backgroundColor:'#33333333',width:126,alignItems:'center',justifyContent:'center'}}>
                             <Text style={{color:'#fff',padding:5}}>编辑</Text>
