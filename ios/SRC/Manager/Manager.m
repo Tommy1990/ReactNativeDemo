@@ -33,6 +33,7 @@ RCT_EXPORT_METHOD(openurl:(NSString*)url){
 RCT_EXPORT_METHOD(getLocation:(RCTResponseSenderBlock)callback){
   callback(@[[NSNull null],@"上海"]);
 }
+//录音
 RCT_EXPORT_METHOD(startRecode){
   _voiceManager = [VoiceManger defaultManger];
   [[NSOperationQueue mainQueue] addOperationWithBlock:^{
@@ -63,5 +64,15 @@ RCT_EXPORT_METHOD(cleanVoice){
     __weak typeof(self) weakSelf = self;
     [weakSelf.voiceManager clearOldVoice];
   }];
+}
+//make phone call
+RCT_EXPORT_METHOD(makePhoneCall:(NSString*)phoneNum){
+  if (phoneNum.length >= 11){
+    NSString* tel = [NSString stringWithFormat:@"tel:%@",phoneNum];
+    [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+      [[UIApplication sharedApplication] openURL:[NSURL URLWithString:tel]];
+    }];
+    
+  }
 }
 @end

@@ -1,10 +1,10 @@
 import React,{Component} from 'react';
-import {SafeAreaView,View,FlatList,TouchableOpacity,Text,Image,Platform,Dimensions,DeviceEventEmitter} from 'react-native';
+import {SafeAreaView,View,FlatList,TouchableOpacity,Text,Image,Platform,Dimensions,DeviceEventEmitter,NativeModules} from 'react-native';
 import CompanyListView from '../Setting/NormalWork/View/ComapnyListView';
 import UserModel from '../Base/UserModel';
 import REQUEST_URL from '../Base/BaseWeb';
 import fehchData from '../Base/FetchData';
-
+const manager = NativeModules.Manager;
 export default class MineStructPage extends Component{
    constructor(props){
        super(props);
@@ -43,6 +43,9 @@ export default class MineStructPage extends Component{
            if (err !== null){
                alert(err.message)
            }else{
+                for (i=0;i<respond.branch.length;i++){
+                    respond.branch[i].isSelected = i === 0;
+                }
               this.setState({
                   branchList:respond.branch,
                   personList: respond.branch.length > 0 ? respond.branch[0].userInfo : [],
@@ -88,26 +91,56 @@ export default class MineStructPage extends Component{
                 <View style={{width:'100%',height:height-statueHeight,flexDirection:'row'}}>
                     <FlatList
                     data={this.state.branchList}
-                    renderItem={({item})=> 
-                         (<View style={{flex:1,height:53,alignItems:'center',justifyContent:'center',borderBottomColor:'#eee',
-                         borderBottomWidth:0.5}}>
-                            <Text style={{color:'#333'}}>{item.branchName}</Text>
-                         </View>)
+                    renderItem={({item,index})=> 
+                         (<TouchableOpacity 
+                            onPress={()=>this._leftItemPress(item) }
+                            style={{flex:1,height:53,alignItems:'center',justifyContent:'center',
+                            backgroundColor: item.isSelected ? '#00a056' :'#fff',
+                            borderBottomColor:'#eee', borderBottomWidth:0.5}}>
+                            <Text style={{color: item.isSelected? '#fff' : '#333'}}>{item.branchName}</Text>
+                         </TouchableOpacity>)
                     }
-                    keyExtractor= {({item,index})=> index}
+                    keyExtractor= {({item,index})=> index*10000}
                     style={{width:'33%',height:'100%',borderRightWidth:1,borderRightColor:'#eee'}}/>
                     <FlatList
                     data={this.state.personList}
                     renderItem = {({item})=>(
-                        <View style={{flex:1,height:41,alignItems:'center',justifyContent:'center',borderBottomColor:'#eee',
-                        borderBottomWidth:0.5}}>
-                            <Text style={{color:'#333'}}>{item.userName}</Text>
-                         </View>
+                        <TouchableOpacity 
+                        onPress={()=>this._rightItemPress(item)}
+                        style={{flex:1,height:41,alignItems:'center',justifyContent:'space-between',
+                        flexDirection:'row',borderBottomColor:'#eee',borderBottomWidth:0.5}}>
+                            <Text style={{marginLeft:27,color:'#333'}}>{item.userName}-{item.mobile}</Text>
+                            <Image style={{width:16,height:16,marginRight:30}} source={require('../../img/Mine_phone.png')}/>
+                         </TouchableOpacity>
                     )}
+                    keyExtractor= {({item,index})=>  Math.random()*1000 + index}
                     style={{width:'67%',height:'100%'}}/>
                 </View>
             </View>
         )
+    }
+    _leftItemPress = (item)=>{
+        let list = this.state.branchList;
+        for (i=0;i<list.length;i++){
+            if (list[i].branchId === item.branchId){
+                list[i].isSelected = true
+                this.setState({
+                    personList:list[i].userInfo
+                })
+            }else{
+                list[i].isSelected = false
+            }
+        }
+        this.setState({
+            branchList:list
+        })
+    }
+    _rightItemPress = (item)=>{
+        if (item.mobile.length >= 11){
+            let mobile = JSON.stringify(item.mobile);
+            manager.makePhoneCall(mobile);
+        }
+       
     }
 }
 
