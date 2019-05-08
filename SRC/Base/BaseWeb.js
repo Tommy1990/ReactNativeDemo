@@ -55,4 +55,15 @@ export default class REQUEST_URL {
     WORK_NORMAL_PROJECT_VOICE_MSG   = 'http://oss.nfzr365.com/api/oss/upload'
     //get persons in company
     MINE_STRUCT_DATA                = HOME + 'App/Company/frameworkSelect'
+    //get total msgcount
+    MINE_MSG_TOTAL_NUM              = HOME + 'App/News/countNoticeNum'
+    // get  msg list
+    MINE_MSG_LIST            = HOME + 'App/News/newsInfoList'
+    // get msg num 
+    MINE_MSG_NUM            = HOME + 'App/News/countAllTypeNum'
+    // msg read 
+    MINE_MSG_READ           = HOME + 'App/News/updateNoticeMessageDeputyStatus'
+    // msg all read
+    MINE_MSG_ALL_READ       = HOME + 'App/News/updateAllNoticeMessage'
+
 }

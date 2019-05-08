@@ -73,7 +73,7 @@ export default class MineStructPage extends Component{
         return(
             <View style={{flex:1,backgroundColor:'#fff'}}>
                 <View style={{width:'100%',height:statueHeight,borderBottomWidth:1,borderBottomColor:'#eee',
-                position:'relative',alignItems:'flex-end',justifyContent:'flex-start',flexDirection:'row',position:'relative'}}>
+                position:'relative',alignItems:'flex-end',justifyContent:'flex-start',flexDirection:'row'}}>
                 <TouchableOpacity 
                 onPress= {()=> this._backPress()}
                 hitSlop={{left:20,right:20,top:20,bottom:10}}

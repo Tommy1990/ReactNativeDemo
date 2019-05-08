@@ -14,10 +14,11 @@ export default class DateModel {
         return time.toJSON().slice(0,10)
     }
     getYMDHms(seconds){
-        let sec = seconds*1000
+        let sec = seconds*1000 +  3600*8*1000
         let time = new Date(sec);
         let YMD = time.toJSON().slice(0,10)
         let hms = time.toJSON().slice(11,19)
         return YMD + ' '+ hms; 
     }
+    
 }
