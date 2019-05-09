@@ -1,8 +1,9 @@
 import React,{Component} from 'react';
-import {View,TouchableOpacity,Text,Platform,Dimensions,Image,ScrollView} from 'react-native';
+import {View,TouchableOpacity,Text,Platform,Dimensions,Image,ScrollView,Modal} from 'react-native';
 import {NavigationEvents} from 'react-navigation'
 import REQUEST_URL from '../../Base/BaseWeb';
 import fehchData from '../../Base/FetchData';
+
 export default class NormalWorkCreatePage extends Component{
     static navigationOptions = ({navigation})=>{
         return {
@@ -16,7 +17,8 @@ export default class NormalWorkCreatePage extends Component{
             companyId:'',
             historyPersonModel:null,
             dataList:[{idStr:'',title:''},{idStr:'',title:''},{idStr:'',title:''},{idStr:'',title:''},{idStr:'',title:''},
-            {idStr:'',title:''},{idStr:'',title:''},{idStr:'',title:''},{idStr:'',title:''},{idStr:'',title:''}]
+            {idStr:'',title:''},{idStr:'',title:''},{idStr:'',title:''},{idStr:'',title:''},{idStr:'',title:''}],
+            showModal:false
         }
     }
     componentDidMount(){
@@ -72,7 +74,14 @@ export default class NormalWorkCreatePage extends Component{
     _itemPress = (index)=>{
        
         let list = this.state.dataList;
-        alert(JSON.stringify(list[index*1]))
+        this.setState({
+            showModal:true
+        })
+    }
+    _hidenModal = ()=>{
+        this.setState({
+            showModal:false
+        })
     }
     render(){
         let list = this.state.dataList;
@@ -206,7 +215,8 @@ export default class NormalWorkCreatePage extends Component{
                     </Text>
                     </TouchableOpacity>
                 </BackView>
-                </ScrollView> 
+                </ScrollView>
+                <ModalView show={this.state.showModal} close={this._hidenModal}/> 
             </View>
         )
     }
@@ -218,5 +228,28 @@ class BackView extends Component{
             <View 
             style={{width:'90%',borderRadius:10,borderWidth:1,borderColor:'#eee',padding:16}}>{this.props.children}</View>
         </View>)
+    }
+}
+class ModalView extends Component{
+    render(){
+        let {width} = Dimensions.get('window');
+        return(<Modal
+            animationType='slide'
+            visible={this.props.show}
+            transparent={true} >
+            <View style={{flex:1,backgroundColor:'#33333333',alignItems:'center',justifyContent:'center'}}>
+            <View style={{width:width-45,height:284,borderRadius:10,backgroundColor:'#fff',position:'relative'}}>
+            <TouchableOpacity 
+            onPress = {()=> this.props.close()}
+            style={{position:'absolute',top:17.5,right:17.5,width:20,height:20}} 
+            hitSlop={{left:15,right:15,top:15,bottom:15}}>
+            <Image style={{width:10.5,height:10.5}} source={require('../../../img/close.png')} resizeMode='contain'/>
+            </TouchableOpacity>
+            <Text style={{color:'#333',marginTop:12}}>项目描述</Text>
+            
+            </View>
+            </View>
+        </Modal>
+        )
     }
 }
