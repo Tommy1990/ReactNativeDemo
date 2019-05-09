@@ -175,7 +175,7 @@ export default class NormalWorkPage extends Component{
             approvedStr = this.state.titlemodel.three.number;
             delayStr = this.state.titlemodel.four.number;
         }
-        return(<SafeAreaView style={{position:'relative'}}>
+        return(<View style={{position:'relative'}}>
         <NavigationEvents onDidFocus ={payload => this._pageFouce()}/>
        <View style={{flexDirection:'row',width:'100%',height:90.5,justifyContent:'flex-start',alignItems:'center',borderBottomColor:'#eee',borderBottomWidth:1}}>
        <View style={{marginLeft:36.5,width:50,alignItems:'center'}}>
@@ -231,14 +231,14 @@ export default class NormalWorkPage extends Component{
         />
         
         <CompanyListView style={{position:'absolute',top:0,left:0}} defaultCompany={this.state.selectCompany}></CompanyListView>
-        <View style={{position:'absolute',bottom:-44,left:0,width:'100%'}}>
+        <View style={{position:'absolute',bottom:0,left:0,width:'100%'}}>
         <TouchableOpacity 
         onPress={()=> this._creatProject()}
         style={{width:'100%',height:50,justifyContent:'center',alignItems:'center',backgroundColor:'#00a056'}}>
             <Text style={{color:'#fff',fontSize:18}}>+ 发布项目</Text>
         </TouchableOpacity>
         </View>
-        </SafeAreaView>)
+        </View>)
     }
     _listscrollToEnd = async()=>{
         let total = this.state.totalPage;
@@ -260,7 +260,7 @@ export default class NormalWorkPage extends Component{
        })
     }
     _creatProject = ()=>{
-        alert('creat project')
+        this.props.navigation.navigate('NormalCreate',{companyId:this.state.selectCompany.id});
     }
     _categoryPress = async (condition)=>{
        

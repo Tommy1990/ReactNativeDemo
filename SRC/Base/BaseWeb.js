@@ -48,6 +48,14 @@ export default class REQUEST_URL {
     WORK_NORMAL_PROJECT_DAILY_DATA = HOME + 'App/Projects/projectLogList'
     //get normal project msg data
     WORK_NORMAL_PROJECT_MSG_DATA    = HOME + 'App/Projects/getProjectLeavingMessageList'
+    //get normal project history participty list
+    WORK_NORMAL_HISTORY_PERSON_LIST = HOME + 'App/Projects/getProjectHistoryUser'
+    //get company person list 
+    WORK_COMPANY_PERSON_LIST = HOME + 'App/Projects/companyEmployeeList'
+    //get farm list
+    WORK_NORMAL_FARMS_LIST  = HOME + 'App/Projects/getPrickListInfo'
+    //get work catergory list
+    WORK_NORMAL_WORK_TYPE_LIST  = HOME + 'App/Projects/workTypeList'
 
     //post text Msg
     WORK_NORMAL_PROJECT_MSG_POST    = HOME + 'App/Projects/projectLeavingMessage'
