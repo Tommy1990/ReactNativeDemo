@@ -42,7 +42,6 @@
 		961E88222249D7EF0098B9BB /* RSKImageCropper.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 961E88212249D7EF0098B9BB /* RSKImageCropper.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		963C3DEB2265CBF30069B947 /* WebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 963C3DEA2265CBF30069B947 /* WebViewController.m */; };
 		963C3DEF2265CE490069B947 /* Manager.m in Sources */ = {isa = PBXBuildFile; fileRef = 963C3DEE2265CE490069B947 /* Manager.m */; };
-		9681F05C2282C7AF00C8A355 /* libRNImagePicker.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9681F05B2282C79A00C8A355 /* libRNImagePicker.a */; };
 		9681F05D2282C7DB00C8A355 /* libimageCropPicker.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 961E87AE2249C31D0098B9BB /* libimageCropPicker.a */; };
 		96CC7E132266B4CB00DF78CF /* NFWebJavascriptBridge.js in Resources */ = {isa = PBXBuildFile; fileRef = 96CC7DE72266B4CB00DF78CF /* NFWebJavascriptBridge.js */; };
 		96CC7E1A2266B5F000DF78CF /* JSDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 96CC7E192266B5F000DF78CF /* JSDelegate.m */; };
@@ -316,13 +315,6 @@
 			remoteGlobalIDString = E72EC1401F7ABB5A0001BC90;
 			remoteInfo = "RNDeviceInfo-tvOS";
 		};
-		9681F05A2282C79A00C8A355 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 9681F0562282C79A00C8A355 /* RNImagePicker.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 014A3B5C1C6CF33500B6D375;
-			remoteInfo = RNImagePicker;
-		};
 		96A829982235F4B6008E3018 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 87219F4483854C7BB31A95C5 /* RNGestureHandler.xcodeproj */;
@@ -431,7 +423,6 @@
 		963C3DEA2265CBF30069B947 /* WebViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WebViewController.m; sourceTree = "<group>"; };
 		963C3DED2265CE490069B947 /* Manager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Manager.h; sourceTree = "<group>"; };
 		963C3DEE2265CE490069B947 /* Manager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Manager.m; sourceTree = "<group>"; };
-		9681F0562282C79A00C8A355 /* RNImagePicker.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNImagePicker.xcodeproj; path = "../node_modules/react-native-image-picker/ios/RNImagePicker.xcodeproj"; sourceTree = "<group>"; };
 		96CC7DE72266B4CB00DF78CF /* NFWebJavascriptBridge.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = NFWebJavascriptBridge.js; sourceTree = "<group>"; };
 		96CC7E182266B5F000DF78CF /* JSDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JSDelegate.h; sourceTree = "<group>"; };
 		96CC7E192266B5F000DF78CF /* JSDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JSDelegate.m; sourceTree = "<group>"; };
@@ -468,7 +459,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				9681F05D2282C7DB00C8A355 /* libimageCropPicker.a in Frameworks */,
-				9681F05C2282C7AF00C8A355 /* libRNImagePicker.a in Frameworks */,
 				96CC7EAA2269C90D00DF78CF /* libRCTVideo.a in Frameworks */,
 				A7080C6822578E1200E26348 /* libRNGestureHandler.a in Frameworks */,
 				A7080C6722578DB400E26348 /* libRNCAsyncStorage.a in Frameworks */,
@@ -703,7 +693,6 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
-				9681F0562282C79A00C8A355 /* RNImagePicker.xcodeproj */,
 				13B07FAE1A68108700A75B9A /* myDemoApp */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* myDemoAppTests */,
@@ -775,14 +764,6 @@
 				963C3DEE2265CE490069B947 /* Manager.m */,
 			);
 			path = Manager;
-			sourceTree = "<group>";
-		};
-		9681F0572282C79A00C8A355 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				9681F05B2282C79A00C8A355 /* libRNImagePicker.a */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 		96A8296E2235F4B4008E3018 /* Recovered References */ = {
@@ -1026,10 +1007,6 @@
 				{
 					ProductGroup = 96A829942235F4B6008E3018 /* Products */;
 					ProjectRef = 87219F4483854C7BB31A95C5 /* RNGestureHandler.xcodeproj */;
-				},
-				{
-					ProductGroup = 9681F0572282C79A00C8A355 /* Products */;
-					ProjectRef = 9681F0562282C79A00C8A355 /* RNImagePicker.xcodeproj */;
 				},
 			);
 			projectRoot = "";
@@ -1286,13 +1263,6 @@
 			fileType = archive.ar;
 			path = "libRNDeviceInfo-tvOS.a";
 			remoteRef = 963C3DE3226060960069B947 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		9681F05B2282C79A00C8A355 /* libRNImagePicker.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libRNImagePicker.a;
-			remoteRef = 9681F05A2282C79A00C8A355 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		96A829992235F4B6008E3018 /* libRNGestureHandler.a */ = {

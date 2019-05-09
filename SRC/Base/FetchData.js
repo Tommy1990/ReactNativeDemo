@@ -1,8 +1,6 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+
 import UserModel from './UserModel';
 import DeviceInfo from 'react-native-device-info';
-import { NativeEventEmitter} from 'react-native';
  export default async function fehchData(url,params,fn){
      transData(params,async (str)=>{
         var request = new XMLHttpRequest();

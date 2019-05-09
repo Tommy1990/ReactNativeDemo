@@ -1,10 +1,10 @@
 import React,{Component} from 'react';
 import {SafeAreaView,View,Image,ImageBackground,TouchableOpacity,StatusBar,Text,Dimensions,Platform} from 'react-native';
 import UserModel from "../Base/UserModel";
-import ImagePicker from'react-native-image-picker';
-
+import ImagePicker from 'react-native-image-crop-picker';
 import REQUEST_URL from '../Base/BaseWeb';
 import fehchData from '../Base/FetchData';
+import UploadFile from '../Base/UpLoadFile';
 
 const options = {
     permissionDenied:{
@@ -30,6 +30,7 @@ export default class MineInfoPage extends Component{
         this.state={
             company:null,
             user:null,
+            uri:''
         }
     }
     componentDidMount(){
@@ -48,40 +49,41 @@ export default class MineInfoPage extends Component{
     }
 
     _setIconBtnPress = ()=>{
-        ImagePicker.launchImageLibrary(options,(respond)=>{
-            console.log(`33333333${respond.uri}`)
-            if(respond.didCancel){
-                return
-            }
-            let uri = respond.data  
-            console.log(`22222222${uri}`);
-        })
+       ImagePicker.openPicker({
+           multiple:false
+       }).then(image=>{
+           this._postImg(image.path);
+           console.log(`111111111111111111${JSON.stringify(image)}`)
+       })
     }
     _postImg = (uri)=>{
-        // UploadData([uri],'image/jpeg','jpeg',(respond,err)=>{
-        //     if(err !== null){
-        //         alert(err.message)
-        //     }else{
-        //         this._resetImg(respond[0].ossInfo.ossUrl)
-        //     }
-        // })
+        UploadFile([uri],'image/jpeg','jpeg',(respond,err)=>{
+            if(err !== null){
+                alert(err.message)
+            }else{
+                alert(JSON.stringify(respond))
+                this._resetImg(respond.data[0].ossInfo.ossUrl)
+            }
+        })
     }
     _resetImg = async(headerStr)=>{
         let url = new REQUEST_URL();
         let para = {head_photo:headerStr}
-        alert(headerStr)
-        fehchData(url.MINE_INFO_RESET_ICON,para,async (respond,err)=>{
+        fehchData(url.MINE_INFO_RESET_ICON,para,(respond,err)=>{
             if (err !== null){
                 alert(err.message)
             }else{
-                alert(ok)
-                let model = new UserModel();
-                let userModel = await model.getUserModel(); 
-                userModel.userInfo.headPhoto =  headerStr
-                await model.setUserModel(userModel);
-                this._setData()
+               this._dealData(headerStr);
             }
         })
+    }
+    _dealData = async(headerStr)=>{
+        console.log(`444444${headerStr}`)
+        let model = new UserModel();
+        let userModel = await model.getUserModel(); 
+        userModel.userInfo.headPhoto =  headerStr
+        await model.setUserModel(userModel);
+         this._setData()
     }
     _backBtnPress = ()=>{
         this.props.navigation.goBack();
@@ -114,7 +116,9 @@ export default class MineInfoPage extends Component{
             }
             branchStr = branchStr.slice(0,branchStr.length-1);
             positionStr = this.state.company.position;
-
+        }
+        if (this.state.uri.length > 6){
+            img = {uri:this.state.uri}
         }
         return(
             <View style={{flex:1,backgroundColor:'#fff',alignItems:'center',justifyContent:'flex-start'}}>

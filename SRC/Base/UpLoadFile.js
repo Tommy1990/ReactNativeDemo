@@ -3,14 +3,14 @@ import React from 'react';
 import {Platform} from 'react-native';
 import UserModel from './UserModel';
 import DeviceInfo from 'react-native-device-info';
-export default async function UploadData(list,type,key,fnn){
+export default async function UploadFile(list,type,key,fnn){
     let url = 'http://oss.nfzr365.com/api/oss/upload'
     let OS = Platform.OS;
     let path = OS === 'ios' ? list[0].replace('file:///','') : list[0];
     let body = new FormData();
     body.append('dir','app');
     body.append('type','0');
-    body.append('voice0',{
+    body.append(`${key}0`,{
         type:type,
         uri:path,
         name:`${key}0`,

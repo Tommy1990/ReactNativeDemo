@@ -1,6 +1,6 @@
 import React,{Component} from 'react';
 import {DrawerItems} from 'react-navigation';
-import {createBottomTabNavigator,createStackNavigator,createAppContainer,createSwitchNavigator,createDrawerNavigator} from 'react-navigation';
+import {createBottomTabNavigator,createStackNavigator,createAppContainer,createSwitchNavigator,createDrawerNavigator,AppRegistry} from 'react-navigation';
 import AsyncStorage from '@react-native-community/async-storage';
 import HomeScreen from './SRC/Home/Home';
 import HomeChildPage from './SRC/Home/HomeChildPage'
@@ -28,6 +28,7 @@ import MineMsgPage from './SRC/Mine/MIneMsgPage';
 import MineChangePage from './SRC/Mine/MineChangeCompany';
 import MineSettingPage from './SRC/Mine/MineSettingPage';
 //登录
+
 const LoginNav = createStackNavigator({
   Login:LoginScreen,
   Vaild:VaildMessageScreen,
@@ -127,9 +128,9 @@ const SwitchNav = createSwitchNavigator({
 
 
 const AppContainer = createAppContainer(SwitchNav);
-
 export default class App extends Component{
   render(){
+    
     return (
       <AppContainer></AppContainer>
     )
