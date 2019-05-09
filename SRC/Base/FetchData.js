@@ -1,6 +1,7 @@
 
 import UserModel from './UserModel';
 import DeviceInfo from 'react-native-device-info';
+import {DeviceEventEmitter} from 'react-native';
  export default async function fehchData(url,params,fn){
      transData(params,async (str)=>{
         var request = new XMLHttpRequest();
@@ -14,6 +15,9 @@ import DeviceInfo from 'react-native-device-info';
                 fn(res.data,null);
             }else{
                 let error = new Error();
+                if (res.status.code === '4025'){
+                    DeviceEventEmitter.emit('logOut','');
+                }
                 error.message = res.status.remind;
                 console.log(`1234567890error=${JSON.stringify(error)}`)
                 fn(null,error);

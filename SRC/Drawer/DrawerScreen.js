@@ -1,5 +1,5 @@
 import  React,{Component} from 'react';
-import {SafeAreaView,View,TouchableOpacity,Text,ScrollView,Dimensions,ImageBackground,Image} from 'react-native';
+import {SafeAreaView,View,TouchableOpacity,Text,ScrollView,Dimensions,ImageBackground,Image,DeviceEventEmitter} from 'react-native';
 
 import commenStyles from '../Base/CommenStyle'
 import UserModel from '../Base/UserModel';
@@ -19,6 +19,12 @@ export default class DrawerScreen extends Component{
    }
    componentDidMount(){
     this._setData();
+    this.linster = DeviceEventEmitter.addListener('LOGOUT',(e)=>{
+        this._logOut();
+    })
+   }
+   componentWillUnmount(){
+    this.linster.remove();
    }
    _setData = async()=>{
        let model = new UserModel();
