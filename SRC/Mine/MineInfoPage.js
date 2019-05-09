@@ -6,21 +6,6 @@ import REQUEST_URL from '../Base/BaseWeb';
 import fehchData from '../Base/FetchData';
 import UploadFile from '../Base/UpLoadFile';
 
-const options = {
-    permissionDenied:{
-        title:'打开相机',
-        text:'请允许使用相机',
-        reTryTitle:'再次尝试',
-        okTitle:'确定'
-    },
-    storageOptions:{
-        skipBackup:true,
-        path:'images'
-    },
-    noData:false,
-    
-
-}
 export default class MineInfoPage extends Component{
     static navigationOptions = {
        header:null
@@ -30,7 +15,6 @@ export default class MineInfoPage extends Component{
         this.state={
             company:null,
             user:null,
-            uri:''
         }
     }
     componentDidMount(){
@@ -50,10 +34,13 @@ export default class MineInfoPage extends Component{
 
     _setIconBtnPress = ()=>{
        ImagePicker.openPicker({
-           multiple:false
+           multiple:false,
+           cropperCancelText:'取消',
+           cropperChooseText:'确定'
        }).then(image=>{
-           this._postImg(image.path);
-           console.log(`111111111111111111${JSON.stringify(image)}`)
+            if(image !== null){
+                this._postImg(image.path);
+            }
        })
     }
     _postImg = (uri)=>{
@@ -61,7 +48,6 @@ export default class MineInfoPage extends Component{
             if(err !== null){
                 alert(err.message)
             }else{
-                alert(JSON.stringify(respond))
                 this._resetImg(respond.data[0].ossInfo.ossUrl)
             }
         })
@@ -117,9 +103,7 @@ export default class MineInfoPage extends Component{
             branchStr = branchStr.slice(0,branchStr.length-1);
             positionStr = this.state.company.position;
         }
-        if (this.state.uri.length > 6){
-            img = {uri:this.state.uri}
-        }
+        
         return(
             <View style={{flex:1,backgroundColor:'#fff',alignItems:'center',justifyContent:'flex-start'}}>
                <StatusBar barStyle='light-content'>

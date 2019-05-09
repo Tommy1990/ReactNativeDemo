@@ -10,12 +10,13 @@ export default async function UploadFile(list,type,key,fnn){
     let body = new FormData();
     body.append('dir','app');
     body.append('type','0');
-    body.append(`${key}0`,{
-        type:type,
-        uri:path,
-        name:`${key}0`,
-    });
-   
+    for(i=0; i< list.length;i++){
+        body.append(`${key}${i}`,{
+            type:type,
+            uri:path,
+            name:`${key}${i}`,
+        });
+    }
     let xhr = new XMLHttpRequest();
     xhr.open('POST',url);
     if(xhr.upload){
