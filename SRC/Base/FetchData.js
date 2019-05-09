@@ -16,7 +16,7 @@ import {DeviceEventEmitter} from 'react-native';
             }else{
                 let error = new Error();
                 if (res.status.code === '4025'){
-                    DeviceEventEmitter.emit('logOut','');
+                    DeviceEventEmitter.emit('LOGOUT','');
                 }
                 error.message = res.status.remind;
                 console.log(`1234567890error=${JSON.stringify(error)}`)

@@ -19,6 +19,7 @@ export default class DrawerScreen extends Component{
    }
    componentDidMount(){
     this._setData();
+    // 退出监听
     this.linster = DeviceEventEmitter.addListener('LOGOUT',(e)=>{
         this._logOut();
     })

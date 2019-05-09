@@ -34,6 +34,7 @@ export default class NoramlDetailPage extends Component{
             msgTotal:1,
             msgCurrentPage:1,
             msgList:[],
+            showOperation:false,
         }
     }
     componentDidMount(){
@@ -95,7 +96,6 @@ export default class NoramlDetailPage extends Component{
         })
     }
     _fetchMSGData = (projectId)=>{
-        alert(this.state.msgCurrentPage)
         let url = new REQUEST_URL();
         let para = {projectId:projectId,page:this.state.msgCurrentPage,limit:10}
         fehchData(url.WORK_NORMAL_PROJECT_MSG_DATA,para,(respond,error)=>{
@@ -138,7 +138,7 @@ export default class NoramlDetailPage extends Component{
             if(error !== null){
                 alert(error.message)
             }else{
-                alert(JSON.stringify(respond))
+                
                 this.setState({
                     content:'',
 
@@ -166,11 +166,27 @@ export default class NoramlDetailPage extends Component{
         let scrollViewHeight = height - 44 - 24 - 63
         let model = this.state.projectModel;
         let creatId = model.nf_createUserId.id;
+        let isParticipate = false
+        for (i=0;i< model.nf_joinUserId.length;i++){
+            if (model.nf_joinUserId[i].id == this.state.userid){
+                isParticipate = true
+                break;
+            }
+        }
         if ((creatId == this.state.userid)&&(model.nf_proStatus == '1')){
             DeviceEventEmitter.emit('showEdit',true)
+            DeviceEventEmitter.emit('showOperationView',true && this.state.selectBtn < 2)
+            this.setState({
+                showOperation:true
+            })
         }else{
             DeviceEventEmitter.emit('showEdit',false) 
+            DeviceEventEmitter.emit('showOperationView',isParticipate && this.state.selectBtn < 2)
+            this.setState({
+                showOperation: creatId == this.state.userid || isParticipate
+            })
         }
+
         return(
             <View>
                 <ScrollView style={{width:'100%',backgroundColor:'#eee'}} ref={component=> this._scrollView=component}{...this.props}>
@@ -226,6 +242,7 @@ export default class NoramlDetailPage extends Component{
                 </ScrollView>
                 <BottomMsgView style={{position:'absolute',bottom:0,leading:0,width:width,height:70}}
                 submit={this._submitMsg} ></BottomMsgView>
+                <BottomOperationView style={{position:'absolute',bottom:0,leading:0,width:width,height:50}}/>
                 <View style = {{position:'absolute',right:11.5,bottom:226.5,
                          width:52,height:52,borderRadius:26,backgroundColor:'#00a056'}}>
                      <TouchableOpacity style={{flex:1,alignItems:'center',justifyContent:'center'}}
@@ -290,6 +307,7 @@ export default class NoramlDetailPage extends Component{
         let index = Math.ceil(offsetX/width);
        
         DeviceEventEmitter.emit('showMsgView',index)
+        DeviceEventEmitter.emit('showOperationView',this.state.showOperation && index < 2)
         this.setState({
             selectBtn:index,
         })
@@ -475,6 +493,50 @@ class BottomMsgView extends Component{
                             <Text>发送</Text>
                     </TouchableOpacity>
                 </View>
+            </Animated.ScrollView>
+        )
+    }
+}
+class BottomOperationView extends Component{
+    constructor(props){
+        super(props);
+        this.state = {
+            height: new Animated.Value(0),
+        }
+    }
+    componentDidMount(){
+        this.listener = DeviceEventEmitter.addListener('showOperationView',(e)=>{
+            if (e){
+                this._showView()
+            }else{
+                this._hideView()
+            }
+        }) 
+       
+    }
+    componentWillUnmount(){
+        this.listener.remove();
+    }
+    _showView = ()=>{
+        Animated.timing(this.state.height,this.setState({
+            height:49.5
+        }),1000);
+    }
+    _hideView = ()=>{
+        Animated.timing(this.state.height,this.setState({
+            height:0
+        }),1000);     
+    }
+    
+    render(){
+
+        let item = (<View style={{flex:1,backgroundColor:'#00a056'}}>
+
+        </View>)
+
+        return(
+            <Animated.ScrollView style={{...this.props.style,height:this.state.height}}>
+            {item}
             </Animated.ScrollView>
         )
     }
