@@ -2,9 +2,10 @@ import React,{Component} from 'react';
 import {SafeAreaView,View,Image,ImageBackground,TouchableOpacity,StatusBar,Text,Dimensions,Platform} from 'react-native';
 import UserModel from "../Base/UserModel";
 import ImagePicker from'react-native-image-picker';
-import UploadData from '../Base/UpLoadData';
+
 import REQUEST_URL from '../Base/BaseWeb';
 import fehchData from '../Base/FetchData';
+
 const options = {
     permissionDenied:{
         title:'打开相机',
@@ -12,6 +13,11 @@ const options = {
         reTryTitle:'再次尝试',
         okTitle:'确定'
     },
+    storageOptions:{
+        skipBackup:true,
+        path:'images'
+    },
+    noData:false,
     
 
 }
@@ -43,19 +49,22 @@ export default class MineInfoPage extends Component{
 
     _setIconBtnPress = ()=>{
         ImagePicker.launchImageLibrary(options,(respond)=>{
-          
-            let uri = respond.uri  
-            this._postImg(uri)
+            console.log(`33333333${respond.uri}`)
+            if(respond.didCancel){
+                return
+            }
+            let uri = respond.data  
+            console.log(`22222222${uri}`);
         })
     }
     _postImg = (uri)=>{
-        UploadData([uri],'image/jpeg','jpeg',(respond,err)=>{
-            if(err !== null){
-                alert(err.message)
-            }else{
-                this._resetImg(respond[0].ossInfo.ossUrl)
-            }
-        })
+        // UploadData([uri],'image/jpeg','jpeg',(respond,err)=>{
+        //     if(err !== null){
+        //         alert(err.message)
+        //     }else{
+        //         this._resetImg(respond[0].ossInfo.ossUrl)
+        //     }
+        // })
     }
     _resetImg = async(headerStr)=>{
         let url = new REQUEST_URL();
