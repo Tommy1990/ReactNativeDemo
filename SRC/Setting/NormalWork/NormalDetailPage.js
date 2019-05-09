@@ -61,11 +61,11 @@ export default class NoramlDetailPage extends Component{
             if (error!== null){
                 alert(error.message)
             }else{
-               console.log(`${JSON.stringify(respond)}`)
+               
                 this.setState({
                     projectModel:respond,
                 })
-
+                this._setStatue(respond);
             }
         })
     }
@@ -157,14 +157,7 @@ export default class NoramlDetailPage extends Component{
             userid:userid,
         })
     }
-    render(){
-        if (this.state.projectModel === null){
-            return <SafeAreaView/>
-        }
-        let {width,height} = Dimensions.get('window');
-        let btnWidth = (width - 13.5*2)/3
-        let scrollViewHeight = height - 44 - 24 - 63
-        let model = this.state.projectModel;
+    _setStatue = (model)=>{
         let creatId = model.nf_createUserId.id;
         let isParticipate = false
         for (i=0;i< model.nf_joinUserId.length;i++){
@@ -186,7 +179,15 @@ export default class NoramlDetailPage extends Component{
                 showOperation: creatId == this.state.userid || isParticipate
             })
         }
-
+    }
+    render(){
+        if (this.state.projectModel === null){
+            return <SafeAreaView/>
+        }
+        let {width,height} = Dimensions.get('window');
+        let btnWidth = (width - 13.5*2)/3
+        let scrollViewHeight = height - 44 - 24 - 63
+        let model = this.state.projectModel;
         return(
             <View>
                 <ScrollView style={{width:'100%',backgroundColor:'#eee'}} ref={component=> this._scrollView=component}{...this.props}>
