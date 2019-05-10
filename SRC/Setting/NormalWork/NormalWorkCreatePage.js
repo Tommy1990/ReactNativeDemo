@@ -3,7 +3,7 @@ import {View,TouchableOpacity,Text,Platform,Dimensions,Image,ScrollView,Modal,Te
 import {NavigationEvents} from 'react-navigation'
 import REQUEST_URL from '../../Base/BaseWeb';
 import fehchData from '../../Base/FetchData';
-
+import DatePicker from 'react-native-datepicker';
 export default class NormalWorkCreatePage extends Component{
     static navigationOptions = ({navigation})=>{
         return {
@@ -20,6 +20,8 @@ export default class NormalWorkCreatePage extends Component{
             {idStr:'',title:''},{idStr:'',title:''},{idStr:'',title:''},{idStr:'',title:''},{idStr:'',title:''}],
             showModal1:false,
             showModal2:false,
+            date:(new Date()),
+            typeList:[]
         }
     }
     componentDidMount(){
@@ -70,7 +72,21 @@ export default class NormalWorkCreatePage extends Component{
    }
 
    _pageFouce = ()=>{
+      let workTypeTitle = this.props.navigation.getParam('title','');
+      let workTypeId = this.props.navigation.getParam('idStr','');
+      let typesList = this.props.navigation.getParam('list',[]);
+      let list = this.state.dataList 
+      
+      if (workTypeTitle.length > 0){
+        list[1].title = workTypeTitle
+        list[1].idStr = workTypeId
+        this.setState({
+            typeList:typesList,
+            dataList:list
+        })
+      }
        
+      
    }
     _itemPress = (index)=>{
        
@@ -79,6 +95,17 @@ export default class NormalWorkCreatePage extends Component{
             showModal1:index == 0 ,
             showModal2: index == 9
         })
+        switch (index) {
+
+            case 1:
+            this.props.navigation.navigate('NormalWorkType',{idStr:list[1].idStr,
+                companyId:this.state.companyId,list:this.state.typeList,title:list[1].title})
+            break;
+
+            default:
+            break;
+        }
+
     }
     _hidenModal = ()=>{
         this.setState({
@@ -159,27 +186,63 @@ export default class NormalWorkCreatePage extends Component{
                 <View style={{flexDirection:'row',justifyContent:'space-between',alignItems:'center',
                 borderBottomWidth:1,borderBottomColor:'#eee',paddingBottom:8}}>
                     <Text>项目开始时间</Text>
-                    <TouchableOpacity
-                    onPress={()=> this._itemPress(4)} 
-                    style={{flexDirection:'row',alignItems:'center',justifyContent:'flex-end'}}>
-                    <Text style={{color:list[4].title.length > 0? '#333':'#eee',marginRight:8}}>
-                    {list[4].title.length > 0? list[4].title : '请选择'}
-                    </Text>
+                    <View style={{flexDirection:'row',alignItems:'center',justifyContent:'flex-end'}}>
+                        <DatePicker
+                        style={{width: 100}}
+                        date={this.state.dataList[4].title}
+                        placeholder = '请选择时间'
+                        showIcon={false}
+                        mode="date"
+                        placeholder="select date"
+                        format="YYYY-MM-DD"
+                        minDate="2019-05-01"
+                        maxDate="2019-06-01"
+                        confirmBtnText="确定"
+                        cancelBtnText="取消"
+                        customStyles={{dateInput:{
+                            height:20,borderWidth:0
+                        }}}
+                        onDateChange = {(date)=> {
+                            let list = this.state.dataList
+                            list[4].title = date
+                            this.setState({
+                                dataList:list
+                            })
+                        }}
+                    />
                     <Image source={require('../../../img/arrow_right.png')} 
                     style={{width:6.5,height:12}} resizeMode='contain'/>
-                    </TouchableOpacity>
+                    </View>
                     </View>
                     <View style={{flexDirection:'row',justifyContent:'space-between',alignItems:'center',marginTop:8}}>
                     <Text>项目结束时间</Text>
-                    <TouchableOpacity 
-                    onPress={()=> this._itemPress(5)}
-                    style={{flexDirection:'row',alignItems:'center',justifyContent:'flex-end'}}>
-                    <Text style={{color:list[5].title.length > 0? '#333':'#eee',marginRight:8}}>
-                    {list[5].title.length > 0? list[5].title : '请选择'}
-                    </Text>
+                    <View style={{flexDirection:'row',alignItems:'center',justifyContent:'flex-end'}}>
+                        <DatePicker
+                        style={{width: 100}}
+                        date={this.state.dataList[5].title}
+                        placeholder = '请选择时间'
+                        showIcon={false}
+                        mode="date"
+                        placeholder="select date"
+                        format="YYYY-MM-DD"
+                        minDate="2019-05-01"
+                        maxDate="2019-06-01"
+                        confirmBtnText="确定"
+                        cancelBtnText="取消"
+                        customStyles={{dateInput:{
+                            height:20,borderWidth:0
+                        }}}
+                        onDateChange = {(date)=> {
+                            let list = this.state.dataList
+                            list[5].title = date
+                            this.setState({
+                                dataList:list
+                            })
+                        }}
+                    />
                     <Image source={require('../../../img/arrow_right.png')} 
                     style={{width:6.5,height:12}} resizeMode='contain'/>
-                    </TouchableOpacity>
+                    </View>
                     </View>
                 </BackView>
                 <BackView>
@@ -232,6 +295,22 @@ export default class NormalWorkCreatePage extends Component{
                     </Text>
                     </TouchableOpacity>
                 </BackView>
+                <DatePicker
+                    style={{width: 200}}
+                    date={new Date()}
+                    showIcon={false}
+                    hideText={true}
+                    mode="date"
+                    placeholder="select date"
+                    format="YYYY-MM-DD"
+                    minDate="2019-05-01"
+                    maxDate="2019-06-01"
+                    confirmBtnText="确定"
+                    cancelBtnText="取消"
+                    customStyles={{
+                    }}
+                    onDateChange={(date) => { alert(JSON.stringify(date))}}
+                />
                 </ScrollView>
                 <ModalView show={this.state.showModal1} 
                 close={this._hidenModal} 
@@ -245,6 +324,7 @@ export default class NormalWorkCreatePage extends Component{
                 title='项目描述'
                 callBack = {this._desCallBack}
                 value={this.state.dataList[9].title}/> 
+                
             </View>
         )
     }

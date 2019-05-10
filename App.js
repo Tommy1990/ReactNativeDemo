@@ -28,6 +28,7 @@ import MineMsgPage from './SRC/Mine/MIneMsgPage';
 import MineChangePage from './SRC/Mine/MineChangeCompany';
 import MineSettingPage from './SRC/Mine/MineSettingPage';
 import NormalWorkCreatePage from './SRC/Setting/NormalWork/NormalWorkCreatePage';
+import NormalWorkTypeSelectPage from './SRC/Setting/NormalWork/NormalWorkTypeSelectPage';
 //登录
 
 const LoginNav = createStackNavigator({
@@ -56,6 +57,7 @@ const SettingNav = createStackNavigator({
   NormalSelect:NormalWorkSelectPage,
   NormalDetail:NoramlDetailPage,
   NormalCreate:NormalWorkCreatePage,
+  NormalWorkType:NormalWorkTypeSelectPage,
 })
 HomeNav.navigationOptions = ({navigation}) => {
   let tabBarVisible = true;
