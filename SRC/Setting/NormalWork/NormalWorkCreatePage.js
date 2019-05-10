@@ -1,5 +1,5 @@
 import React,{Component} from 'react';
-import {View,TouchableOpacity,Text,Platform,Dimensions,Image,ScrollView,Modal} from 'react-native';
+import {View,TouchableOpacity,Text,Platform,Dimensions,Image,ScrollView,Modal,TextInput} from 'react-native';
 import {NavigationEvents} from 'react-navigation'
 import REQUEST_URL from '../../Base/BaseWeb';
 import fehchData from '../../Base/FetchData';
@@ -18,7 +18,8 @@ export default class NormalWorkCreatePage extends Component{
             historyPersonModel:null,
             dataList:[{idStr:'',title:''},{idStr:'',title:''},{idStr:'',title:''},{idStr:'',title:''},{idStr:'',title:''},
             {idStr:'',title:''},{idStr:'',title:''},{idStr:'',title:''},{idStr:'',title:''},{idStr:'',title:''}],
-            showModal:false
+            showModal1:false,
+            showModal2:false,
         }
     }
     componentDidMount(){
@@ -75,12 +76,28 @@ export default class NormalWorkCreatePage extends Component{
        
         let list = this.state.dataList;
         this.setState({
-            showModal:true
+            showModal1:index == 0 ,
+            showModal2: index == 9
         })
     }
     _hidenModal = ()=>{
         this.setState({
-            showModal:false
+            showModal1:false,
+            showModal2:false
+        })
+    }
+    _titleCallBack = (value)=>{
+        let list = this.state.dataList;
+        list[0].title = value
+        this.setState({
+            dataList:list
+        })
+    }
+    _desCallBack = (value)=>{
+        let list = this.state.dataList;
+        list[9].title = value
+        this.setState({
+            dataList:list
         })
     }
     render(){
@@ -216,7 +233,18 @@ export default class NormalWorkCreatePage extends Component{
                     </TouchableOpacity>
                 </BackView>
                 </ScrollView>
-                <ModalView show={this.state.showModal} close={this._hidenModal}/> 
+                <ModalView show={this.state.showModal1} 
+                close={this._hidenModal} 
+                limit = {50}
+                title='项目名称'
+                callBack = {this._titleCallBack}
+                value={this.state.dataList[0].title}/> 
+                <ModalView show={this.state.showModal2} 
+                close={this._hidenModal} 
+                limit = {150}
+                title='项目描述'
+                callBack = {this._desCallBack}
+                value={this.state.dataList[9].title}/> 
             </View>
         )
     }
@@ -231,6 +259,18 @@ class BackView extends Component{
     }
 }
 class ModalView extends Component{
+    constructor(props){
+        super(props);
+        this.state={
+            text:''
+        }
+    }
+    _inputTextChanged = (value)=>{
+        this.setState({
+            text:value
+        })
+       
+    }
     render(){
         let {width} = Dimensions.get('window');
         return(<Modal
@@ -238,15 +278,43 @@ class ModalView extends Component{
             visible={this.props.show}
             transparent={true} >
             <View style={{flex:1,backgroundColor:'#33333333',alignItems:'center',justifyContent:'center'}}>
-            <View style={{width:width-45,height:284,borderRadius:10,backgroundColor:'#fff',position:'relative'}}>
+            <View style={{width:width-45,height:284,borderRadius:10,backgroundColor:'#fff',position:'relative',
+            alignItems:'center'}}>
             <TouchableOpacity 
             onPress = {()=> this.props.close()}
             style={{position:'absolute',top:17.5,right:17.5,width:20,height:20}} 
             hitSlop={{left:15,right:15,top:15,bottom:15}}>
             <Image style={{width:10.5,height:10.5}} source={require('../../../img/close.png')} resizeMode='contain'/>
             </TouchableOpacity>
-            <Text style={{color:'#333',marginTop:12}}>项目描述</Text>
-            
+            <Text style={{color:'#333',marginTop:17}}>{this.props.title}</Text>
+            <TextInput
+            multiline = {true}
+            autoFocus = {true}
+            defaultValue={this.props.value}
+            maxLength = {this.props.limit}
+            multiline = {true}
+            value = {this.state.text}
+            onChangeText = {(value)=> this._inputTextChanged(value)}
+            placeholder = '请输入内容'
+            style={{width:'80%',height:160,marginTop:18,borderWidth:0.5,borderColor:'#eee'}}
+            />
+            <View style={{width:'80%',flexDirection:'row',justifyContent:'space-between',alignItems:'center',marginTop:19.5}}>
+            <TouchableOpacity 
+            style={{width:100,height:35,justifyContent:'center',alignItems:'center',borderRadius:10,
+            backgroundColor:'#eee',marginLeft:13.5}}
+            onPress={()=> this.props.close()}>
+            <Text>取消</Text>
+            </TouchableOpacity>
+            <TouchableOpacity 
+            style={{width:100,height:35,justifyContent:'center',alignItems:'center',borderRadius:10,
+            backgroundColor:'#00a056',marginRight:13.5}}
+            onPress={()=> {
+                this.props.callBack(this.state.text);
+                this.props.close()
+            }}>
+            <Text style={{color:'#fff'}}>确定</Text>
+            </TouchableOpacity>
+            </View>
             </View>
             </View>
         </Modal>
