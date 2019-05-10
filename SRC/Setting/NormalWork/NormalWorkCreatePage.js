@@ -9,6 +9,7 @@ export default class NormalWorkCreatePage extends Component{
         return {
             headerTitle:(<Text style={{color:'#333',fontSize:16,fontWeight:'bold'}}>创建项目</Text>),
             headerBackImage:<Image source={require('../../../img/back.png')} style={{width:10,height:17,marginLeft:21.5}}/>,
+            headerBackTitle:null
         }
     }
     constructor(props){
@@ -21,7 +22,8 @@ export default class NormalWorkCreatePage extends Component{
             showModal1:false,
             showModal2:false,
             date:(new Date()),
-            typeList:[]
+            typeList:[],
+            parksList:[],
         }
     }
     componentDidMount(){
@@ -101,7 +103,9 @@ export default class NormalWorkCreatePage extends Component{
             this.props.navigation.navigate('NormalWorkType',{idStr:list[1].idStr,
                 companyId:this.state.companyId,list:this.state.typeList,title:list[1].title})
             break;
-
+            case 2:
+            this.props.navigation.navigate('NormalFarmSelect',{companyId:this.state.companyId,
+                parksList:this.state.parksList,parkStr:'',parkIds:list[2].idStr})
             default:
             break;
         }
