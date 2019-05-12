@@ -30,6 +30,7 @@ import MineSettingPage from './SRC/Mine/MineSettingPage';
 import NormalWorkCreatePage from './SRC/Setting/NormalWork/NormalWorkCreatePage';
 import NormalWorkTypeSelectPage from './SRC/Setting/NormalWork/NormalWorkTypeSelectPage';
 import NormalWorkSelectParkPage from './SRC/Setting/NormalWork/NormalWorkSelectParkPage';
+import NormalWorkSelectMaterialPage from './SRC/Setting/NormalWork/NormalWorkSelectMaterialPage';
 //登录
 
 const LoginNav = createStackNavigator({
@@ -60,6 +61,7 @@ const SettingNav = createStackNavigator({
   NormalCreate:NormalWorkCreatePage,
   NormalWorkType:NormalWorkTypeSelectPage,
   NormalFarmSelect:NormalWorkSelectParkPage,
+  NormalMaterialSelect:NormalWorkSelectMaterialPage,
 })
 HomeNav.navigationOptions = ({navigation}) => {
   let tabBarVisible = true;

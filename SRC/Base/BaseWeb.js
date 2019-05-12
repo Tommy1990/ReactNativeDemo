@@ -53,9 +53,11 @@ export default class REQUEST_URL {
     //get company person list 
     WORK_COMPANY_PERSON_LIST = HOME + 'App/Projects/companyEmployeeList'
     //get farm list
-    WORK_NORMAL_FARMS_LIST  = HOME + 'App/Projects/getPrickListInfo'
+    WORK_NORMAL_FARMS_LIST  = HOME + 'App/Projects/massifList'
     //get work catergory list
     WORK_NORMAL_WORK_TYPE_LIST  = HOME + 'App/Projects/workTypeList'
+    // get materials
+    WORK_NORMAL_MATERIALS = HOME + 'App/Projects/getMaterielList'
 
     //post text Msg
     WORK_NORMAL_PROJECT_MSG_POST    = HOME + 'App/Projects/projectLeavingMessage'

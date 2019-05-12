@@ -10,7 +10,11 @@ export default class BaseDimension {
         return Platform.OS === 'ios' && height > 811 ? 40 : 20
     }
     getScreenHeight(){
-        let {width,height} = Dimensions.get('window');
+        let {height} = Dimensions.get('window');
         return height;
+    }
+    getScreenWidth(){
+        let {width} = Dimensions.get('window');
+        return width;
     }
 }

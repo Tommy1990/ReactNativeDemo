@@ -24,6 +24,7 @@ export default class NormalWorkCreatePage extends Component{
             date:(new Date()),
             typeList:[],
             parksList:[],
+            materialList:[],
         }
     }
     componentDidMount(){
@@ -106,6 +107,11 @@ export default class NormalWorkCreatePage extends Component{
             case 2:
             this.props.navigation.navigate('NormalFarmSelect',{companyId:this.state.companyId,
                 parksList:this.state.parksList,parkStr:'',parkIds:list[2].idStr})
+            break
+            case 3:
+            this.props.navigation.navigate('NormalMaterialSelect',{companyId:this.state.companyId,
+                materialList:this.state.materialList})
+            break;
             default:
             break;
         }
