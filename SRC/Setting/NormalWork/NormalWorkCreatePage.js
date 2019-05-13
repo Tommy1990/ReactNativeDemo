@@ -24,6 +24,7 @@ export default class NormalWorkCreatePage extends Component{
             date:(new Date()),
             typeList:[],
             parksList:[],
+            selectPark:null,
             materialList:[],
         }
     }
@@ -79,16 +80,34 @@ export default class NormalWorkCreatePage extends Component{
       let workTypeId = this.props.navigation.getParam('idStr','');
       let typesList = this.props.navigation.getParam('list',[]);
       let list = this.state.dataList 
-      
-      if (workTypeTitle.length > 0){
-        list[1].title = workTypeTitle
-        list[1].idStr = workTypeId
-        this.setState({
-            typeList:typesList,
-            dataList:list
-        })
-      }
-       
+      list[1].title = workTypeTitle
+      list[1].idStr = workTypeId
+      this.setState({
+          typeList:typesList,
+         
+      })
+
+      let farmIds = this.props.navigation.getParam('farmIds','');
+      let parksList = this.props.navigation.getParam('parksList',[])
+      let selectPark = this.props.navigation.getParam('selectPark',null)
+      let parkStr = this.props.navigation.getParam('parkStr','')
+      list[2].title = parkStr
+      list[2].idStr = farmIds
+      this.setState({
+          parksList:parksList,
+          selectPark:selectPark,
+      })
+      let materialIds = this.props.navigation.getParam('materialIds','')
+      let materialTitle = this.props.navigation.getParam('materialTitle','')
+      let materialList = this.props.navigation.getParam('materialList',[])
+      list[3].title = materialTitle
+      list[3].idStr = materialIds 
+      this.setState({
+          materialList:materialList
+      })
+      this.setState({
+          list:list
+      })
       
    }
     _itemPress = (index)=>{
@@ -106,7 +125,7 @@ export default class NormalWorkCreatePage extends Component{
             break;
             case 2:
             this.props.navigation.navigate('NormalFarmSelect',{companyId:this.state.companyId,
-                parksList:this.state.parksList,parkStr:'',parkIds:list[2].idStr})
+                parksList:this.state.parksList,parkStr:'',farmIds:list[2].idStr,selectPark:this.state.selectPark})
             break
             case 3:
             this.props.navigation.navigate('NormalMaterialSelect',{companyId:this.state.companyId,
@@ -172,7 +191,7 @@ export default class NormalWorkCreatePage extends Component{
                     <TouchableOpacity 
                     onPress={()=> this._itemPress(2)}
                     style={{flexDirection:'row',alignItems:'center',justifyContent:'flex-end'}}>
-                    <Text style={{color:list[2].title.length > 0? '#333':'#eee',marginRight:8}}>
+                    <Text style={{color:list[2].title.length > 0? '#333':'#eee',marginRight:8,width:200,textAlign:'right'}} numberOfLines={99}>
                     {list[2].title.length > 0? list[2].title : '请选择'}
                     </Text>
                     <Image source={require('../../../img/arrow_right.png')} 
@@ -184,7 +203,8 @@ export default class NormalWorkCreatePage extends Component{
                     <TouchableOpacity 
                     onPress={()=> this._itemPress(3)}
                     style={{flexDirection:'row',alignItems:'center',justifyContent:'flex-end'}}>
-                    <Text style={{color:list[3].title.length > 0? '#333':'#eee',marginRight:8}}>
+                    <Text style={{color:list[3].title.length > 0? '#333':'#eee',marginRight:8,width:200,textAlign:'right'}}
+                    numberOfLines={99}>
                     {list[3].title.length > 0? list[3].title : '请选择'}
                     </Text>
                     <Image source={require('../../../img/arrow_right.png')} 

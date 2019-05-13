@@ -1,5 +1,5 @@
 import React,{Component} from 'react';
-import {View,Image,TouchableOpacity,ScrollView,Text} from 'react-native';
+import {View,Image,TouchableOpacity,ScrollView,Text,DeviceEventEmitter} from 'react-native';
 import REQUEST_URL from '../../Base/BaseWeb';
 import fehchData from '../../Base/FetchData';
 import BaseDimension from '../../Base/BaseDimension'
@@ -11,7 +11,7 @@ export default class NormalWorkSelectParkPage extends Component{
             headerRight:(<TouchableOpacity style={{marginRight:21}} 
             hitSlop={{top:20,bottom:20,right:20,left:20}}
             onPress={()=>{
-                navigation.goBack();
+                DeviceEventEmitter.emit('submitSelectFarms');
             }}> 
                 <Image source={require('../../../img/select.png')} style={{width:16.5,height:11.5}} resizeMode='contain'/>
             </TouchableOpacity>)
@@ -25,21 +25,63 @@ export default class NormalWorkSelectParkPage extends Component{
         }
     }
     componentDidMount(){
-        let list = this.props.navigation.getParam('parksList',[]);
+        let parksList = this.props.navigation.getParam('parksList',[]);
         let companyId = this.props.navigation.getParam('companyId','');
-        let selectPark = this.props.navigation.getParam('selectPark',null);
-        if (selectPark !== null){
+        let farmIds = this.props.navigation.getParam('farmIds','')
+        let selectPark = this.props.navigation.getParam('selectPark',null)
+        if (parksList.length > 0){
+            if (selectPark !== null){
+                let farmIdslist = farmIds.split(',')
+                for(i=0;i<selectPark.massifList.length;i++){
+                    let farm = selectPark.massifList[i]
+                    for(j=0;j<farmIdslist.length;j++){
+                        if(farm.id == farmIdslist[j]){
+                            farm.selected = true;
+                            break
+                        }
+                    }
+                }
+                for(i=0;i<parksList.length;i++){
+                    parksList[i].selected = parksList[i].id === selectPark.id
+                }
+            }
             this.setState({
+                list:parksList,
                 selectPark:selectPark
-            });
-        }
-        if (list.length > 0){
-            this.setState({
-                list:list,
             })
-            return
+        }else{
+            this._fetchData(companyId,selectPark);
         }
-        this._fetchData(companyId,selectPark);
+        this.listener = DeviceEventEmitter.addListener('submitSelectFarms',(e)=>{
+            let list = this.state.selectPark.massifList
+            let idStr = ''
+            let parkStr = `${this.state.selectPark.nf_farmName}:\n`
+            for(i=0;i<list.length;i++){
+                if (list[i].selected){
+                    idStr += list[i].id + ','
+                    parkStr += list[i].nf_plotName + ','
+                }
+                if(i == list.length-1){
+                    idStr = idStr.slice(0,idStr.length-1)
+                    parkStr = parkStr.slice(0,parkStr.length-1);
+                }
+            }
+            let parklist = this.state.list
+            for(i=0;i<parklist.length;i++){
+                parklist[i].selected = false;
+                for(j=0;j<parklist[i].massifList.length;j++){
+                    parklist[i].massifList[j].selected = false;
+                }
+            }
+            this.props.navigation.navigate('NormalCreate',{parksList:parklist,farmIds:idStr,parkStr:parkStr,
+                selectPark:this.state.selectPark})
+        })
+    }
+    componentWillUnmount(){
+        if(this.listener){
+            this.listener.remove();
+        }
+        
     }
     _fetchData = (companyId,selectPark)=>{
         let url = new REQUEST_URL();
@@ -77,7 +119,18 @@ export default class NormalWorkSelectParkPage extends Component{
         })
     }
     _farmBtnPress = (model) =>{
-        alert(JSON.stringify(model))
+        model.selected = !model.selected
+        let park = this.state.selectPark
+        for(i=0;i<park.massifList.length;i++){
+            if (park.massifList[i].id == model.id){
+                park.massifList[i].selected = model.selected
+                break
+            }
+        }
+        this.setState({
+            selectPark:park,
+        })
+
     }
     render(){
         let items = []
@@ -104,9 +157,10 @@ export default class NormalWorkSelectParkPage extends Component{
                  let item = (<TouchableOpacity
                  onPress= {()=> this._farmBtnPress(farmModel)}
                   style={{marginLeft:21,height:28,padding:19,paddingTop:5,paddingBottom:5,
-                  borderRadius:14,borderColor:'#00a056',borderWidth:1,marginTop:17}}
+                  borderRadius:14,borderColor:'#00a056',borderWidth:1,marginTop:17,
+                  backgroundColor:farmModel.selected?'#00a056':'#fff'}}
                   key={farmModel.id}>
-                    <Text style={{color:'#00a056'}}>{farmModel.nf_plotName}</Text>
+                    <Text style={{color:farmModel.selected?'#fff':'#00a056'}}>{farmModel.nf_plotName}</Text>
                  </TouchableOpacity>)
                  farms.push(item)
              }

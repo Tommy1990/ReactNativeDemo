@@ -15,7 +15,8 @@ import {DeviceEventEmitter} from 'react-native';
                 fn(res.data,null);
             }else{
                 let error = new Error();
-                if (res.status.code === '4025'){
+
+                if (res.status.code === '4025' || res.status.remind == '登录失效,请重新登录'){
                     DeviceEventEmitter.emit('LOGOUT','');
                 }
                 error.message = res.status.remind;
