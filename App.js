@@ -31,6 +31,7 @@ import NormalWorkCreatePage from './SRC/Setting/NormalWork/NormalWorkCreatePage'
 import NormalWorkTypeSelectPage from './SRC/Setting/NormalWork/NormalWorkTypeSelectPage';
 import NormalWorkSelectParkPage from './SRC/Setting/NormalWork/NormalWorkSelectParkPage';
 import NormalWorkSelectMaterialPage from './SRC/Setting/NormalWork/NormalWorkSelectMaterialPage';
+import NormalWorkPersonpage from './SRC/Setting/NormalWork/NormalWorkPersonPage';
 //登录
 
 const LoginNav = createStackNavigator({
@@ -62,6 +63,7 @@ const SettingNav = createStackNavigator({
   NormalWorkType:NormalWorkTypeSelectPage,
   NormalFarmSelect:NormalWorkSelectParkPage,
   NormalMaterialSelect:NormalWorkSelectMaterialPage,
+  NormalPersonSelect:NormalWorkPersonpage,
 })
 HomeNav.navigationOptions = ({navigation}) => {
   let tabBarVisible = true;

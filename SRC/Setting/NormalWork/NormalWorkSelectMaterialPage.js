@@ -28,6 +28,7 @@ export default class NormalWorkSelectMaterialPage extends Component{
     componentDidMount(){
         let companyId = this.props.navigation.getParam('companyId','')
         let list = this.props.navigation.getParam('materialList',[])
+        
         this.setState({
             companyId:companyId,
             list:list
@@ -45,7 +46,7 @@ export default class NormalWorkSelectMaterialPage extends Component{
                 }
             }
             this.props.navigation.navigate('NormalCreate',
-            {materialList:list,materialIds:idStr,materialTitle:titleStr})
+            {materialList:list,materialIds:idStr,materialTitle:titleStr,index:3})
         })
     }
     componentWillMount(){

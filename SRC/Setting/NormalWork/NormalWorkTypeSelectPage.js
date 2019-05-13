@@ -54,7 +54,8 @@ export default class NormalWorkTypeSelectPage extends Component{
                temp.childList[j].selected = temp.childList[j].id == model.id
            }
        } 
-       this.props.navigation.navigate('NormalCreate',{list:list,idStr:model.id,title:model.nf_workTypeName})
+       this.props.navigation.navigate('NormalCreate',{list:list,idStr:model.id,index:1,
+        title:model.nf_workTypeName})
     }
     render(){
         let screen = new BaseDimension()

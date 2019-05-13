@@ -1,9 +1,11 @@
 import React,{Component} from 'react';
-import {View,TouchableOpacity,Text,Platform,Dimensions,Image,ScrollView,Modal,TextInput} from 'react-native';
+import {View,TouchableOpacity,Text,Dimensions,Image,ScrollView,Modal,TextInput,KeyboardAvoidingView} from 'react-native';
 import {NavigationEvents} from 'react-navigation'
 import REQUEST_URL from '../../Base/BaseWeb';
 import fehchData from '../../Base/FetchData';
 import DatePicker from 'react-native-datepicker';
+import DateModel from '../../Base/DateModel';
+import UserModel from '../../Base/UserModel';
 export default class NormalWorkCreatePage extends Component{
     static navigationOptions = ({navigation})=>{
         return {
@@ -26,6 +28,7 @@ export default class NormalWorkCreatePage extends Component{
             parksList:[],
             selectPark:null,
             materialList:[],
+            personlist:[]
         }
     }
     componentDidMount(){
@@ -76,35 +79,63 @@ export default class NormalWorkCreatePage extends Component{
    }
 
    _pageFouce = ()=>{
-      let workTypeTitle = this.props.navigation.getParam('title','');
-      let workTypeId = this.props.navigation.getParam('idStr','');
-      let typesList = this.props.navigation.getParam('list',[]);
-      let list = this.state.dataList 
-      list[1].title = workTypeTitle
-      list[1].idStr = workTypeId
-      this.setState({
-          typeList:typesList,
-         
-      })
+        let list = this.state.dataList 
+        let nav = this.props.navigation;
+        let index = nav.getParam('index',0)
+        if (index ==1){
+            let workTypeTitle = nav.getParam('title','');
+            let workTypeId = nav.getParam('idStr','');
+            let typesList = nav.getParam('list',[]);
+            list[1].title = workTypeTitle
+            list[1].idStr = workTypeId
+            this.setState({
+                typeList:typesList,
+            })
+        }
+        if(index == 2){
+            let farmIds = nav.getParam('farmIds','');
+            let parksList = nav.getParam('parksList',[])
+            let selectPark = nav.getParam('selectPark',null)
+            let parkStr = nav.getParam('parkStr','')
+            list[2].title = parkStr
+            list[2].idStr = farmIds
 
-      let farmIds = this.props.navigation.getParam('farmIds','');
-      let parksList = this.props.navigation.getParam('parksList',[])
-      let selectPark = this.props.navigation.getParam('selectPark',null)
-      let parkStr = this.props.navigation.getParam('parkStr','')
-      list[2].title = parkStr
-      list[2].idStr = farmIds
-      this.setState({
-          parksList:parksList,
-          selectPark:selectPark,
-      })
-      let materialIds = this.props.navigation.getParam('materialIds','')
-      let materialTitle = this.props.navigation.getParam('materialTitle','')
-      let materialList = this.props.navigation.getParam('materialList',[])
-      list[3].title = materialTitle
-      list[3].idStr = materialIds 
-      this.setState({
-          materialList:materialList
-      })
+            this.setState({
+                selectPark:selectPark,
+                parksList:parksList,
+            })
+        }
+      
+        if(index == 3){
+            let materialIds = nav.getParam('materialIds','')
+            let materialTitle = nav.getParam('materialTitle','')
+            let materialList = nav.getParam('materialList',[])
+            list[3].title = materialTitle
+            list[3].idStr = materialIds 
+            this.setState({
+                materialList:materialList,
+            })
+        }
+      
+        if(index > 5){
+            let personlist = nav.getParam('personList',[]);
+            let participteIds = nav.getParam('participteIds','');
+            let participteStr = nav.getParam('participteStr','');
+            let ccIds = nav.getParam('ccIds','');
+            let ccStr = nav.getParam('ccStr','');
+            let auditId = nav.getParam('auditId','');
+            let auditStr = nav.getParam('auditStr','')
+            list[6].idStr = participteIds
+            list[6].title = participteStr
+            list[7].idStr = ccIds
+            list[7].title = ccStr
+            list[8].idStr = auditId
+            list[8].title = auditStr
+            this.setState({
+                personlist:personlist,
+            })
+        }
+      
       this.setState({
           list:list
       })
@@ -118,18 +149,24 @@ export default class NormalWorkCreatePage extends Component{
             showModal2: index == 9
         })
         switch (index) {
-
             case 1:
-            this.props.navigation.navigate('NormalWorkType',{idStr:list[1].idStr,
+            this.props.navigation.navigate('NormalWorkType',{idStr:list[1].idStr,index:1,
                 companyId:this.state.companyId,list:this.state.typeList,title:list[1].title})
             break;
             case 2:
-            this.props.navigation.navigate('NormalFarmSelect',{companyId:this.state.companyId,
+            this.props.navigation.navigate('NormalFarmSelect',{companyId:this.state.companyId,index:2,
                 parksList:this.state.parksList,parkStr:'',farmIds:list[2].idStr,selectPark:this.state.selectPark})
             break
             case 3:
-            this.props.navigation.navigate('NormalMaterialSelect',{companyId:this.state.companyId,
+            this.props.navigation.navigate('NormalMaterialSelect',{companyId:this.state.companyId,index:3,
                 materialList:this.state.materialList})
+            break;
+            case 6:
+            case 7:
+            case 8:
+            this.props.navigation.navigate('NormalPersonSelect',{personlist:this.state.personlist,
+                participteIds:list[6].idStr,ccIds:list[7].idStr,auditId:list[8].idStr,index:index,
+                companyId:this.state.companyId});
             break;
             default:
             break;
@@ -191,7 +228,7 @@ export default class NormalWorkCreatePage extends Component{
                     <TouchableOpacity 
                     onPress={()=> this._itemPress(2)}
                     style={{flexDirection:'row',alignItems:'center',justifyContent:'flex-end'}}>
-                    <Text style={{color:list[2].title.length > 0? '#333':'#eee',marginRight:8,width:200,textAlign:'right'}} numberOfLines={99}>
+                    <Text style={{color:list[2].title.length > 0? '#333':'#eee',marginRight:8,maxWidth:200,textAlign:'right'}} numberOfLines={99}>
                     {list[2].title.length > 0? list[2].title : '请选择'}
                     </Text>
                     <Image source={require('../../../img/arrow_right.png')} 
@@ -203,7 +240,7 @@ export default class NormalWorkCreatePage extends Component{
                     <TouchableOpacity 
                     onPress={()=> this._itemPress(3)}
                     style={{flexDirection:'row',alignItems:'center',justifyContent:'flex-end'}}>
-                    <Text style={{color:list[3].title.length > 0? '#333':'#eee',marginRight:8,width:200,textAlign:'right'}}
+                    <Text style={{color:list[3].title.length > 0? '#333':'#eee',marginRight:8,maxWidth:200,textAlign:'right'}}
                     numberOfLines={99}>
                     {list[3].title.length > 0? list[3].title : '请选择'}
                     </Text>
@@ -224,9 +261,8 @@ export default class NormalWorkCreatePage extends Component{
                         showIcon={false}
                         mode="date"
                         placeholder="select date"
-                        format="YYYY-MM-DD"
-                        minDate="2019-05-01"
-                        maxDate="2019-06-01"
+                        format="YYYY-MM-DD"   
+                        maxDate={this.state.dataList[5].title}
                         confirmBtnText="确定"
                         cancelBtnText="取消"
                         customStyles={{dateInput:{
@@ -255,8 +291,7 @@ export default class NormalWorkCreatePage extends Component{
                         mode="date"
                         placeholder="select date"
                         format="YYYY-MM-DD"
-                        minDate="2019-05-01"
-                        maxDate="2019-06-01"
+                        minDate={this.state.dataList[4].title}
                         confirmBtnText="确定"
                         cancelBtnText="取消"
                         customStyles={{dateInput:{
@@ -282,7 +317,7 @@ export default class NormalWorkCreatePage extends Component{
                     <TouchableOpacity 
                     onPress={()=> this._itemPress(6)}
                     style={{flexDirection:'row',alignItems:'center',justifyContent:'flex-end'}}>
-                    <Text style={{color:list[6].title.length > 0? '#333':'#eee',marginRight:8}}>
+                    <Text style={{color:list[6].title.length > 0? '#333':'#eee',marginRight:8,maxWidth:200}}>
                     {list[6].title.length > 0? list[6].title : '请选择'}
                     </Text>
                     <Image source={require('../../../img/arrow_right.png')} 
@@ -295,7 +330,7 @@ export default class NormalWorkCreatePage extends Component{
                     <TouchableOpacity 
                     onPress={()=> this._itemPress(7)}
                     style={{flexDirection:'row',alignItems:'center',justifyContent:'flex-end'}}>
-                   <Text style={{color:list[7].title.length > 0? '#333':'#eee',marginRight:8}}>
+                   <Text style={{color:list[7].title.length > 0? '#333':'#eee',marginRight:8,maxWidth:200}}>
                     {list[7].title.length > 0? list[7].title : '请选择'}
                     </Text>
                     <Image source={require('../../../img/arrow_right.png')} 
@@ -307,7 +342,7 @@ export default class NormalWorkCreatePage extends Component{
                     <TouchableOpacity 
                     onPress={()=> this._itemPress(8)}
                     style={{flexDirection:'row',alignItems:'center',justifyContent:'flex-end'}}>
-                    <Text style={{color:list[8].title.length > 0? '#333':'#eee',marginRight:8}}>
+                    <Text style={{color:list[8].title.length > 0? '#333':'#eee',marginRight:8,maxWidth:200}}>
                     {list[8].title.length > 0? list[8].title : '请选择'}
                     </Text>
                     <Image source={require('../../../img/arrow_right.png')} 
@@ -342,6 +377,12 @@ export default class NormalWorkCreatePage extends Component{
                     onDateChange={(date) => { alert(JSON.stringify(date))}}
                 />
                 </ScrollView>
+                <TouchableOpacity 
+                onPress = {()=> this._submit()}
+                style={{width:'100%',height:50,backgroundColor:'#00a056',
+                position:'absolute',bottom:10,left:0,justifyContent:'center',alignItems:'center'}}>
+                <Text style={{color:'#fff'}}>确认</Text>
+                </TouchableOpacity>
                 <ModalView show={this.state.showModal1} 
                 close={this._hidenModal} 
                 limit = {50}
@@ -354,9 +395,59 @@ export default class NormalWorkCreatePage extends Component{
                 title='项目描述'
                 callBack = {this._desCallBack}
                 value={this.state.dataList[9].title}/> 
-                
             </View>
         )
+    }
+    _submit = async()=>{
+        let list = this.state.dataList;
+        let errorMsg = ''
+        if (list[0].title.length == 0){
+            errorMsg = '项目名称不能为空'
+        } else if(list[1].idStr.length == 0){
+            errorMsg = '项目类型不能为空'
+        } else if (list[2].idStr.length == 0){
+            errorMsg = '工作地块不能为空'
+        } else if (list[4].title.length == 0){
+            errorMsg = '项目开始时间不能为空'
+        }else if (list[5].title.length == 0){
+            errorMsg = '项目结束时间不能为空'
+        }else if (list[8].idStr.length == 0){
+            errorMsg = '审批人不能为空'
+        }else if (list[9].title.length == 0){
+            errorMsg = '项目描述不能为空'
+        }
+
+        if(errorMsg.length !== 0){
+            alert(errorMsg)
+            return
+        }
+        let model = new UserModel()
+        let userid = await model.getUserID()
+        let date = new DateModel()
+        let startTime = date.getTimeSmaple(list[4].title)
+        let endTime = date.getTimeSmaple(list[5].title) + 24*3600 -1
+        let para = {
+            nf_companyId:this.state.companyId,
+            nf_proName:list[0].title,
+            nf_workTypeId:list[1].idStr,
+            nf_parkId:this.state.selectPark.id,
+            nf_plotId:list[2].idStr,
+            nf_materielId:list[3].idStr,
+            nf_beginTime:startTime,
+            nf_endTime:endTime,
+            nf_joinUserId:list[6].idStr + userid,
+            nf_sendUserId:list[7].idStr,
+            nf_auditUserId:list[8].idStr,
+            nf_note:list[9].title
+        }
+        let url = new REQUEST_URL()
+        fehchData(url.WORK_NORMAL_CREATE_PROJECT,para,(respond,err)=>{
+            if(err !== null){
+                alert(err.message)
+            }else{
+                this.props.navigation.goBack();
+            }
+        })
     }
 }
 
@@ -372,7 +463,7 @@ class ModalView extends Component{
     constructor(props){
         super(props);
         this.state={
-            text:''
+            text:'',behavior:'padding'
         }
     }
     _inputTextChanged = (value)=>{
@@ -387,7 +478,7 @@ class ModalView extends Component{
             animationType='slide'
             visible={this.props.show}
             transparent={true} >
-            <View style={{flex:1,backgroundColor:'#33333333',alignItems:'center',justifyContent:'center'}}>
+            <KeyboardAvoidingView behavior={this.state.behavior} style={{flex:1,backgroundColor:'#33333333',alignItems:'center',justifyContent:'center'}}>
             <View style={{width:width-45,height:284,borderRadius:10,backgroundColor:'#fff',position:'relative',
             alignItems:'center'}}>
             <TouchableOpacity 
@@ -426,7 +517,7 @@ class ModalView extends Component{
             </TouchableOpacity>
             </View>
             </View>
-            </View>
+            </KeyboardAvoidingView>
         </Modal>
         )
     }

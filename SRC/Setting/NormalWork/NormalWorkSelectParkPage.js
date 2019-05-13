@@ -74,7 +74,7 @@ export default class NormalWorkSelectParkPage extends Component{
                 }
             }
             this.props.navigation.navigate('NormalCreate',{parksList:parklist,farmIds:idStr,parkStr:parkStr,
-                selectPark:this.state.selectPark})
+                selectPark:this.state.selectPark,index:2})
         })
     }
     componentWillUnmount(){

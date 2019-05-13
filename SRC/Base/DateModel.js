@@ -20,5 +20,8 @@ export default class DateModel {
         let hms = time.toJSON().slice(11,19)
         return YMD + ' '+ hms; 
     }
-    
+    getTimeSmaple(str){
+        let time = new Date(str);
+        return time.getTime()/1000 + 3600*8
+    }
 }
