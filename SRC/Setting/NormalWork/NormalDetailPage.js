@@ -1,6 +1,6 @@
 import React,{Component} from 'react';
-import {SafeAreaView,View,ScrollView,Slider,TouchableOpacity,Text,Image,DeviceEventEmitter,Animated,Dimensions,TextInput,
-NativeModules} from 'react-native';
+import {SafeAreaView,View,ScrollView,TouchableOpacity,Text,Image,DeviceEventEmitter,
+    Animated,Dimensions,TextInput,NativeModules} from 'react-native';
 import REQUEST_URL from '../../Base/BaseWeb';
 import fehchData from '../../Base/FetchData';
 import UserModel from '../../Base/UserModel';
@@ -10,6 +10,8 @@ import ProjectDetailView from './View/ProjectDetailView';
 import ProjectDailyView from './View/ProjectDailyView';
 import ProjectMsgView from './View/ProjectMsgView';
 import UploadFile from '../../Base/UpLoadFile';
+import Modal from 'react-native-modal'
+import BaseDimension from '../../Base/BaseDimension';
 const manager = NativeModules.Manager;
 export default class NoramlDetailPage extends Component{
     static navigationOptions = ({navigation}) => {
@@ -35,6 +37,10 @@ export default class NoramlDetailPage extends Component{
             msgCurrentPage:1,
             msgList:[],
             showOperation:false,
+            isParticipate:false,
+            isAuditing:false,
+            showModal1:false,
+            showModal2:false,
         }
     }
     componentDidMount(){
@@ -158,16 +164,19 @@ export default class NoramlDetailPage extends Component{
         this._fetchDailyData(projectId);
         this._fetchMSGData(projectId);
     }
-    _setStatue = (model)=>{
+    _setStatue = async(model)=>{
+        let usermodel= new UserModel();
+        let userid = await usermodel.getUserID();
         let creatId = model.nf_createUserId.id;
-        let isParticipate = false
+        let isParticipate = false 
+        let isAuditing = (model.nf_auditUserId[0].id == userid) && (model.nf_proStatus == '0' || model.nf_proStatus == '1001')
         for (i=0;i< model.nf_joinUserId.length;i++){
             if (model.nf_joinUserId[i].id == this.state.userid){
                 isParticipate = true
                 break;
             }
         }
-        alert(isParticipate)
+        isParticipate = isParticipate || creatId == this.state.userid
         if ((creatId == this.state.userid)&&(model.nf_proStatus == '1')){
             DeviceEventEmitter.emit('showEdit',true)
             DeviceEventEmitter.emit('showOperationView',true && this.state.selectBtn < 2)
@@ -176,11 +185,16 @@ export default class NoramlDetailPage extends Component{
             })
         }else{
             DeviceEventEmitter.emit('showEdit',false) 
-            DeviceEventEmitter.emit('showOperationView',isParticipate && this.state.selectBtn < 2)
+            DeviceEventEmitter.emit('showOperationView',(isParticipate || isAuditing) && this.state.selectBtn < 2)
             this.setState({
-                showOperation: creatId == this.state.userid || isParticipate
+                showOperation: isParticipate || isAuditing
             })
         }
+        this.setState({
+            isAuditing:isAuditing,
+            isParticipate:isParticipate ,
+        })
+        
     }
     render(){
         if (this.state.projectModel === null){
@@ -245,7 +259,11 @@ export default class NoramlDetailPage extends Component{
                 </ScrollView>
                 <BottomMsgView style={{position:'absolute',bottom:0,leading:0,width:width,height:70}}
                 submit={this._submitMsg} ></BottomMsgView>
-                <BottomOperationView style={{position:'absolute',bottom:0,leading:0,width:width,height:50}}/>
+                <BottomOperationView 
+                operationPress = {this._operationPress}
+                isAuditing={this.state.isAuditing}
+                isParticipate = {this.state.isParticipate}
+                style={{position:'absolute',bottom:10,leading:0,width:width,height:50}}/>
                 <View style = {{position:'absolute',right:11.5,bottom:226.5,
                          width:52,height:52,borderRadius:26,backgroundColor:'#00a056'}}>
                      <TouchableOpacity style={{flex:1,alignItems:'center',justifyContent:'center'}}
@@ -254,9 +272,55 @@ export default class NoramlDetailPage extends Component{
                     <Image source={require('../../../img/voice_btn.png')} style={{width:20,height:26}} resizeMode='contain'/>
                     </TouchableOpacity>
                 </View>
-                
+                <ModalAuditing hiddenModal={this._modalHidden} 
+                show = {this.state.showModal1}
+                 submitPress = {this._disapproved}
+                 pass = {false}/>
+                <ModalAuditing hiddenModal={this._modalHidden} 
+                show = {this.state.showModal2} 
+                submitPress = {this._approved}
+                pass = {true}/>
             </View>
         )
+    }
+    _disapproved = (text)=>{
+        let base = new REQUEST_URL()
+        let para = {id:this.state.projectId,remark:text,status:0}
+        let url = this.state.projectModel.nf_proStatus == 0 ? base.WORK_NORMAL_AUDIT_CREATE : base.WORK_NORMAL_AUDIT_UPDATE 
+        fehchData(url,para,(respond,err)=>{
+            if(err !== null){
+                alert(err.message)
+            }else{
+                this._setData()
+            }
+        })
+    }
+    _approved = ()=>{
+        let base = new REQUEST_URL()
+        let para = {id:this.state.projectId,remark:'',status:1}
+        let url = this.state.projectModel.nf_proStatus == 0 ? base.WORK_NORMAL_AUDIT_CREATE : base.WORK_NORMAL_AUDIT_UPDATE 
+        fehchData(url,para,(respond,err)=>{
+            if(err !== null){
+                alert(err.message)
+            }else{
+                this._setData()
+            }
+        })
+    }
+    _modalHidden = ()=>{
+        this.setState({
+            showModal1: false,
+            showModal2: false
+        })
+    }
+    _operationPress = (index)=>{
+        this.setState({
+            showModal1: index == 1 ,
+            showModal2: index == 2
+        })
+        if(index == 3){
+            this.props.navigation.navigate('NOrmalDailyCreate',{projectId:this.state.projectId})
+        }
     }
     _MSGRefreshing = async()=>{
         
@@ -384,7 +448,8 @@ class HeaderRightAnimatedView extends Component{
     }
     _animate = ()=>{
         Animated.timing(
-            this.state.fadeAnimate,{
+            this.state.fadeAnimate,
+            {
                 toValue:76, 
                 duration:1000,
             }
@@ -454,14 +519,17 @@ class BottomMsgView extends Component{
     }
     
     _showView = ()=>{
-        Animated.timing(this.state.height,this.setState({
-            height:70
-        }),1000);
+       
+        Animated.timing(this.state.height,{
+            toValue:70,
+            duration:100
+        }).start()
     }
     _hideView = ()=>{
-        Animated.timing(this.state.height,this.setState({
-            height:0
-        }),1000);     
+        Animated.timing(this.state.height,{
+            toValue:0,
+            duration:100,
+        }).start();
     }
     _valueChanged = (value)=>{
         if (value.length > 5){
@@ -521,26 +589,144 @@ class BottomOperationView extends Component{
         this.listener.remove();
     }
     _showView = ()=>{
-        Animated.timing(this.state.height,this.setState({
-            height:49.5
-        }),1000);
+        Animated.timing(this.state.height,{
+            toValue:49.5,
+            duration:100,
+        }).start();
     }
     _hideView = ()=>{
-        Animated.timing(this.state.height,this.setState({
-            height:0
-        }),1000);     
+        Animated.timing(this.state.height,{
+            toValue:0,
+            duration:100,
+        }).start();
     }
     
     render(){
-
-        let item = (<View style={{flex:1,backgroundColor:'#00a056'}}>
-
-        </View>)
-
+        let isAuditing = this.props.isAuditing
+        let isParticipate = this.props.isParticipate
+        let item = <View></View>
+        if(isAuditing){
+            item = (<View style={{flex:1,flexDirection:'row',backgroundColor:'#fff'}}>
+            <TouchableOpacity 
+            onPress={()=> this.props.operationPress(1)}
+            style={{height:49.5,width:'34%',alignItems:'center',justifyContent:'center'}}>
+                <Text style={{color:'#555',fontSize:18}}>不通过</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+            onPress = {()=> this.props.operationPress(2)}
+            style={{height:49.5,width:'66%',alignItems:'center',justifyContent:'center',
+            backgroundColor:'#00c067'}}>
+                <Text style={{color:'#fff',fontSize:18}}>通过</Text>
+            </TouchableOpacity>
+            </View>)
+        }else if(isParticipate){
+            item = (<View style={{flex:1,flexDirection:'row',backgroundColor:'#fff'}}>
+            <TouchableOpacity
+            onPress={()=> this.props.operationPress(3)}
+            style={{height:49.5,width:'100%',alignItems:'center',justifyContent:'center',
+            backgroundColor:'#00c067'}}>
+                <Text style={{color:'#fff',fontSize:18}}>写日志</Text>
+            </TouchableOpacity>
+            </View>)
+        }
+        
         return(
-            <Animated.ScrollView style={{...this.props.style,height:this.state.height}}>
+            <Animated.ScrollView style={{...this.props.style,height:this.state.height,backgroundColor:isParticipate || isAuditing ?  '#fff' : '#0000'}}>
             {item}
             </Animated.ScrollView>
         )
+    }
+}
+class ModalAuditing extends Component{
+    constructor(props){
+        super(props);
+        this.state = {
+            text:''
+        }
+    }
+    _valueChanged = (text)=>{
+        this.setState({
+            text:text,
+        })
+    }
+    _modalHidden = ()=>{
+        if(this._textInput){
+            this._textInput.clear()
+        }
+        this.props.hiddenModal()
+        
+    }
+    _submitPress = ()=>{
+        let text = this.state.text
+        this.props.submitPress(text)
+        this._modalHidden();
+    }
+    render(){
+        let screen = new BaseDimension()
+        let width = screen.getScreenWidth()
+        let item = <View></View>
+        if(this.props.pass){
+            item = (<View style={{width:'100%',height:186.5,position:'relative',alignItems:'center'}}>
+                <TouchableOpacity 
+                onPress = {()=> this.props.hiddenModal()}
+                hitSlop={{left:10,top:10,right:10,bottom:10}}
+                style={{width:10.5,height:10.5,position:'absolute',top:15,right:15}}>
+                <Image source={require('../../../img/close.png')} style={{width:10.5,height:10.5}} resizeMode='contain'/>
+                </TouchableOpacity>
+                <Text style={{fontSize:18,marginTop:48}}>是否确认项目审核通过?</Text>
+                <View style={{width:width-123,flexDirection:'row',justifyContent:'space-between',marginTop:44}}>
+                    <TouchableOpacity 
+                    onPress = {()=> this.props.hiddenModal()}
+                    style={{width:100,height:35,borderRadius:10,backgroundColor:'#ededed',alignItems:'center',justifyContent:'center'}}>
+                        <Text>取消</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity 
+                    onPress = {()=> {
+                        this.props.submitPress();
+                        this.props.hiddenModal();
+                    }}
+                    style={{width:100,height:35,borderRadius:10,backgroundColor:'#00c055',alignItems:'center',justifyContent:'center'}}>
+                        <Text style={{color:'#fff'}}>确认</Text>
+                    </TouchableOpacity>
+                </View>
+            </View>)
+        }else{
+            item = (<View style={{width:'100%',height:283,position:'relative',alignItems:'center'}}>
+                <TouchableOpacity 
+                onPress = {()=> this._modalHidden()}
+                hitSlop={{left:10,top:10,right:10,bottom:10}}
+                style={{width:10.5,height:10.5,position:'absolute',top:15,right:15}}>
+                <Image source={require('../../../img/close.png')} style={{width:10.5,height:10.5}} resizeMode='contain'/>
+                </TouchableOpacity>
+                <Text style={{fontSize:16,marginTop:17.5}}>不通过原因</Text>
+                <TextInput
+                ref = {component => this._textInput = component}{...this.props}
+                style={{padding:8,height:160,borderRadius:3,borderWidth:0.5,borderColor:'#c8c8c8',
+                width:width-96,marginTop:18,textAlignVertical:'top'}}
+                onChangeText = {(value)=> this._valueChanged(value)}
+                multiline = {true}
+                maxLength = {150}
+                numberOfLines = {99}
+                placeholder="请输入不通过原因"
+                />
+                <View style={{width:width-123,flexDirection:'row',justifyContent:'space-between',marginTop:20}}>
+                    <TouchableOpacity 
+                    onPress = {()=> this._modalHidden()}
+                    style={{width:100,height:35,borderRadius:10,backgroundColor:'#ededed',alignItems:'center',justifyContent:'center'}}>
+                        <Text>取消</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity 
+                    onPress = {()=> this._submitPress()}
+                    style={{width:100,height:35,borderRadius:10,backgroundColor:'#00c055',alignItems:'center',justifyContent:'center'}}>
+                        <Text style={{color:'#fff'}}>确认</Text>
+                    </TouchableOpacity>
+                </View>
+            </View>)
+        }
+        return(<Modal isVisible={this.props.show} onBackdropPress = {()=> this.props.hiddenModal()}>
+            <View style={{width:width-42,borderRadius:10,backgroundColor:'#fff'}}>
+                {item}
+            </View>
+        </Modal>)
     }
 }

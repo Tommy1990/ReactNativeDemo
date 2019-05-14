@@ -60,6 +60,10 @@ export default class REQUEST_URL {
     WORK_NORMAL_MATERIALS = HOME + 'App/Projects/getMaterielList'
     //create project
     WORK_NORMAL_CREATE_PROJECT  = HOME + 'App/Projects/addProject'
+    // create auditing
+    WORK_NORMAL_AUDIT_CREATE    = HOME + 'App/Projects/projectCreateAuditing'
+    //update auditing 
+    WORK_NORMAL_AUDIT_UPDATE    = HOME + 'App/Projects/projectUpdateAuditing'
 
     //post text Msg
     WORK_NORMAL_PROJECT_MSG_POST    = HOME + 'App/Projects/projectLeavingMessage'

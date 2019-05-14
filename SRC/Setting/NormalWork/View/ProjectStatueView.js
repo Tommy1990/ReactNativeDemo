@@ -115,9 +115,10 @@ class MoveView extends Component{
     }
 
     _animated = (toValue) =>{
-        Animated.timing(this.state.value,this.setState({
-            value:toValue
-        }),1000)
+        Animated.timing(this.state.value,{
+            toValue:toValue,
+            duration:1000,
+        }).start();
     }
     componentDidMount(){
         this.listener = DeviceEventEmitter.addListener('sliderMove',(e)=>{
