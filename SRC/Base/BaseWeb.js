@@ -41,7 +41,7 @@ export default class REQUEST_URL {
     PARK_VIDEO_EZ_CLEAN_POINT = 'https://open.ys7.com/api/lapp/device/preset/clear'
 
     //get normal project list
-    WORK_NORMAL_PROJECT_LIST =  HOME + 'App/Generalitems/projectList'
+    WORK_NORMAL_PROJECT_LIST =  HOME + 'App/Projects/projectList'
     //get normal project detail
     WORK_NORMAL_PROJECT_DETAIL  = HOME + 'App/Projects/selectProjectInfo'
     //get normal project daily data

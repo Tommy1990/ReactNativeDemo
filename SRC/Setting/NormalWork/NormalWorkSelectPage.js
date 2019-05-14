@@ -33,6 +33,7 @@ export default class NormalWorkSelectPage extends Component{
         let proRelationArr = this.props.navigation.getParam('proRelationStr','').split(',');
         let parksArr = this.props.navigation.getParam('parksStr','').split(',');
         let timeArr = this.props.navigation.getParam('timeStr','').split(',');
+        
         proStatusList = [
             {title:'待审核',id:'0',isSelected:false},{title:'进行中',id:'1',isSelected:false},
             {title:'修改待审核',id:'4',isSelected:false},{title:'已逾期',id:'1002',isSelected:false},

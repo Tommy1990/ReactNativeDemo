@@ -6,6 +6,7 @@ import REQUEST_URL from '../../Base/BaseWeb';
 import fehchData from '../../Base/FetchData';
 import { NavigationEvents } from 'react-navigation';
 import CompanyListView from './View/ComapnyListView'
+
 export default class NormalWorkPage extends Component{
    
     static navigationOptions = ({navigation}) => { 
@@ -30,36 +31,38 @@ export default class NormalWorkPage extends Component{
             proStatus:'',
             userid:'',
             proRelation:'',
-            creatId:'',
-            paticiptatedId:'',
-            copyId:'',
-            approvalId:'',
             parksStr:'',
             nf_type:'',
             time:'',
             titleCondition:'all',
             page:1,
-            titlemodel:null,
             prolist:[],
             totalPage:1,
             currentPage:1,
+            proRelationStr:'',
+            titleModellist:[{number:'99+',selected:true,id:'all',title:'全部',color:'#24a0ea'},
+            {number:'99+',selected:false,id:'1,4',title:'进行中',color:'#01b211'},
+            {number:'99+',selected:false,id:'0,3',title:'待审核',color:'#f5a623'},
+            {number:'99+',selected:false,id:'1002',title:'已逾期',color:'#e43535'}]
         }
     }
-    _pageFouce = ()=>{
+    _pageFouce = async()=>{
         let changed = this.props.navigation.getParam('changed',false)
         if (!changed){return}
         let proStatusStr = this.props.navigation.getParam('proStatusStr','')
         let proRelationStr = this.props.navigation.getParam('proRelationStr','')
         let parksStr = this.props.navigation.getParam('parksStr','')
         let timeStr = this.props.navigation.getParam('timeStr','')
-        this.setState({
+       
+        await this.setState({
             proStatus:proStatusStr,
-            proRelation:proRelationStr,
+            proRelationStr:proRelationStr,
             parksStr:parksStr,
             time:timeStr,
-            titleCondition:'all',
-           
-        })
+            titleCondition:'all'
+        });
+        this._btnChange(this.state.titleModellist[0])
+        this._fetchListData();
     }
     componentDidMount(){
          
@@ -97,62 +100,66 @@ export default class NormalWorkPage extends Component{
         await this._fetchListData();
     }
    _fetchListData = async()=>{
-       let arr = this.state.proRelation.split(',');
-       for (i=0;i< arr.length;i++){
-            let str = arr[i];
-            switch (str) {
-                case '0':
-                    this.setState({
-                        createId:this.state.userid
-                    })
-                    break;
-                case '1':
-                    this.setState({
-                        participateId:this.state.userid
-                    })
-                    break;
-                case '2':
-                    this.setState({
-                        copyId:this.state.userid
-                    })
-                    break;
-                case '3':
-                    this.setState({
-                        approvalId:this.state.userid
-                    })
-                    break;
-                default:
-                    break;
-            }
-       }
+    let arr = this.state.proRelationStr.split(','); 
+    let createId = ''
+    let participateId = ''
+    let copyId = ''
+    let approvalId = ''      
+    for (i=0;i< arr.length;i++){
+         let str = arr[i];
+         switch (str) {
+             case '0':
+                createId = this.state.userid
+                 break;
+             case '1':
+                participateId = this.state.userid
+                 break;
+             case '2':
+                copyId = this.state.userid
+                 break;
+             case '3':
+                approvalId =this.state.userid
+                 break;
+             default:
+                 break;
+         }
+    }
+    // alert(this.state.currentPage)
         let param = {
             nf_companyId:this.state.selectCompany.id,
             nf_proStatus:this.state.proStatus,
-            createId:this.state.creatId,
-            participateId:this.state.paticiptatedId,
-            copyId:this.state.copyId,
-            approvalId:this.state.approvalId,
+            createId:createId,
+            participateId:participateId,
+            copyId:copyId,
+            approvalId:approvalId,
             limit:'20',
             pickId:this.state.parksStr,
             nf_type:this.state.nf_type,
             time:this.state.time,
             titleCondition:this.state.titleCondition,
-            page:`${this.state.currentPage}`,
+            page:this.state.currentPage,
         }
+        // alert(JSON.stringify(param))
         let url = new REQUEST_URL();
         fehchData(url.WORK_NORMAL_PROJECT_LIST,param,(respond,error) => {
             if(error !== null){
                 alert(error.message);
             }else{
-                let list = this.state.list;
+                let list = this.state.titleModellist;
+                let titlemodel = respond.projectNum;
+                list[0].number = titlemodel.one.number;
+                list[1].number = titlemodel.two.number;
+                list[2].number = titlemodel.three.number;
+                list[3].number = titlemodel.four.number;
+                let templist = this.state.prolist;
                 if (this.state.currentPage === 1){
-                    list = respond.data
+                    templist = respond.data
                 }else{
-                    list = [...list,...respond.data];
+                    templist = [...templist,...respond.data];
                 }
                 this.setState({
-                    titlemodel:respond.projectNum,
-                    prolist:list,
+                    titleModellist:list,
+                    prolist:templist,
                     currentPage:respond.current_page,
                     totalPage:respond.pageCount,
                 })
@@ -165,51 +172,27 @@ export default class NormalWorkPage extends Component{
        const {width,height} = Dimensions.get('window');
        let gap = (width - 50*4 -36.5 - 36.5)/3;
        let listheight = height - 90.5 - 100
-        let allStr = '99+'
-        let ongoingStr = '99+'
-        let approvedStr = '99+'
-        let delayStr = '99+' 
-        if (this.state.titlemodel !== null){
-            allStr = this.state.titlemodel.one.number;
-            ongoingStr = this.state.titlemodel.two.number;
-            approvedStr = this.state.titlemodel.three.number;
-            delayStr = this.state.titlemodel.four.number;
+        let list = this.state.titleModellist
+        let items = []
+        for(i = 0;i<list.length;i++){
+            let model = list[i]
+            let item = (
+                <View style={{marginLeft:36.5,width:50,alignItems:'center'}} key={(i+1)*10000}>
+                <TouchableOpacity 
+                onPressIn={()=> this._categoryPress(model)}
+                 style={{borderRadius:19.5,backgroundColor:model.selected?model.color:'#fff',
+                 borderColor:model.color,borderWidth:1,width:39,height:39,justifyContent:'center',alignItems:'center'}}>
+                <Text style={{color:model.selected?'#fff':model.color,fontSize:18,fontWeight:'bold'}}>{model.number}</Text>
+                </TouchableOpacity >
+                <Text style={{color:'#333',marginTop:8}}>{model.title}</Text>
+               </View>
+            )
+            items.push(item)
         }
         return(<View style={{position:'relative'}}>
         <NavigationEvents onDidFocus ={payload => this._pageFouce()}/>
        <View style={{flexDirection:'row',width:'100%',height:90.5,justifyContent:'flex-start',alignItems:'center',borderBottomColor:'#eee',borderBottomWidth:1}}>
-       <View style={{marginLeft:36.5,width:50,alignItems:'center'}}>
-        <TouchableOpacity 
-        onPressIn={()=> this._categoryPress('all')}
-         style={{borderRadius:19.5,borderColor:'#24a0ea',borderWidth:1,width:39,height:39,justifyContent:'center',alignItems:'center'}}>
-        <Text style={{color:'#24a0ea',fontSize:18,fontWeight:'bold'}}>{allStr}</Text>
-        </TouchableOpacity >
-        <Text style={{color:'#333',marginTop:8}}>全部</Text>
-       </View>
-       <View style={{marginLeft:gap,width:50,alignItems:'center'}}>
-        <TouchableOpacity 
-        onPressIn={()=>this._categoryPress('1,4')}
-        style={{borderRadius:19.5,borderColor:'#01b211',borderWidth:1,width:39,height:39,justifyContent:'center',alignItems:'center'}}>
-        <Text style={{color:'#01b211',fontSize:18,fontWeight:'bold'}}>{ongoingStr}</Text>
-        </TouchableOpacity>
-        <Text style={{color:'#333',marginTop:8}}>进行中</Text>
-       </View>
-       <View style={{marginLeft:gap,width:50,alignItems:'center'}}>
-        <TouchableOpacity 
-        onPressIn={()=>this._categoryPress('0,3')}
-        style={{borderRadius:19.5,borderColor:'#f5a623',borderWidth:1,width:39,height:39,justifyContent:'center',alignItems:'center'}}>
-        <Text style={{color:'#f5a623',fontSize:18,fontWeight:'bold'}}>{approvedStr}</Text>
-        </TouchableOpacity>
-        <Text style={{color:'#333',marginTop:8}}>待审核</Text>
-       </View>
-       <View style={{marginLeft:gap,width:50,alignItems:'center'}}>
-        <TouchableOpacity 
-        onPressIn={()=>this._categoryPress('1002')}
-        style={{borderRadius:19.5,borderColor:'#e43535',borderWidth:1,width:39,height:39,justifyContent:'center',alignItems:'center'}}>
-        <Text style={{color:'#e43535',fontSize:18,fontWeight:'bold'}}>{delayStr}</Text>
-        </TouchableOpacity>
-        <Text style={{color:'#333',marginTop:8}}>已逾期</Text>
-       </View>
+       {items}
        </View>
         <FlatList 
          ref = {component => this._listView = component} {...this.props}
@@ -254,7 +237,6 @@ export default class NormalWorkPage extends Component{
         }
     }
     _jumpToProjectDetail = (project)=>{
-        // alert(JSON.stringify(project))
        this.props.navigation.navigate('NormalDetail',{
            projectId:project.id
        })
@@ -262,22 +244,30 @@ export default class NormalWorkPage extends Component{
     _creatProject = ()=>{
         this.props.navigation.navigate('NormalCreate',{companyId:this.state.selectCompany.id});
     }
-    _categoryPress = async (condition)=>{
-       
+    _btnChange = async(model)=>{
+        let list = this.state.titleModellist;
+       for(i=0;i<list.length;i++){
+           list[i].selected = list[i].id == model.id
+       }
+    }
+    _categoryPress = async (model)=>{
+       this._btnChange(model);
+       let list = this.state.titleModellist;
         await this.setState({
-            titleCondition:condition,
+            titleCondition:model.id,
+            titleModellist:list,
             proStatus:'',
             proRelation:'',
             parksStr:'',
             time:'',
         });
-        
         this._fetchListData();
     }
     _jumpToSelect = ()=>{
+
         this.props.navigation.navigate('NormalSelect',{company:this.state.selectCompany,
             proStatusStr:this.state.proStatus,
-            proRelationStr:this.state.proRelation,
+            proRelationStr:this.state.proRelationStr,
             parksStr:this.state.parksStr,
             timeStr:this.state.time,
         });
@@ -296,7 +286,7 @@ export default class NormalWorkPage extends Component{
         let timeStr = '0000-00-00';
         if (this.props.item !== null){
             let model = this.props.item;
-            categoryStr = model.nf_itemsTypeName.slice(0,1);
+            categoryStr = model.nf_workTypeName.slice(0,1);
             titleStr = model.nf_proName;
             nameStr = model.nf_name;
             numStr = `${model.nf_proPlan}%`
@@ -351,7 +341,7 @@ export default class NormalWorkPage extends Component{
                <View style={{flex:1,flexDirection:'row',justifyContent:'space-between'}}>
                 <View>
                     <View style={{flexDirection:'row',justifyContent:'flex-start'}}>
-                    <View style={{color:'#fff',backgroundColor:'#4da9ec',borderRadius:12,width:24,height:24,justifyContent:'center',alignItems:'center'}}>
+                    <View style={{color:'#fff',backgroundColor:'#00a056',borderRadius:12,width:24,height:24,justifyContent:'center',alignItems:'center'}}>
                          <Text style={{color:'#fff',fontSize:14}}>{categoryStr}</Text>
                     </View>
                     <Text style={{color:'#000',fontSize:16,fontWeight:'normal',marginLeft:10}}>{titleStr}</Text>

@@ -379,7 +379,7 @@ export default class NormalWorkCreatePage extends Component{
                 </ScrollView>
                 <TouchableOpacity 
                 onPress = {()=> this._submit()}
-                style={{width:'100%',height:50,backgroundColor:'#00a056',
+                style={{width:'100%',height:50,backgroundColor:'#00a056',shadowColor:'#00a05633',shadowOpacity:0.2,shadowOffset:{x:1,y:1},
                 position:'absolute',bottom:10,left:0,justifyContent:'center',alignItems:'center'}}>
                 <Text style={{color:'#fff'}}>确认</Text>
                 </TouchableOpacity>
@@ -399,8 +399,11 @@ export default class NormalWorkCreatePage extends Component{
         )
     }
     _submit = async()=>{
+        let model = new UserModel()
+        let userid = await model.getUserID()
         let list = this.state.dataList;
         let errorMsg = ''
+        
         if (list[0].title.length == 0){
             errorMsg = '项目名称不能为空'
         } else if(list[1].idStr.length == 0){
@@ -421,8 +424,7 @@ export default class NormalWorkCreatePage extends Component{
             alert(errorMsg)
             return
         }
-        let model = new UserModel()
-        let userid = await model.getUserID()
+        
         let date = new DateModel()
         let startTime = date.getTimeSmaple(list[4].title)
         let endTime = date.getTimeSmaple(list[5].title) + 24*3600 -1

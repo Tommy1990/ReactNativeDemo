@@ -38,16 +38,8 @@ export default class NoramlDetailPage extends Component{
         }
     }
     componentDidMount(){
-        let projectId = this.props.navigation.getParam('projectId','')
-        if (projectId.length !== ''){
-            this.setState({
-                projectId:projectId
-            })
-        }
-        this._fetchProjectdetail(projectId);
-        this._fetchDailyData(projectId);
-        this._fetchMSGData(projectId);
         this._setData();
+        
     }
     _fetchProjectdetail = (projectId)=>{
        
@@ -153,9 +145,18 @@ export default class NoramlDetailPage extends Component{
     _setData = async()=>{
         let model = new UserModel();
         let userid = await model.getUserID();
-        this.setState({
+        await this.setState({
             userid:userid,
         })
+        let projectId = this.props.navigation.getParam('projectId','')
+        if (projectId.length !== ''){
+            this.setState({
+                projectId:projectId
+            })
+        } 
+        this._fetchProjectdetail(projectId);
+        this._fetchDailyData(projectId);
+        this._fetchMSGData(projectId);
     }
     _setStatue = (model)=>{
         let creatId = model.nf_createUserId.id;
@@ -166,6 +167,7 @@ export default class NoramlDetailPage extends Component{
                 break;
             }
         }
+        alert(isParticipate)
         if ((creatId == this.state.userid)&&(model.nf_proStatus == '1')){
             DeviceEventEmitter.emit('showEdit',true)
             DeviceEventEmitter.emit('showOperationView',true && this.state.selectBtn < 2)
