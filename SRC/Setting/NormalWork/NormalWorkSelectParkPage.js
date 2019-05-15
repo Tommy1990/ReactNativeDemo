@@ -25,6 +25,8 @@ export default class NormalWorkSelectParkPage extends Component{
         }
     }
     componentDidMount(){
+        
+    
         let parksList = this.props.navigation.getParam('parksList',[]);
         let companyId = this.props.navigation.getParam('companyId','');
         let farmIds = this.props.navigation.getParam('farmIds','')

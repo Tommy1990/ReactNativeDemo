@@ -19,7 +19,8 @@ export default class NoramlDetailPage extends Component{
         return {
             headerBackImage: <Image source={require('../../../img/back.png')} resizeMode='contain' style={{width:10,height:17,marginLeft:21}}/> ,
             headerTitle:<Text style={{color:'#333',fontSize:18}} >项目详情</Text>,
-            headerRight:<HeaderRightView/>
+            headerRight:<HeaderRightView/>,
+            headerBackTitle: null,
         }
     }
     constructor(props){
@@ -319,7 +320,7 @@ export default class NoramlDetailPage extends Component{
             showModal2: index == 2
         })
         if(index == 3){
-            this.props.navigation.navigate('NOrmalDailyCreate',{projectId:this.state.projectId})
+            this.props.navigation.navigate('NormalDailyCreate',{projectId:this.state.projectId})
         }
     }
     _MSGRefreshing = async()=>{

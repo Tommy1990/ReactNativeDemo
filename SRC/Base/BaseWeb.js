@@ -64,6 +64,10 @@ export default class REQUEST_URL {
     WORK_NORMAL_AUDIT_CREATE    = HOME + 'App/Projects/projectCreateAuditing'
     //update auditing 
     WORK_NORMAL_AUDIT_UPDATE    = HOME + 'App/Projects/projectUpdateAuditing'
+    //daily details fetch
+    WORK_NORMAL_DAILY_DATAILS_FETCH =HOME + 'App/Projects/projectMaterielList'
+    //daily create
+    WORK_NORMAL_DAILY_CREATE    = HOME + "App/Projects/projectJournalAdd"
 
     //post text Msg
     WORK_NORMAL_PROJECT_MSG_POST    = HOME + 'App/Projects/projectLeavingMessage'
