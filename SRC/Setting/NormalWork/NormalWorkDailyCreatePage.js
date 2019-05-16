@@ -122,9 +122,12 @@ export default class NormalWorkDailyCreatePage extends Component{
             if(err !== null){
                 alert(err.message)
             }else{
-                alert('1234')
+               let list = []
+               for (i=0;i<respond.data.length;i++){
+                   list.push(respond.data[i].ossInfo.ossUrl)
+               }
                 await this.setState({
-                    nf_img:JSON.stringify(respond.data)
+                    nf_img:JSON.stringify(list)
                 })
                 this._submitdaily();
             }

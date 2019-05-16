@@ -1,7 +1,6 @@
 import React,{Component} from 'react';
 import {FlatList,View,Text,Image,Dimensions} from 'react-native';
 import DateModel from '../../../Base/DateModel';
-
 export default class ProjectDailyView extends Component{
     render(){
         const {width} = Dimensions.get('window')
@@ -51,7 +50,7 @@ class DailyCell extends Component{
             farmStr += plotStr.slice(0,plotStr.length -1) + ')' + ','
         }
         farmStr = farmStr.slice(0,farmStr.length-1);
-        let urlList = JSON.parse(model.nf_img);
+        let urlList = model.nf_img;
         let machineStr = model.nf_mechanicalHouse
         let workContent = model.nf_workContent
         return(<View style={{margin:13.5,borderRadius:5,backgroundColor:'#fff'}}>
@@ -100,7 +99,7 @@ class PictureView extends Component{
             let img = list[i].length > 10 ? {uri:list[i]} : require('../../../../img/image_placeholder.png')
             let item = <Image 
             source = {img}
-            style={{flexWarp:'warp',width:viewWidth,height:viewWidth,marginRight:25,backgroundColor:'#00a056',marginBottom:25}}>
+            style={{width:viewWidth,height:viewWidth,marginRight:25,marginBottom:25}}>
 
             </Image>
             items.push(item)
