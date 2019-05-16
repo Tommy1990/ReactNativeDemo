@@ -4,7 +4,7 @@ import REQUEST_URL from '../../Base/BaseWeb';
 import fehchData from '../../Base/FetchData';
 import BaseDimension from '../../Base/BaseDimension';
 import {NavigationEvents} from 'react-navigation'
-
+import ImagePicker from 'react-native-image-crop-picker'
 export default class NormalWorkDailyCreatePage extends Component{
     static navigationOptions = ({navigation})=>{
         return {
@@ -26,7 +26,8 @@ export default class NormalWorkDailyCreatePage extends Component{
             nf_plotId:'',
             nf_materielId:[],
             nf_seedlingId:[],
-            seedStr:''
+            seedStr:'',
+            materialStr:'',
         }
     }
     componentDidMount(){
@@ -49,6 +50,14 @@ export default class NormalWorkDailyCreatePage extends Component{
                 seedStr:parkStr
             })
         } 
+        let nf_materielId = this.props.navigation.getParam('nf_materielId',[]);
+        let materielStr = this.props.navigation.getParam('materielStr','')
+        if(nf_materielId.length > 0){
+            this.setState({
+                nf_materielId:nf_materielId,
+                materialStr:materielStr,
+            })
+        }
     }
     _fetchDetails = (projectId)=>{
         let base = new REQUEST_URL()
@@ -58,7 +67,7 @@ export default class NormalWorkDailyCreatePage extends Component{
                 alert(err.message)
             }else{
                 this.setState({
-                    model:respond
+                    model:respond,
                 })
             }
         })
@@ -84,7 +93,13 @@ export default class NormalWorkDailyCreatePage extends Component{
             nf_plotId:this.state.model.nf_plotId})
     }
     _materialSelectPress = ()=>{
-
+        if (this.state.model == null){
+            alert('地块为空,正在重新获取')
+            this._fetchDetails(this.state.projectId)
+            return
+        }
+        this.props.navigation.navigate('NormalDailyMaterialSelect',
+        {materilList:this.state.model.nf_materielId,nf_materielId:this.state.nf_materielId})
     }
     _contentInputBegin = ()=>{
         this._scrollView.scrollToEnd()
@@ -164,7 +179,8 @@ export default class NormalWorkDailyCreatePage extends Component{
                     < TouchableOpacity 
                     onPress = {()=> this._materialSelectPress()}
                     style={{flexDirection:'row',alignItems:'center',marginRight:18,marginTop:12}}>
-                    <Text style={{color:'#555'}}>请选择</Text>
+                    <Text style={{color:'#555',maxWidth:180}}>
+                    {this.state.materialStr.length>0?this.state.materialStr:'请选择'}</Text>
                     <Image source={require('../../../img/arrow_right.png')}  resizeMode='contain'
                     style={{width:6.5,height:12,marginLeft:12}}></Image>
                     </TouchableOpacity>
