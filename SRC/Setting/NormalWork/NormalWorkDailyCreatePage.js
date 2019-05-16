@@ -5,6 +5,7 @@ import fehchData from '../../Base/FetchData';
 import BaseDimension from '../../Base/BaseDimension';
 import {NavigationEvents} from 'react-navigation'
 import ImagePicker from 'react-native-image-crop-picker'
+import UploadFile from '../../Base/UpLoadFile'
 export default class NormalWorkDailyCreatePage extends Component{
     static navigationOptions = ({navigation})=>{
         return {
@@ -28,6 +29,7 @@ export default class NormalWorkDailyCreatePage extends Component{
             nf_seedlingId:[],
             seedStr:'',
             materialStr:'',
+            nf_img:''
         }
     }
     componentDidMount(){
@@ -67,6 +69,7 @@ export default class NormalWorkDailyCreatePage extends Component{
                 alert(err.message)
             }else{
                 this.setState({
+                    nf_plotId:respond.nf_parkId.id,
                     model:respond,
                 })
             }
@@ -101,8 +104,88 @@ export default class NormalWorkDailyCreatePage extends Component{
         this.props.navigation.navigate('NormalDailyMaterialSelect',
         {materilList:this.state.model.nf_materielId,nf_materielId:this.state.nf_materielId})
     }
+    _contentInput = (text)=>{
+        this.setState({
+            nf_workContent:text
+        })
+    }
     _contentInputBegin = ()=>{
         this._scrollView.scrollToEnd()
+    }
+    _uploadPics = ()=>{
+        let pics = this.state.picList
+        if(pics.length == 0 || this.state.nf_img.length>5){
+            this._submitdaily();
+            return
+        }
+        UploadFile(pics,'image/jpeg','jpeg',async(respond,err)=>{
+            if(err !== null){
+                alert(err.message)
+            }else{
+                alert('1234')
+                await this.setState({
+                    nf_img:JSON.stringify(respond.data)
+                })
+                this._submitdaily();
+            }
+        })
+    }
+    _submitdaily = ()=>{
+        let base = new REQUEST_URL()
+        let para = {
+            id:this.state.projectId,
+            nf_workHouse:this.state.nf_workHouse,
+            nf_workContent:this.state.nf_workContent,
+            nf_mechanicalHouse:this.state.nf_mechanicalHouse,
+            nf_img:this.state.nf_img,
+            nf_plotId:this.state.nf_plotId,
+            nf_materielId:this.state.nf_materielId,
+            nf_seedlingId:this.state.nf_seedlingId,
+        }
+        fehchData(base.WORK_NORMAL_DAILY_CREATE,para,(respond,err)=>{
+            if(err !== null){
+                alert(err.message)
+            }else{
+                alert(11111);
+                this.props.navigation.goBack()
+            }
+        })
+    }
+    _addPicPress = ()=>{
+        ImagePicker.openPicker({
+            multiple:false,
+           cropperCancelText:'取消',
+           cropperChooseText:'确定',
+           maxFiles:5,
+        }).then((image)=>{
+            let pathList = this.state.picList
+            pathList.push(image.path)
+            this.setState({
+                picList:pathList
+            })
+        })
+    }
+    _deletePicPress = (index) => {
+        let pathList = this.state.picList    
+        pathList.splice(index,1)   
+        this.setState({
+            picList:pathList
+        })
+    }
+    _submitData = ()=>{
+        let des = ''
+        if (this.state.nf_workHouse.length == 0){
+            des='请输入工时'
+        }else if(this.state.nf_plotId.length == 0){
+            des = '请选择作业地块'
+        }else if (this.state.nf_workContent.length == 0){
+            des = '请输入工作内容'
+        }
+        if(des.length > 0){
+            alert(des)
+        }else{
+            this._uploadPics();
+        }
     }
     render(){
         let screen = new BaseDimension()
@@ -110,10 +193,14 @@ export default class NormalWorkDailyCreatePage extends Component{
         let picViewList = []
         let picList = this.state.picList;
         for(i=0;i<picList.length;i++){
+            let index = i;
             let pic = (<View key={(i+1)*100}
                 style={{position:'relative',width:76,height:76,marginRight:9,marginBottom:25,
                      alignItems:'flex-start',justifyContent:'flex-end'}}>
                 <TouchableOpacity 
+                onPress = {()=>{
+                    this._deletePicPress(index)
+                }}
                 hitSlop={{top:10,left:10,bottom:10,right:10}}
                 style={{position:'absolute',top:10,right:10}}>
                 <Image source={require('../../../img/delete_red.png')} 
@@ -129,7 +216,9 @@ export default class NormalWorkDailyCreatePage extends Component{
         if(picViewList.length < 5){
             let addBtn = (<View key='addbtn'
             style={{width:76,height:76,alignItems:'flex-start',justifyContent:'flex-end'}}>
-            <TouchableOpacity style={{width:60,height:60,borderColor:'#888',borderWidth:1,borderRadius:5,
+            <TouchableOpacity
+            onPress = {()=> this._addPicPress()}
+             style={{width:60,height:60,borderColor:'#888',borderWidth:1,borderRadius:5,
             alignItems:'center',justifyContent:'center'}}>
                 <Text style={{color:'#888',fontSize:10}}>+添加图片</Text>
             </TouchableOpacity>
@@ -149,7 +238,7 @@ export default class NormalWorkDailyCreatePage extends Component{
                     <Text style={{marginLeft:18}}>*用工量:</Text>
                     <View style={{flexDirection:'row',alignItems:'center',marginRight:18}}>
                     <TextInput
-                    onChangeText = {(value)=> this._workHourInput(value)}
+                    onChangeText = {(value)=> this._machineHourInput(value)}
                     placeholder='请输入工时'
                     keyboardType = 'numeric'
                     style={{width:90,height:20}}>
@@ -206,7 +295,7 @@ export default class NormalWorkDailyCreatePage extends Component{
                     flexDirection:'row',backgroundColor:'#fff'}}>
                     <Text style={{marginLeft:18,marginTop:17}}>工作照片:</Text>
                     <View style={{flexDirection:'row',alignItems:'center',marginLeft:10,marginRight:18,flexWrap:'wrap',
-                        width:screenWidth - 107 - 30,marginTop:7,marginBottom:20}}>
+                        width:screenWidth - 107 - 10,marginTop:7,marginBottom:20}}>
                     {picViewList}
                     </View>
                     </View>
@@ -217,7 +306,7 @@ export default class NormalWorkDailyCreatePage extends Component{
                     <Text style={{marginLeft:18,marginTop:17}}>*工作内容:</Text>
                     
                     <TextInput
-                    onChangeText = {(value)=> this._machineHourInput(value)}
+                    onChangeText = {(value)=> this._contentInput(value)}
                     placeholder='请输入工作内容'
                     multiline = {true}
                     numberOfLines = {99}
@@ -229,7 +318,9 @@ export default class NormalWorkDailyCreatePage extends Component{
                     </View>
                 </ScrollView> 
             </KeyboardAvoidingView>
-            <TouchableOpacity style={{position:'absolute',left:0,bottom:10,width:'100%',height:50,
+            <TouchableOpacity 
+            onPress = {()=> this._submitData()}
+            style={{position:'absolute',left:0,bottom:10,width:'100%',height:50,
                 backgroundColor:'#00a056',justifyContent:'center',alignItems:'center'}}>
                 <Text style={{color:'#fff'}}>发布</Text>
             </TouchableOpacity>
