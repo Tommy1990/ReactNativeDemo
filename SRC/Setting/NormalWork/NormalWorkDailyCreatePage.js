@@ -3,6 +3,7 @@ import {View,ScrollView,KeyboardAvoidingView,TouchableOpacity,Text,TextInput,Ima
 import REQUEST_URL from '../../Base/BaseWeb';
 import fehchData from '../../Base/FetchData';
 import BaseDimension from '../../Base/BaseDimension';
+import {NavigationEvents} from 'react-navigation'
 
 export default class NormalWorkDailyCreatePage extends Component{
     static navigationOptions = ({navigation})=>{
@@ -25,6 +26,7 @@ export default class NormalWorkDailyCreatePage extends Component{
             nf_plotId:'',
             nf_materielId:[],
             nf_seedlingId:[],
+            seedStr:''
         }
     }
     componentDidMount(){
@@ -33,6 +35,20 @@ export default class NormalWorkDailyCreatePage extends Component{
             projectId:projectId
         });
         this._fetchDetails(projectId);
+    }
+    _setData = ()=>{
+        let plotList = this.props.navigation.getParam('nf_plotId',[]);
+        let seedings = this.props.navigation.getParam('seedings',[]);
+        let parkStr  = this.props.navigation.getParam('parkStr','')
+        if (plotList.length > 0){
+            let model = this.state.model
+            model.nf_plotId = plotList
+            this.setState({
+                model:model,
+                nf_seedlingId:seedings,
+                seedStr:parkStr
+            })
+        } 
     }
     _fetchDetails = (projectId)=>{
         let base = new REQUEST_URL()
@@ -105,8 +121,9 @@ export default class NormalWorkDailyCreatePage extends Component{
             </View> )
             picViewList.push(addBtn)
         }
-
+        let parkStr = this.state.seedStr.length > 0 ? this.state.seedStr :'请选择'
         return(<View style={{flex:1,position:'relative'}}>
+            <NavigationEvents onDidFocus={(payload)=> this._setData()}/>
             <KeyboardAvoidingView style={{flex:1}} behavior='height'>
                <ScrollView ref = {component => this._scrollView = component}
                style={{flex:1}}>
@@ -126,26 +143,27 @@ export default class NormalWorkDailyCreatePage extends Component{
                     </View>
                     </View>
                     <View key='farm'
-                    style={{width:screenWidth-42,marginLeft:21,borderRadius:10,height:45,marginTop:12,
+                    style={{width:screenWidth-42,marginLeft:21,borderRadius:10,marginTop:18,paddingBottom:18,
                     shadowColor:'#333',shadowOffset:{width:0,height:3},shadowRadius:3,shadowOpacity:0.3,elevation:2,
-                    flexDirection:'row',alignItems:'center',justifyContent:'space-between',backgroundColor:'#fff'}}>
-                    <Text style={{marginLeft:18}}>*今日工作地块:</Text>
+                    flexDirection:'row',justifyContent:'space-between',backgroundColor:'#fff'}}>
+                    <Text style={{marginLeft:18,marginTop:12}}>*今日工作地块:</Text>
                     < TouchableOpacity 
                     onPress = {()=> this._parkSelectpress()}
-                    style={{flexDirection:'row',alignItems:'center',marginRight:18}}>
-                    <Text style={{color:'#555'}}>请选择</Text>
+                    style={{flexDirection:'row',alignItems:'center',marginRight:18,marginTop:12}}>
+                    <Text style={{color:'#555',maxWidth:180}}  numberOfLines={99} ellipsizeMode='tail'
+                    >{parkStr}</Text>
                     <Image source={require('../../../img/arrow_right.png')}  resizeMode='contain'
                     style={{width:6.5,height:12,marginLeft:12}}></Image>
                     </TouchableOpacity>
                     </View>
                     <View key="material"
-                    style={{width:screenWidth-42,marginLeft:21,borderRadius:10,height:45,marginTop:12,
+                    style={{width:screenWidth-42,marginLeft:21,borderRadius:10,marginTop:12,paddingBottom:18,
                     shadowColor:'#333',shadowOffset:{width:0,height:3},shadowRadius:3,shadowOpacity:0.3,elevation:2,
-                    flexDirection:'row',alignItems:'center',justifyContent:'space-between',backgroundColor:'#fff'}}>
-                    <Text style={{marginLeft:18}}>物料使用:</Text>
+                    flexDirection:'row',justifyContent:'space-between',backgroundColor:'#fff'}}>
+                    <Text style={{marginLeft:18,marginTop:12}}>物料使用:</Text>
                     < TouchableOpacity 
                     onPress = {()=> this._materialSelectPress()}
-                    style={{flexDirection:'row',alignItems:'center',marginRight:18}}>
+                    style={{flexDirection:'row',alignItems:'center',marginRight:18,marginTop:12}}>
                     <Text style={{color:'#555'}}>请选择</Text>
                     <Image source={require('../../../img/arrow_right.png')}  resizeMode='contain'
                     style={{width:6.5,height:12,marginLeft:12}}></Image>
