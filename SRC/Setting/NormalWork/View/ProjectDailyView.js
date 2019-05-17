@@ -50,7 +50,8 @@ class DailyCell extends Component{
             farmStr += plotStr.slice(0,plotStr.length -1) + ')' + ','
         }
         farmStr = farmStr.slice(0,farmStr.length-1);
-        let urlList = model.nf_img;
+        
+        let urlList = model.nf_img && model.nf_img.length> 10 ? JSON.parse(model.nf_img) : [] ;
         let machineStr = model.nf_mechanicalHouse
         let workContent = model.nf_workContent
         return(<View style={{margin:13.5,borderRadius:5,backgroundColor:'#fff'}}>

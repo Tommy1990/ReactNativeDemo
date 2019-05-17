@@ -1,11 +1,12 @@
 import React,{Component} from 'react';
-import {View,ScrollView,KeyboardAvoidingView,TouchableOpacity,Text,TextInput,Image} from'react-native';
+import {View,ScrollView,KeyboardAvoidingView,TouchableOpacity,Text,TextInput,Image,ActivityIndicator} from'react-native';
 import REQUEST_URL from '../../Base/BaseWeb';
 import fehchData from '../../Base/FetchData';
 import BaseDimension from '../../Base/BaseDimension';
 import {NavigationEvents} from 'react-navigation'
 import ImagePicker from 'react-native-image-crop-picker'
 import UploadFile from '../../Base/UpLoadFile'
+import Modal from 'react-native-modal'
 export default class NormalWorkDailyCreatePage extends Component{
     static navigationOptions = ({navigation})=>{
         return {
@@ -29,7 +30,8 @@ export default class NormalWorkDailyCreatePage extends Component{
             nf_seedlingId:[],
             seedStr:'',
             materialStr:'',
-            nf_img:''
+            nf_img:'',
+            showLoading:false
         }
     }
     componentDidMount(){
@@ -118,8 +120,14 @@ export default class NormalWorkDailyCreatePage extends Component{
             this._submitdaily();
             return
         }
+        this.setState({
+            showLoading:true
+        })
         UploadFile(pics,'image/jpeg','jpeg',async(respond,err)=>{
             if(err !== null){
+               await this.setState({
+                    showLoading:false
+                })
                 alert(err.message)
             }else{
                let list = []
@@ -145,24 +153,36 @@ export default class NormalWorkDailyCreatePage extends Component{
             nf_materielId:this.state.nf_materielId,
             nf_seedlingId:this.state.nf_seedlingId,
         }
-        fehchData(base.WORK_NORMAL_DAILY_CREATE,para,(respond,err)=>{
+        fehchData(base.WORK_NORMAL_DAILY_CREATE,para, async(respond,err)=>{
             if(err !== null){
+                await this.setState({
+                    showLoading:false
+                })
                 alert(err.message)
             }else{
-                alert(11111);
+                await this.setState({
+                    showLoading:false
+                })
                 this.props.navigation.goBack()
             }
         })
     }
     _addPicPress = ()=>{
+        let num = 5 - this.state.picList.length
         ImagePicker.openPicker({
             multiple:false,
            cropperCancelText:'取消',
            cropperChooseText:'确定',
-           maxFiles:5,
-        }).then((image)=>{
+           maxFiles:num,
+           multiple:true,
+           compressImageQuality:0.5,
+           showsSelectedCount:true,
+           mediaType:'photo',
+        }).then((list)=>{
             let pathList = this.state.picList
-            pathList.push(image.path)
+            for(i=0;i<list.length;i++){
+                pathList.push(list[i].path)
+            }
             this.setState({
                 picList:pathList
             })
@@ -327,6 +347,9 @@ export default class NormalWorkDailyCreatePage extends Component{
                 backgroundColor:'#00a056',justifyContent:'center',alignItems:'center'}}>
                 <Text style={{color:'#fff'}}>发布</Text>
             </TouchableOpacity>
+            <Modal isVisible={this.state.showLoading} backdropColor='#fff' style={{justifyContent:'center',alignItems:'center'}}>
+                 <ActivityIndicator color='#555'></ActivityIndicator>
+            </Modal>
         </View>)
     }
 }

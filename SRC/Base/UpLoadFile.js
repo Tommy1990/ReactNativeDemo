@@ -6,11 +6,11 @@ import DeviceInfo from 'react-native-device-info';
 export default async function UploadFile(list,type,key,fnn){
     let url = 'http://oss.nfzr365.com/api/oss/upload'
     let OS = Platform.OS;
-    let path = OS === 'ios' ? list[0].replace('file:///','') : list[0];
     let body = new FormData();
     body.append('dir','app');
     body.append('type','0');
     for(i=0; i< list.length;i++){
+        let path = OS === 'ios' ? list[i].replace('file:///','') : list[i];
         body.append(`${key}${i}`,{
             type:type,
             uri:path,
