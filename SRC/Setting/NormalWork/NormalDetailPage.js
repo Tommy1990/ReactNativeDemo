@@ -264,7 +264,7 @@ export default class NoramlDetailPage extends Component{
                 operationPress = {this._operationPress}
                 isAuditing={this.state.isAuditing}
                 isParticipate = {this.state.isParticipate}
-                style={{position:'absolute',bottom:10,leading:0,width:width,height:50}}/>
+                style={{position:'absolute',bottom:0,leading:0,width:width,height:50}}/>
                 <View style = {{position:'absolute',right:11.5,bottom:226.5,
                          width:52,height:52,borderRadius:26,backgroundColor:'#00a056'}}>
                      <TouchableOpacity style={{flex:1,alignItems:'center',justifyContent:'center'}}

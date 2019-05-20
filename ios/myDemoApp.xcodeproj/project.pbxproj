@@ -43,6 +43,11 @@
 		963C3DEB2265CBF30069B947 /* WebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 963C3DEA2265CBF30069B947 /* WebViewController.m */; };
 		963C3DEF2265CE490069B947 /* Manager.m in Sources */ = {isa = PBXBuildFile; fileRef = 963C3DEE2265CE490069B947 /* Manager.m */; };
 		9681F05D2282C7DB00C8A355 /* libimageCropPicker.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 961E87AE2249C31D0098B9BB /* libimageCropPicker.a */; };
+		96C58D522292588900B4519E /* bundle in Resources */ = {isa = PBXBuildFile; fileRef = 96C58D512292588900B4519E /* bundle */; };
+		96C58D55229289DE00B4519E /* RSKImageCropper.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 961E88212249D7EF0098B9BB /* RSKImageCropper.framework */; };
+		96C58D56229289DE00B4519E /* RSKImageCropper.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 961E88212249D7EF0098B9BB /* RSKImageCropper.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		96C58D58229289E700B4519E /* QBImagePicker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 961E87BF2249D6030098B9BB /* QBImagePicker.framework */; };
+		96C58D59229289E700B4519E /* QBImagePicker.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 961E87BF2249D6030098B9BB /* QBImagePicker.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		96CC7E132266B4CB00DF78CF /* NFWebJavascriptBridge.js in Resources */ = {isa = PBXBuildFile; fileRef = 96CC7DE72266B4CB00DF78CF /* NFWebJavascriptBridge.js */; };
 		96CC7E1A2266B5F000DF78CF /* JSDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 96CC7E192266B5F000DF78CF /* JSDelegate.m */; };
 		96CC7E1D2266FA5F00DF78CF /* test.html in Resources */ = {isa = PBXBuildFile; fileRef = 96CC7E1C2266FA5F00DF78CF /* test.html */; };
@@ -387,6 +392,21 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		96C58D57229289DE00B4519E /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				96C58D56229289DE00B4519E /* RSKImageCropper.framework in Embed Frameworks */,
+				96C58D59229289E700B4519E /* QBImagePicker.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		008F07F21AC5B25A0029DE68 /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = main.jsbundle; sourceTree = "<group>"; };
 		00C302A71ABCB8CE00DB3ED1 /* RCTActionSheet.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTActionSheet.xcodeproj; path = "../node_modules/react-native/Libraries/ActionSheetIOS/RCTActionSheet.xcodeproj"; sourceTree = "<group>"; };
@@ -423,6 +443,7 @@
 		963C3DEA2265CBF30069B947 /* WebViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WebViewController.m; sourceTree = "<group>"; };
 		963C3DED2265CE490069B947 /* Manager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Manager.h; sourceTree = "<group>"; };
 		963C3DEE2265CE490069B947 /* Manager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Manager.m; sourceTree = "<group>"; };
+		96C58D512292588900B4519E /* bundle */ = {isa = PBXFileReference; lastKnownFileType = folder; path = bundle; sourceTree = "<group>"; };
 		96CC7DE72266B4CB00DF78CF /* NFWebJavascriptBridge.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = NFWebJavascriptBridge.js; sourceTree = "<group>"; };
 		96CC7E182266B5F000DF78CF /* JSDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JSDelegate.h; sourceTree = "<group>"; };
 		96CC7E192266B5F000DF78CF /* JSDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JSDelegate.m; sourceTree = "<group>"; };
@@ -469,6 +490,7 @@
 				146834051AC3E58100842450 /* libReact.a in Frameworks */,
 				00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */,
 				00C302E71ABCBA2D00DB3ED1 /* libRCTGeolocation.a in Frameworks */,
+				96C58D55229289DE00B4519E /* RSKImageCropper.framework in Frameworks */,
 				00C302E81ABCBA2D00DB3ED1 /* libRCTImage.a in Frameworks */,
 				133E29F31AD74F7200F7D852 /* libRCTLinking.a in Frameworks */,
 				00C302E91ABCBA2D00DB3ED1 /* libRCTNetwork.a in Frameworks */,
@@ -477,6 +499,7 @@
 				00C302EA1ABCBA2D00DB3ED1 /* libRCTVibration.a in Frameworks */,
 				139FDEF61B0652A700C62182 /* libRCTWebSocket.a in Frameworks */,
 				23B471F6035344158786B5A0 /* libRNDeviceInfo.a in Frameworks */,
+				96C58D58229289E700B4519E /* QBImagePicker.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -590,6 +613,7 @@
 		13B07FAE1A68108700A75B9A /* myDemoApp */ = {
 			isa = PBXGroup;
 			children = (
+				96C58D512292588900B4519E /* bundle */,
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
@@ -854,6 +878,7 @@
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
+				96C58D57229289DE00B4519E /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -1349,6 +1374,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				96C58D522292588900B4519E /* bundle in Resources */,
 				96CC7E1D2266FA5F00DF78CF /* test.html in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				96CC7E132266B4CB00DF78CF /* NFWebJavascriptBridge.js in Resources */,
@@ -1386,7 +1412,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh";
+			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh\n";
 		};
 		2D02E4CB1E0B4B27006451C7 /* Bundle React Native Code And Images */ = {
 			isa = PBXShellScriptBuildPhase;

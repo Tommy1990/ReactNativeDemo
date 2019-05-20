@@ -1,7 +1,7 @@
 import React,{Component} from 'react';
 import {DrawerItems} from 'react-navigation';
-import {createBottomTabNavigator,createStackNavigator,createAppContainer,createSwitchNavigator,createDrawerNavigator,AppRegistry} from 'react-navigation';
-import AsyncStorage from '@react-native-community/async-storage';
+import {createBottomTabNavigator,createStackNavigator,createAppContainer,
+  createSwitchNavigator,createDrawerNavigator,AppRegistry} from 'react-navigation';
 import HomeScreen from './SRC/Home/Home';
 import HomeChildPage from './SRC/Home/HomeChildPage'
 import SettingScreen from './SRC/Setting/SettingScreen'
@@ -12,7 +12,6 @@ import UserModel from './SRC/Base/UserModel';
 import ResetPSWDScreen from './SRC/Login/ResetPSWDScreen';
 import LoadingScreen from './SRC/Base/LoadingScreen';
 import DrawerScreen from './SRC/Drawer/DrawerScreen';
-import { ScrollView } from 'react-native-gesture-handler';
 import commenStyles from './SRC/Base/CommenStyle';
 import ParkSelectPage from './SRC/Home/ParkSelectPage';
 import ParkWeatherPage from './SRC/Home/ParkWeatherPage';
@@ -35,6 +34,24 @@ import NormalWorkPersonpage from './SRC/Setting/NormalWork/NormalWorkPersonPage'
 import NormalWorkDailyCreatePage from './SRC/Setting/NormalWork/NormalWorkDailyCreatePage';
 import NormalWorkDailySelectFarmPage from './SRC/Setting/NormalWork/NormalWorkDailySelectFarmPage';
 import NormalWorkDailySelectMaterialPage from './SRC/Setting/NormalWork/NormalWorkDailySelectMaterialPage';
+import ModalLoading from './SRC/Modal/ModalLoading';
+import fetchData from './SRC/Base/FetchData';
+import BaseDimension from './SRC/Base/BaseDimension';
+import REQUEST_URL from './SRC/Base/BaseWeb';
+import fetchEZData from './SRC/Base/FetchEZData';
+import UploadFile from './SRC/Base/UpLoadFile';
+import CompanyListView from './SRC/Setting/NormalWork/View/ComapnyListView'
+import ProjectDailyView from './SRC/Setting/NormalWork/View/ProjectDailyView'
+import ProjectDetailView from './SRC/Setting/NormalWork/View/ProjectDetailView'
+import ProjectMsgView from './SRC/Setting/NormalWork/View/ProjectMsgView'
+import ProjectStatueView from './SRC/Setting/NormalWork/View/ProjectStatueView'
+import ProjecttitleView from './SRC/Setting/NormalWork/View/ProjecttitleView'
+import FarmView from './SRC/Home/View/FarmView'
+import VideoListView from './SRC/Home/View/VideoListView'
+import WeatherStationView from './SRC/Home/View/WeatherStationView'
+import DeviceInfo from 'react-native-device-info';
+import AsyncStorage from '@react-native-community/async-storage'
+import ImagePicker from 'react-native-image-crop-picker';
 //登录
 
 const LoginNav = createStackNavigator({
@@ -142,8 +159,16 @@ const SwitchNav = createSwitchNavigator({
   initialRouteName: 'Loading',
 })
 
+const Modalstack = createStackNavigator({
+  SwitchNav:SwitchNav,
+  LooadingModal:ModalLoading,
+},{
+  mode:'modal',
+  headerMode:'none',
+  initialRouteKey:'SwitchNav'
+})
 
-const AppContainer = createAppContainer(SwitchNav);
+const AppContainer = createAppContainer(Modalstack);
 export default class App extends Component{
   render(){
     

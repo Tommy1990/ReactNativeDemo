@@ -139,7 +139,7 @@ export default class NormalWorkPage extends Component{
             titleCondition:this.state.titleCondition,
             page:this.state.currentPage,
         }
-        // alert(JSON.stringify(param))
+        // this.props.navigation.navigate('LooadingModal');
         let url = new REQUEST_URL();
         fehchData(url.WORK_NORMAL_PROJECT_LIST,param,(respond,error) => {
             if(error !== null){
@@ -189,7 +189,7 @@ export default class NormalWorkPage extends Component{
             )
             items.push(item)
         }
-        return(<View style={{position:'relative'}}>
+        return(<View style={{position:'relative',flex:1}}>
         <NavigationEvents onDidFocus ={payload => this._pageFouce()}/>
        <View style={{flexDirection:'row',width:'100%',height:90.5,justifyContent:'flex-start',alignItems:'center',borderBottomColor:'#eee',borderBottomWidth:1}}>
        {items}
