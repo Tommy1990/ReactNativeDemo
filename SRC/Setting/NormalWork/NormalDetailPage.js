@@ -12,6 +12,7 @@ import ProjectMsgView from './View/ProjectMsgView';
 import UploadFile from '../../Base/UpLoadFile';
 import Modal from 'react-native-modal'
 import BaseDimension from '../../Base/BaseDimension';
+// import ReactNativeAudioStreaming from 'react-native-audio-streaming'
 const manager = NativeModules.Manager;
 export default class NoramlDetailPage extends Component{
     static navigationOptions = ({navigation}) => {
@@ -255,6 +256,7 @@ export default class NoramlDetailPage extends Component{
                         scrollFunc = {this._verticalScroll}
                         height={scrollViewHeight}
                         msgRefreshing ={this._MSGRefreshing}
+                        projectVoicePress = {this._voicePlay}
                         />
                     </ScrollView>
                 </ScrollView>
@@ -283,6 +285,9 @@ export default class NoramlDetailPage extends Component{
                 pass = {true}/>
             </View>
         )
+    }
+    _voicePlay = (model)=>{
+        alert(JSON.stringify(model))
     }
     _disapproved = (text)=>{
         let base = new REQUEST_URL()

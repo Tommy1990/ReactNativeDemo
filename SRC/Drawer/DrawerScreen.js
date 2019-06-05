@@ -1,9 +1,8 @@
 import  React,{Component} from 'react';
-import {SafeAreaView,View,TouchableOpacity,Text,ScrollView,Dimensions,ImageBackground,Image,DeviceEventEmitter} from 'react-native';
-
+import {View,TouchableOpacity,Text,ScrollView,Dimensions,ImageBackground,Image,DeviceEventEmitter} from 'react-native';
 import commenStyles from '../Base/CommenStyle'
 import UserModel from '../Base/UserModel';
-import { switchCase } from '@babel/types';
+
 export default class DrawerScreen extends Component{
    _logOut = async()=>{
     let model = new UserModel();
@@ -22,6 +21,9 @@ export default class DrawerScreen extends Component{
     // 退出监听
     this.linster = DeviceEventEmitter.addListener('LOGOUT',(e)=>{
         this._logOut();
+    })
+    this.linster = DeviceEventEmitter.addListener('showLoading',(e)=>{
+        this.props.tempNav.navigate('LoadingModal')
     })
    }
    componentWillUnmount(){

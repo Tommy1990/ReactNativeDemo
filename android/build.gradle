@@ -2,7 +2,7 @@
 
 buildscript {
     ext {
-        buildToolsVersion = "28.0.2"
+        buildToolsVersion = "28.0.3"
         minSdkVersion = 16
         compileSdkVersion = 28
         targetSdkVersion = 27
@@ -10,10 +10,13 @@ buildscript {
     }
     repositories {
         google()
-        jcenter()
+        mavenLocal()
+        jcenter(){url "http://jcenter.bintray.com/"}
+
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.2.1'
+        classpath 'com.android.tools.build:gradle:3.3.2'
+
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
@@ -24,16 +27,18 @@ allprojects {
     repositories {
         mavenLocal()
         google()
-        jcenter()
+        jcenter(){url "http://jcenter.bintray.com/"}
         maven {
             // All of React Native (JS, Obj-C sources, Android binaries) is installed from npm
             url "$rootDir/../node_modules/react-native/android"
         }
+        maven { url "https://jitpack.io" }
+
     }
 }
 
 
-task wrapper(type: Wrapper) {
-    gradleVersion = '4.7'
+wrapper {
+    gradleVersion = '3.3.2'
     distributionUrl = distributionUrl.replace("bin", "all")
 }

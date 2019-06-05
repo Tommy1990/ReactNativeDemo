@@ -103,7 +103,16 @@ android {
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
         versionName "1.0"
+
+        vectorDrawables.useSupportLibrary = true
     }
+    android{
+        compileOptions{
+            sourceCompatibility JavaVersion.VERSION_1_8
+            targetCompatibility JavaVersion.VERSION_1_8
+        }
+    }
+
     splits {
         abi {
             reset()
@@ -133,10 +142,12 @@ android {
     }
 }
 
+
 dependencies {
-    implementation project(':react-native-image-picker')
-    implementation project(':@react-native-community_cameraroll')
-    implementation project(':react-native-fetch-blob')
+    implementation project(':react-native-audio-streaming')
+//    implementation project(':react-native-image-picker')
+//    implementation project(':@react-native-community_cameraroll')
+//    implementation project(':react-native-fetch-blob')
     implementation project(':react-native-video')
     implementation project(':react-native-extra-dimensions-android')
     implementation project(':react-native-device-info')

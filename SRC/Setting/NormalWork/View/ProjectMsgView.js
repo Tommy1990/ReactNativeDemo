@@ -2,6 +2,7 @@ import React,{Component} from 'react';
 import {View,Dimensions,Text,FlatList,TouchableOpacity,Image} from 'react-native'
 import DateModel from '../../../Base/DateModel';
 export default class ProjectMsgView extends Component{
+    
     render(){
         const {width} = Dimensions.get('window')
         if (this.props.list === null){
@@ -12,7 +13,7 @@ export default class ProjectMsgView extends Component{
              <FlatList
                 style={{width:width,height:this.props.height}}
                 data={this.props.list}
-                renderItem = {({item})=> <ItemView model={item}/>}
+                renderItem = {({item})=> <ItemView model={item} voicePlay = {this.props.projectVoicePress}/>}
                 onScrollEndDrag = {(event)=> this._scrolling(event)}
                 keyExtractor={(item, index) => index}
                 onEndReached={()=> this._listscrollToEnd()}
@@ -31,6 +32,7 @@ export default class ProjectMsgView extends Component{
     }
 }
 class ItemView extends Component{
+    
     render(){
         let model = this.props.model
         let {width} = Dimensions.get('window');
@@ -44,7 +46,9 @@ class ItemView extends Component{
             let actualWidth = (model.nf_second / 60) * voiceWidth  + 30
             actualWidth = actualWidth < 60 ? 60 : actualWidth
             item = (<View style={{width:actualWidth,marginTop:21,flexDirection:'row',justifyContent:'flex-start',alignItems:'flex-start'}}>
-                 <TouchableOpacity style={{width:(actualWidth-30),height:28,
+                 <TouchableOpacity 
+                 onPress = {()=> this.props.voicePlay(model)}
+                 style={{width:(actualWidth-30),height:28,
                    backgroundColor:'#00a056',justifyContent:'center',alignItems:'flex-start',borderRadius:8}}>
                     <Image source={require('../../../../img/voice_play.png')} style={{width:9,height:11,marginLeft:8}}/>
                     

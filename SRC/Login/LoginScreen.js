@@ -1,10 +1,11 @@
 import React,{Component} from 'react';
-import {View,TouchableOpacity,Text,TextInput,StyleSheet,SafeAreaView} from 'react-native';
+import {View,TouchableOpacity,Text,TextInput,StyleSheet,SafeAreaView,DeviceEventEmitter} from 'react-native';
 import {createStackNavigator} from 'react-navigation';
 import commenStyles from '../Base/CommenStyle.js'
 import REQUEST_URL from '../Base/BaseWeb'
 import fetchData from '../Base/FetchData'
 import UserModel from '../Base/UserModel'
+
 export default class LoginScreen extends Component{
     constructor(props){
         super(props);
@@ -21,7 +22,14 @@ export default class LoginScreen extends Component{
     static navigationOptions = {
         header:null,
     }
-
+    componentDidMount(){
+        this.linster = DeviceEventEmitter.addListener('showLoading',(e)=>{
+            this.props.navigation.navigate('LoadingModal')
+        })
+    }
+    componentWillUnmount(){
+        this.linster.remove();
+    }
     _showPswdToggle = ()=>{
         this.setState({
             showPwd: !this.state.showPwd
@@ -81,6 +89,7 @@ export default class LoginScreen extends Component{
             returnKeyType = 'next'
             returnKeyLabel = '下一项'
             maxLength = {11}
+            numberOfLines = {1}
             keyboardType = 'phone-pad'
             onChangeText = {this._phoneNumChnaged}
             value = {this.state.phone}
@@ -93,6 +102,7 @@ export default class LoginScreen extends Component{
            placeholder='请输入密码'
            returnKeyType = 'done'
            returnKeyLabel = '完成'
+           numberOfLines = {1}
            maxLength = {16}
            textContentType = 'password'
            secureTextEntry = {!this.state.showPwd}
@@ -108,7 +118,7 @@ export default class LoginScreen extends Component{
            </TouchableOpacity>
            </View>
            <TouchableOpacity style={[styles.button,{backgroundColor: this.state.submitBtnEnable ? '#00a056' : '#ccc'}]}
-            onPress={this._loginBtnclick}
+            onPress={()=>this._loginBtnclick()}
             disabled = {!this.state.submitBtnEnable}
             ref ={component => this._logBtn = component}
             >
@@ -130,19 +140,23 @@ const styles = StyleSheet.create({
     },
     inputContainer1:{
         width:'80%',
-        height:20,
         flexDirection:'row',
-        alignItems:'flex-start',
-        justifyContent:'center',
+        alignItems:'center',
+        justifyContent:'flex-start',
         marginTop:45,
+        borderBottomColor:'#ccc',
+        borderBottomWidth:1,
+        paddingBottom:5,
     },
     inputContainer2:{
         width:'80%',
-        height:20,
         flexDirection:'row',
-        alignItems:'flex-start',
-        justifyContent:'center',
+        alignItems:'center',
+        justifyContent:'flex-start',
         marginTop:35,
+        borderBottomColor:'#ccc',
+        borderBottomWidth:1,
+        paddingBottom:5,
     },
     text:{
         color:'#333',
@@ -152,9 +166,11 @@ const styles = StyleSheet.create({
     input:{
         width:200,
         marginLeft:20,
+       height:40,
         fontSize:14,
-        borderBottomWidth:1,
-        borderBottomColor:'#ccc'
+        borderBottomWidth:0,
+        color:'#333',
+        
     },
     showButton:{
         color:'#333',

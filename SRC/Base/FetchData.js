@@ -2,8 +2,10 @@
 import UserModel from './UserModel';
 import DeviceInfo from 'react-native-device-info';
 import {DeviceEventEmitter} from 'react-native';
+import LoadingUtil from './BaseLoadingUtil';
  export default async function fehchData(url,params,fn){
-    
+    // DeviceEventEmitter.emit('showLoading')
+        LoadingUtil.showLoading();
      transData(params,async (str)=>{
         var request = new XMLHttpRequest();
         request.onreadystatechange =  (e)=>{
@@ -11,7 +13,7 @@ import {DeviceEventEmitter} from 'react-native';
             return;
         }
         // DeviceEventEmitter.emit('hiddenLoading')
-        
+        LoadingUtil.dismissLoading();
         if (request.status === 200){
             let res = JSON.parse(request.response);
             if (res.status.code === 200){
@@ -28,7 +30,6 @@ import {DeviceEventEmitter} from 'react-native';
             }
            
         }else{
-            
             let error = new Error();
             error.message = '网络错误'
             console.log(`1234567890 error status=${JSON.stringify(error.status)}`)

@@ -3,9 +3,10 @@ package com.mydemoapp;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
-import com.imagepicker.ImagePickerPackage;
-import com.reactnativecommunity.cameraroll.CameraRollPackage;
-import com.RNFetchBlob.RNFetchBlobPackage;
+import com.audioStreaming.ReactNativeAudioStreamingPackage;
+//import com.imagepicker.ImagePickerPackage;
+//import com.reactnativecommunity.cameraroll.CameraRollPackage;
+//import com.RNFetchBlob.RNFetchBlobPackage;
 import com.brentvatne.react.ReactVideoPackage;
 import ca.jaysoo.extradimensions.ExtraDimensionsPackage;
 import com.learnium.RNDeviceInfo.RNDeviceInfo;
@@ -32,9 +33,10 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
-            new ImagePickerPackage(),
-            new CameraRollPackage(),
-            new RNFetchBlobPackage(),
+            new ReactNativeAudioStreamingPackage(),
+//            new ImagePickerPackage(),
+//            new CameraRollPackage(),
+//            new RNFetchBlobPackage(),
             new ReactVideoPackage(),
             new ExtraDimensionsPackage(),
             new RNDeviceInfo(),

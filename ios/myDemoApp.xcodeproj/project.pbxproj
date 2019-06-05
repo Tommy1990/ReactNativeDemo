@@ -38,6 +38,8 @@
 		5FB49931DF364609A3237266 /* libRNGestureHandler-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A687D7F1A4F94C6B87A9AE49 /* libRNGestureHandler-tvOS.a */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
 		8EBEB02EB13A48E7ABAE03AA /* libRNDeviceInfo-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A1164527CC1D4AB9BA55E348 /* libRNDeviceInfo-tvOS.a */; };
+		9606CD1222A5040E008CD51E /* libReactNativeAudioStreaming.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9606CD1122A503FF008CD51E /* libReactNativeAudioStreaming.a */; };
+		9606CD1C22A50508008CD51E /* libStreamingKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9606CD1B22A504FD008CD51E /* libStreamingKit.a */; };
 		961E87C02249D6030098B9BB /* QBImagePicker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 961E87BF2249D6030098B9BB /* QBImagePicker.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		961E88222249D7EF0098B9BB /* RSKImageCropper.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 961E88212249D7EF0098B9BB /* RSKImageCropper.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		963C3DEB2265CBF30069B947 /* WebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 963C3DEA2265CBF30069B947 /* WebViewController.m */; };
@@ -299,6 +301,27 @@
 			remoteGlobalIDString = 58B5119B1A9E6C1200147676;
 			remoteInfo = RCTText;
 		};
+		9606CD1022A503FF008CD51E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9606CD0C22A503FF008CD51E /* ReactNativeAudioStreaming.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 134814201AA4EA6300B7C361;
+			remoteInfo = ReactNativeAudioStreaming;
+		};
+		9606CD1822A504FD008CD51E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9606CD1322A504FD008CD51E /* Pods.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 3D796608261BE7EF75B9CA099BE45490;
+			remoteInfo = "Pods-ReactNativeAudioStreaming";
+		};
+		9606CD1A22A504FD008CD51E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9606CD1322A504FD008CD51E /* Pods.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 8354B6B10F10687EE626DF43663B075A;
+			remoteInfo = StreamingKit;
+		};
 		961E87AD2249C31D0098B9BB /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 033D801BE98C4925B5C77711 /* imageCropPicker.xcodeproj */;
@@ -437,6 +460,8 @@
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
 		87219F4483854C7BB31A95C5 /* RNGestureHandler.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNGestureHandler.xcodeproj; path = "../node_modules/react-native-gesture-handler/ios/RNGestureHandler.xcodeproj"; sourceTree = "<group>"; };
 		917171A9337245D9A001C834 /* libRNCAsyncStorage.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNCAsyncStorage.a; sourceTree = "<group>"; };
+		9606CD0C22A503FF008CD51E /* ReactNativeAudioStreaming.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ReactNativeAudioStreaming.xcodeproj; path = "../node_modules/react-native-audio-streaming/ios/ReactNativeAudioStreaming.xcodeproj"; sourceTree = "<group>"; };
+		9606CD1322A504FD008CD51E /* Pods.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Pods.xcodeproj; path = "../node_modules/react-native-audio-streaming/ios/Pods/Pods.xcodeproj"; sourceTree = "<group>"; };
 		961E87BF2249D6030098B9BB /* QBImagePicker.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = QBImagePicker.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		961E88212249D7EF0098B9BB /* RSKImageCropper.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = RSKImageCropper.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		963C3DE92265CBF30069B947 /* WebViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WebViewController.h; sourceTree = "<group>"; };
@@ -479,6 +504,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9606CD1C22A50508008CD51E /* libStreamingKit.a in Frameworks */,
+				9606CD1222A5040E008CD51E /* libReactNativeAudioStreaming.a in Frameworks */,
 				9681F05D2282C7DB00C8A355 /* libimageCropPicker.a in Frameworks */,
 				96CC7EAA2269C90D00DF78CF /* libRCTVideo.a in Frameworks */,
 				A7080C6822578E1200E26348 /* libRNGestureHandler.a in Frameworks */,
@@ -684,6 +711,8 @@
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				9606CD1322A504FD008CD51E /* Pods.xcodeproj */,
+				9606CD0C22A503FF008CD51E /* ReactNativeAudioStreaming.xcodeproj */,
 				96CC7E702269B92D00DF78CF /* RCTVideo.xcodeproj */,
 				5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */,
 				146833FF1AC3E56700842450 /* React.xcodeproj */,
@@ -736,6 +765,23 @@
 				00E356EE1AD99517003FC87E /* myDemoAppTests.xctest */,
 				2D02E47B1E0B4A5D006451C7 /* myDemoApp-tvOS.app */,
 				2D02E4901E0B4A5D006451C7 /* myDemoApp-tvOSTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		9606CD0D22A503FF008CD51E /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				9606CD1122A503FF008CD51E /* libReactNativeAudioStreaming.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		9606CD1422A504FD008CD51E /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				9606CD1922A504FD008CD51E /* libPods-ReactNativeAudioStreaming.a */,
+				9606CD1B22A504FD008CD51E /* libStreamingKit.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -970,6 +1016,10 @@
 					ProjectRef = 033D801BE98C4925B5C77711 /* imageCropPicker.xcodeproj */;
 				},
 				{
+					ProductGroup = 9606CD1422A504FD008CD51E /* Products */;
+					ProjectRef = 9606CD1322A504FD008CD51E /* Pods.xcodeproj */;
+				},
+				{
 					ProductGroup = 00C302A81ABCB8CE00DB3ED1 /* Products */;
 					ProjectRef = 00C302A71ABCB8CE00DB3ED1 /* RCTActionSheet.xcodeproj */;
 				},
@@ -1020,6 +1070,10 @@
 				{
 					ProductGroup = 146834001AC3E56700842450 /* Products */;
 					ProjectRef = 146833FF1AC3E56700842450 /* React.xcodeproj */;
+				},
+				{
+					ProductGroup = 9606CD0D22A503FF008CD51E /* Products */;
+					ProjectRef = 9606CD0C22A503FF008CD51E /* ReactNativeAudioStreaming.xcodeproj */;
 				},
 				{
 					ProductGroup = A7080C3A2256F84400E26348 /* Products */;
@@ -1267,6 +1321,27 @@
 			fileType = archive.ar;
 			path = libRCTText.a;
 			remoteRef = 832341B41AAA6A8300B99B32 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		9606CD1122A503FF008CD51E /* libReactNativeAudioStreaming.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libReactNativeAudioStreaming.a;
+			remoteRef = 9606CD1022A503FF008CD51E /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		9606CD1922A504FD008CD51E /* libPods-ReactNativeAudioStreaming.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libPods-ReactNativeAudioStreaming.a";
+			remoteRef = 9606CD1822A504FD008CD51E /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		9606CD1B22A504FD008CD51E /* libStreamingKit.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libStreamingKit.a;
+			remoteRef = 9606CD1A22A504FD008CD51E /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		961E87AE2249C31D0098B9BB /* libimageCropPicker.a */ = {
@@ -1594,6 +1669,7 @@
 					"$(SRCROOT)/../node_modules/@react-native-community/cameraroll/ios",
 				);
 				INFOPLIST_FILE = myDemoApp/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
@@ -1622,6 +1698,7 @@
 					"$(SRCROOT)/../node_modules/@react-native-community/cameraroll/ios",
 				);
 				INFOPLIST_FILE = myDemoApp/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"$(inherited)",

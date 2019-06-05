@@ -52,6 +52,7 @@ import WeatherStationView from './SRC/Home/View/WeatherStationView'
 import DeviceInfo from 'react-native-device-info';
 import AsyncStorage from '@react-native-community/async-storage'
 import ImagePicker from 'react-native-image-crop-picker';
+import BaseLoading from './SRC/Base/BaseLoading';
 //登录
 
 const LoginNav = createStackNavigator({
@@ -161,7 +162,7 @@ const SwitchNav = createSwitchNavigator({
 
 const Modalstack = createStackNavigator({
   SwitchNav:SwitchNav,
-  LooadingModal:ModalLoading,
+  LoadingModal:ModalLoading,
 },{
   mode:'modal',
   headerMode:'none',
@@ -173,7 +174,15 @@ export default class App extends Component{
   render(){
     
     return (
-      <AppContainer></AppContainer>
+      <View style={{flex:1,position:'relative'}}>
+        <AppContainer></AppContainer>
+        <BaseLoading
+        ref={(ref)=>{
+          global.mLoadingComponentRef = ref;
+        }}
+        />
+      </View>
+      
     )
   }
 }
