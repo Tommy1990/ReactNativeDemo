@@ -159,7 +159,10 @@ class HeaderView extends Component{
             companyName = this.state.company.simpleName
         }
         return (
-            <Text style={{color:'#333',fontSize:18,fontWeight:'bold'}}>{companyName}</Text>
+            <View style={{width:'100%',alignItems:'center',justifyContent:'center'}}>
+                <Text style={{color:'#333',fontSize:18,fontWeight:'bold'}}>{companyName}</Text>
+            </View>
+            
         ) 
     }
 }

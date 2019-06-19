@@ -133,6 +133,7 @@ const TabNavigator = createBottomTabNavigator({
   }
 })
 //抽屉导航
+const {height,width} = Dimensions.get('window')
 const DrawerNav = createDrawerNavigator({
   TabNav:TabNavigator,
   MimeStruct:MineStructPage,
@@ -144,7 +145,7 @@ const DrawerNav = createDrawerNavigator({
 },{
   drawerWidth:300,
   contentComponent: props =>{
-    var {height,width} = Dimensions.get('window')
+   
   return(
     <DrawerScreen tempNav = {props.navigation}/>
    )

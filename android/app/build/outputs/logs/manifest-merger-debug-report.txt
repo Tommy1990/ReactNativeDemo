@@ -1,0 +1,368 @@
+-- Merging decision tree log ---
+manifest
+ADDED from /Users/yongfu/ReactNativeDemo/android/app/src/main/AndroidManifest.xml:1:1-31:12
+INJECTED from /Users/yongfu/ReactNativeDemo/android/app/src/main/AndroidManifest.xml:1:1-31:12
+INJECTED from /Users/yongfu/ReactNativeDemo/android/app/src/main/AndroidManifest.xml:1:1-31:12
+INJECTED from /Users/yongfu/ReactNativeDemo/android/app/src/main/AndroidManifest.xml:1:1-31:12
+MERGED from [:react-native-audio-streaming] /Users/yongfu/ReactNativeDemo/node_modules/react-native-audio-streaming/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-21:12
+MERGED from [:react-native-video] /Users/yongfu/ReactNativeDemo/node_modules/react-native-video/android-exoplayer/build/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-11:12
+MERGED from [:react-native-extra-dimensions-android] /Users/yongfu/ReactNativeDemo/node_modules/react-native-extra-dimensions-android/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-11:12
+MERGED from [:react-native-device-info] /Users/yongfu/ReactNativeDemo/node_modules/react-native-device-info/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-22:12
+MERGED from [:@react-native-community_async-storage] /Users/yongfu/ReactNativeDemo/node_modules/@react-native-community/async-storage/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-9:12
+MERGED from [:react-native-image-crop-picker] /Users/yongfu/ReactNativeDemo/node_modules/react-native-image-crop-picker/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-28:12
+MERGED from [:react-native-gesture-handler] /Users/yongfu/ReactNativeDemo/node_modules/react-native-gesture-handler/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-11:12
+MERGED from [com.facebook.react:react-native:0.59.6] /Users/yongfu/.gradle/caches/transforms-2/files-2.1/98d531efaeca93aaffd5a205ebd5ec2f/AndroidManifest.xml:2:1-13:12
+MERGED from [com.github.yalantis:ucrop:2.2.2-native] /Users/yongfu/.gradle/caches/transforms-2/files-2.1/b4786347313e19a3f6c306f0f55deb26/AndroidManifest.xml:2:1-11:12
+MERGED from [com.android.support:appcompat-v7:28.0.0] /Users/yongfu/.gradle/caches/transforms-2/files-2.1/a10ad48d409b17ebe69114f55c8913c7/AndroidManifest.xml:17:1-22:12
+MERGED from [com.google.android.exoplayer:exoplayer:2.9.3] /Users/yongfu/.gradle/caches/transforms-2/files-2.1/94739f99358c23a2c1b405c4902d5b69/AndroidManifest.xml:17:1-24:12
+MERGED from [com.google.android.gms:play-services-gcm:16.1.0] /Users/yongfu/.gradle/caches/transforms-2/files-2.1/90955697629a5db75d43a3896afc74e0/AndroidManifest.xml:17:1-28:12
+MERGED from [com.google.android.gms:play-services-iid:16.0.1] /Users/yongfu/.gradle/caches/transforms-2/files-2.1/d97ae606e0b2e4dd163572cb8eb20043/AndroidManifest.xml:17:1-28:12
+MERGED from [com.google.android.gms:play-services-base:16.0.1] /Users/yongfu/.gradle/caches/transforms-2/files-2.1/5fccfd0682b5baf4636688e254485f60/AndroidManifest.xml:17:1-29:12
+MERGED from [com.google.android.gms:play-services-stats:16.0.1] /Users/yongfu/.gradle/caches/transforms-2/files-2.1/e61114a4b9f04e440409e36bb3271b34/AndroidManifest.xml:2:1-9:12
+MERGED from [com.google.android.gms:play-services-tasks:16.0.1] /Users/yongfu/.gradle/caches/transforms-2/files-2.1/384e442b486fc767cc0922b53d97274e/AndroidManifest.xml:2:1-9:12
+MERGED from [com.google.android.gms:play-services-basement:16.0.1] /Users/yongfu/.gradle/caches/transforms-2/files-2.1/fad11eb32d28b9e5fdf3608ba4d46f04/AndroidManifest.xml:17:1-28:12
+MERGED from [com.android.support:support-v4:28.0.0] /Users/yongfu/.gradle/caches/transforms-2/files-2.1/98d361bb25472c412b9e77810252939f/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:support-media-compat:28.0.0] /Users/yongfu/.gradle/caches/transforms-2/files-2.1/7b3e6d2f2dd3f08130c50289de808447/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:support-fragment:28.0.0] /Users/yongfu/.gradle/caches/transforms-2/files-2.1/9045df8faad7cf08df218be16e1ffe48/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:animated-vector-drawable:28.0.0] /Users/yongfu/.gradle/caches/transforms-2/files-2.1/586bdae41665c7cd676fe213be415c46/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:support-core-ui:28.0.0] /Users/yongfu/.gradle/caches/transforms-2/files-2.1/6618203a6eb7cc23f2146092461a1bc4/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:support-core-utils:28.0.0] /Users/yongfu/.gradle/caches/transforms-2/files-2.1/50c4a00717ccd1cb9967fa1fe96e2619/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:support-vector-drawable:28.0.0] /Users/yongfu/.gradle/caches/transforms-2/files-2.1/eaf8f80b8c0b48a1d2143d46527bc05f/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:loader:28.0.0] /Users/yongfu/.gradle/caches/transforms-2/files-2.1/4e37582072ca275f1e7f768c9c0d2747/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:viewpager:28.0.0] /Users/yongfu/.gradle/caches/transforms-2/files-2.1/01024713dff3407fb415c13faa4bf99e/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:coordinatorlayout:28.0.0] /Users/yongfu/.gradle/caches/transforms-2/files-2.1/23b041caf755678d47ef7bf2d61aa61c/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:drawerlayout:28.0.0] /Users/yongfu/.gradle/caches/transforms-2/files-2.1/4aa1a16d6b6583cb3d128af31ba9460a/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:slidingpanelayout:28.0.0] /Users/yongfu/.gradle/caches/transforms-2/files-2.1/a5dfbf41c271174e3a97d0d9b0b30915/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:customview:28.0.0] /Users/yongfu/.gradle/caches/transforms-2/files-2.1/74cd622363a8fc49cb1fe87f8881afea/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:swiperefreshlayout:28.0.0] /Users/yongfu/.gradle/caches/transforms-2/files-2.1/be8d26f37da0875a9a097a9ee51b019e/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:asynclayoutinflater:28.0.0] /Users/yongfu/.gradle/caches/transforms-2/files-2.1/7913633ed0dd38679d253509ba9cc7f1/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:support-compat:28.0.0] /Users/yongfu/.gradle/caches/transforms-2/files-2.1/5e352a987e5a4c8470c708e3e7b1aeda/AndroidManifest.xml:17:1-24:12
+MERGED from [com.google.android.exoplayer:extension-okhttp:2.9.3] /Users/yongfu/.gradle/caches/transforms-2/files-2.1/ed4d079790a86b416a5ff874271f0d50/AndroidManifest.xml:17:1-24:12
+MERGED from [com.android.support:versionedparcelable:28.0.0] /Users/yongfu/.gradle/caches/transforms-2/files-2.1/75cb9c4017bbdaa3dc290fed183af200/AndroidManifest.xml:17:1-25:12
+MERGED from [com.android.support:cursoradapter:28.0.0] /Users/yongfu/.gradle/caches/transforms-2/files-2.1/819f9cf29cfe46d0c415207d0e59d01f/AndroidManifest.xml:17:1-22:12
+MERGED from [com.google.android.exoplayer:exoplayer-dash:2.9.3] /Users/yongfu/.gradle/caches/transforms-2/files-2.1/fab9fe119a12b73ef8a211eeb015681a/AndroidManifest.xml:17:1-24:12
+MERGED from [com.google.android.exoplayer:exoplayer-hls:2.9.3] /Users/yongfu/.gradle/caches/transforms-2/files-2.1/9790963ca4bb3115dcd8be2626262119/AndroidManifest.xml:17:1-24:12
+MERGED from [com.google.android.exoplayer:exoplayer-smoothstreaming:2.9.3] /Users/yongfu/.gradle/caches/transforms-2/files-2.1/b9b42f2a752dfd4e19cd8d4d551db28b/AndroidManifest.xml:17:1-24:12
+MERGED from [com.google.android.exoplayer:exoplayer-ui:2.9.3] /Users/yongfu/.gradle/caches/transforms-2/files-2.1/541e9b774d700a5097ef946963d36762/AndroidManifest.xml:17:1-24:12
+MERGED from [com.google.android.exoplayer:exoplayer-core:2.9.3] /Users/yongfu/.gradle/caches/transforms-2/files-2.1/96fe02f63980573ae8b5e1f901a53501/AndroidManifest.xml:17:1-26:12
+MERGED from [android.arch.lifecycle:runtime:1.1.1] /Users/yongfu/.gradle/caches/transforms-2/files-2.1/3077125dc9eff63155c93507d3a18bc3/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:documentfile:28.0.0] /Users/yongfu/.gradle/caches/transforms-2/files-2.1/925429a9932b70157e40cc8a4043ac27/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:localbroadcastmanager:28.0.0] /Users/yongfu/.gradle/caches/transforms-2/files-2.1/9260b7a0b8180461e6446a921bb7b7a5/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:print:28.0.0] /Users/yongfu/.gradle/caches/transforms-2/files-2.1/5f4e6edc0e04d2a271a197057737368b/AndroidManifest.xml:17:1-22:12
+MERGED from [android.arch.lifecycle:viewmodel:1.1.1] /Users/yongfu/.gradle/caches/transforms-2/files-2.1/b49ae9570c1d1343034daef457b4a880/AndroidManifest.xml:17:1-22:12
+MERGED from [android.arch.lifecycle:livedata:1.1.1] /Users/yongfu/.gradle/caches/transforms-2/files-2.1/9ce76a13e8c448fd540015a3fb622ec2/AndroidManifest.xml:17:1-22:12
+MERGED from [android.arch.lifecycle:livedata-core:1.1.1] /Users/yongfu/.gradle/caches/transforms-2/files-2.1/feaee3d3354f9448987e6993541471dc/AndroidManifest.xml:17:1-22:12
+MERGED from [android.arch.core:runtime:1.1.1] /Users/yongfu/.gradle/caches/transforms-2/files-2.1/45090a55f1d3fa3a4d6a60adc4cffcf3/AndroidManifest.xml:17:1-22:12
+MERGED from [com.android.support:interpolator:28.0.0] /Users/yongfu/.gradle/caches/transforms-2/files-2.1/61f7ad7f405a85b8693e93097c674c43/AndroidManifest.xml:17:1-22:12
+MERGED from [com.facebook.fresco:imagepipeline-okhttp3:1.10.0] /Users/yongfu/.gradle/caches/transforms-2/files-2.1/7d74671aa03b9825fd3c76ee0e2c4eef/AndroidManifest.xml:2:1-9:12
+MERGED from [com.facebook.fresco:fresco:1.10.0] /Users/yongfu/.gradle/caches/transforms-2/files-2.1/6fb4fd9c44a5659d25fab246a65493e6/AndroidManifest.xml:2:1-9:12
+MERGED from [com.facebook.fresco:drawee:1.10.0] /Users/yongfu/.gradle/caches/transforms-2/files-2.1/2910dc1f52648e28121d748b8a7238dd/AndroidManifest.xml:2:1-9:12
+MERGED from [com.facebook.fresco:imagepipeline:1.10.0] /Users/yongfu/.gradle/caches/transforms-2/files-2.1/44ac24184a8aa1aae9e9ecdce1d74e75/AndroidManifest.xml:2:1-9:12
+MERGED from [com.facebook.fresco:imagepipeline-base:1.10.0] /Users/yongfu/.gradle/caches/transforms-2/files-2.1/bc82cc69cc86e205513d6b4d46de2f79/AndroidManifest.xml:2:1-9:12
+MERGED from [com.facebook.soloader:soloader:0.6.0] /Users/yongfu/.gradle/caches/transforms-2/files-2.1/402ee2e1cb272962957771c0b3218cd2/AndroidManifest.xml:2:1-13:12
+MERGED from [com.facebook.fresco:fbcore:1.10.0] /Users/yongfu/.gradle/caches/transforms-2/files-2.1/96009d793186b00c9276b90ecf86d7d5/AndroidManifest.xml:2:1-9:12
+INJECTED from /Users/yongfu/ReactNativeDemo/android/app/src/main/AndroidManifest.xml:1:1-31:12
+INJECTED from /Users/yongfu/ReactNativeDemo/android/app/src/main/AndroidManifest.xml:1:1-31:12
+INJECTED from /Users/yongfu/ReactNativeDemo/android/app/src/main/AndroidManifest.xml:1:1-31:12
+	package
+		ADDED from /Users/yongfu/ReactNativeDemo/android/app/src/main/AndroidManifest.xml:2:3-26
+		INJECTED from /Users/yongfu/ReactNativeDemo/android/app/src/main/AndroidManifest.xml
+		INJECTED from /Users/yongfu/ReactNativeDemo/android/app/src/main/AndroidManifest.xml
+	android:versionName
+		INJECTED from /Users/yongfu/ReactNativeDemo/android/app/src/main/AndroidManifest.xml
+		ADDED from /Users/yongfu/ReactNativeDemo/android/app/src/main/AndroidManifest.xml:1:1-31:12
+		INJECTED from /Users/yongfu/ReactNativeDemo/android/app/src/main/AndroidManifest.xml
+	android:versionCode
+		INJECTED from /Users/yongfu/ReactNativeDemo/android/app/src/main/AndroidManifest.xml
+		ADDED from /Users/yongfu/ReactNativeDemo/android/app/src/main/AndroidManifest.xml:1:1-31:12
+		INJECTED from /Users/yongfu/ReactNativeDemo/android/app/src/main/AndroidManifest.xml
+	xmlns:android
+		ADDED from /Users/yongfu/ReactNativeDemo/android/app/src/main/AndroidManifest.xml:1:11-69
+uses-permission#android.permission.INTERNET
+ADDED from /Users/yongfu/ReactNativeDemo/android/app/src/main/AndroidManifest.xml:4:5-67
+MERGED from [com.google.android.gms:play-services-gcm:16.1.0] /Users/yongfu/.gradle/caches/transforms-2/files-2.1/90955697629a5db75d43a3896afc74e0/AndroidManifest.xml:24:5-67
+MERGED from [com.google.android.gms:play-services-gcm:16.1.0] /Users/yongfu/.gradle/caches/transforms-2/files-2.1/90955697629a5db75d43a3896afc74e0/AndroidManifest.xml:24:5-67
+MERGED from [com.google.android.gms:play-services-iid:16.0.1] /Users/yongfu/.gradle/caches/transforms-2/files-2.1/d97ae606e0b2e4dd163572cb8eb20043/AndroidManifest.xml:24:5-67
+MERGED from [com.google.android.gms:play-services-iid:16.0.1] /Users/yongfu/.gradle/caches/transforms-2/files-2.1/d97ae606e0b2e4dd163572cb8eb20043/AndroidManifest.xml:24:5-67
+	android:name
+		ADDED from /Users/yongfu/ReactNativeDemo/android/app/src/main/AndroidManifest.xml:4:22-64
+uses-permission#android.permission.WRITE_EXTERNAL_STORAGE
+ADDED from /Users/yongfu/ReactNativeDemo/android/app/src/main/AndroidManifest.xml:5:5-81
+MERGED from [:react-native-image-crop-picker] /Users/yongfu/ReactNativeDemo/node_modules/react-native-image-crop-picker/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:10:5-81
+MERGED from [:react-native-image-crop-picker] /Users/yongfu/ReactNativeDemo/node_modules/react-native-image-crop-picker/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:10:5-81
+	android:name
+		ADDED from /Users/yongfu/ReactNativeDemo/android/app/src/main/AndroidManifest.xml:5:22-78
+uses-permission#android.permission.SYSTEM_ALERT_WINDOW
+ADDED from /Users/yongfu/ReactNativeDemo/android/app/src/main/AndroidManifest.xml:6:5-77
+	android:name
+		ADDED from /Users/yongfu/ReactNativeDemo/android/app/src/main/AndroidManifest.xml:6:22-75
+application
+ADDED from /Users/yongfu/ReactNativeDemo/android/app/src/main/AndroidManifest.xml:8:5-29:19
+MERGED from [:react-native-audio-streaming] /Users/yongfu/ReactNativeDemo/node_modules/react-native-audio-streaming/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:13:5-19:19
+MERGED from [:react-native-audio-streaming] /Users/yongfu/ReactNativeDemo/node_modules/react-native-audio-streaming/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:13:5-19:19
+MERGED from [:react-native-device-info] /Users/yongfu/ReactNativeDemo/node_modules/react-native-device-info/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:11:5-20:19
+MERGED from [:react-native-device-info] /Users/yongfu/ReactNativeDemo/node_modules/react-native-device-info/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:11:5-20:19
+MERGED from [:react-native-image-crop-picker] /Users/yongfu/ReactNativeDemo/node_modules/react-native-image-crop-picker/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:12:5-26:19
+MERGED from [:react-native-image-crop-picker] /Users/yongfu/ReactNativeDemo/node_modules/react-native-image-crop-picker/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:12:5-26:19
+MERGED from [com.facebook.react:react-native:0.59.6] /Users/yongfu/.gradle/caches/transforms-2/files-2.1/98d531efaeca93aaffd5a205ebd5ec2f/AndroidManifest.xml:11:5-20
+MERGED from [com.facebook.react:react-native:0.59.6] /Users/yongfu/.gradle/caches/transforms-2/files-2.1/98d531efaeca93aaffd5a205ebd5ec2f/AndroidManifest.xml:11:5-20
+MERGED from [com.google.android.gms:play-services-gcm:16.1.0] /Users/yongfu/.gradle/caches/transforms-2/files-2.1/90955697629a5db75d43a3896afc74e0/AndroidManifest.xml:26:5-20
+MERGED from [com.google.android.gms:play-services-gcm:16.1.0] /Users/yongfu/.gradle/caches/transforms-2/files-2.1/90955697629a5db75d43a3896afc74e0/AndroidManifest.xml:26:5-20
+MERGED from [com.google.android.gms:play-services-iid:16.0.1] /Users/yongfu/.gradle/caches/transforms-2/files-2.1/d97ae606e0b2e4dd163572cb8eb20043/AndroidManifest.xml:26:5-20
+MERGED from [com.google.android.gms:play-services-iid:16.0.1] /Users/yongfu/.gradle/caches/transforms-2/files-2.1/d97ae606e0b2e4dd163572cb8eb20043/AndroidManifest.xml:26:5-20
+MERGED from [com.google.android.gms:play-services-base:16.0.1] /Users/yongfu/.gradle/caches/transforms-2/files-2.1/5fccfd0682b5baf4636688e254485f60/AndroidManifest.xml:22:5-27:19
+MERGED from [com.google.android.gms:play-services-base:16.0.1] /Users/yongfu/.gradle/caches/transforms-2/files-2.1/5fccfd0682b5baf4636688e254485f60/AndroidManifest.xml:22:5-27:19
+MERGED from [com.google.android.gms:play-services-stats:16.0.1] /Users/yongfu/.gradle/caches/transforms-2/files-2.1/e61114a4b9f04e440409e36bb3271b34/AndroidManifest.xml:7:5-20
+MERGED from [com.google.android.gms:play-services-stats:16.0.1] /Users/yongfu/.gradle/caches/transforms-2/files-2.1/e61114a4b9f04e440409e36bb3271b34/AndroidManifest.xml:7:5-20
+MERGED from [com.google.android.gms:play-services-tasks:16.0.1] /Users/yongfu/.gradle/caches/transforms-2/files-2.1/384e442b486fc767cc0922b53d97274e/AndroidManifest.xml:7:5-20
+MERGED from [com.google.android.gms:play-services-tasks:16.0.1] /Users/yongfu/.gradle/caches/transforms-2/files-2.1/384e442b486fc767cc0922b53d97274e/AndroidManifest.xml:7:5-20
+MERGED from [com.google.android.gms:play-services-basement:16.0.1] /Users/yongfu/.gradle/caches/transforms-2/files-2.1/fad11eb32d28b9e5fdf3608ba4d46f04/AndroidManifest.xml:22:5-26:19
+MERGED from [com.google.android.gms:play-services-basement:16.0.1] /Users/yongfu/.gradle/caches/transforms-2/files-2.1/fad11eb32d28b9e5fdf3608ba4d46f04/AndroidManifest.xml:22:5-26:19
+MERGED from [com.android.support:support-compat:28.0.0] /Users/yongfu/.gradle/caches/transforms-2/files-2.1/5e352a987e5a4c8470c708e3e7b1aeda/AndroidManifest.xml:22:5-94
+MERGED from [com.android.support:support-compat:28.0.0] /Users/yongfu/.gradle/caches/transforms-2/files-2.1/5e352a987e5a4c8470c708e3e7b1aeda/AndroidManifest.xml:22:5-94
+MERGED from [com.android.support:versionedparcelable:28.0.0] /Users/yongfu/.gradle/caches/transforms-2/files-2.1/75cb9c4017bbdaa3dc290fed183af200/AndroidManifest.xml:22:5-23:19
+MERGED from [com.android.support:versionedparcelable:28.0.0] /Users/yongfu/.gradle/caches/transforms-2/files-2.1/75cb9c4017bbdaa3dc290fed183af200/AndroidManifest.xml:22:5-23:19
+MERGED from [com.facebook.soloader:soloader:0.6.0] /Users/yongfu/.gradle/caches/transforms-2/files-2.1/402ee2e1cb272962957771c0b3218cd2/AndroidManifest.xml:11:5-20
+MERGED from [com.facebook.soloader:soloader:0.6.0] /Users/yongfu/.gradle/caches/transforms-2/files-2.1/402ee2e1cb272962957771c0b3218cd2/AndroidManifest.xml:11:5-20
+	android:appComponentFactory
+		ADDED from [com.android.support:support-compat:28.0.0] /Users/yongfu/.gradle/caches/transforms-2/files-2.1/5e352a987e5a4c8470c708e3e7b1aeda/AndroidManifest.xml:22:18-91
+	android:label
+		ADDED from /Users/yongfu/ReactNativeDemo/android/app/src/main/AndroidManifest.xml:10:7-39
+	android:roundIcon
+		ADDED from /Users/yongfu/ReactNativeDemo/android/app/src/main/AndroidManifest.xml:12:7-52
+	android:allowBackup
+		ADDED from [:react-native-audio-streaming] /Users/yongfu/ReactNativeDemo/node_modules/react-native-audio-streaming/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:13:18-44
+	android:icon
+		ADDED from /Users/yongfu/ReactNativeDemo/android/app/src/main/AndroidManifest.xml:11:7-41
+	android:theme
+		ADDED from /Users/yongfu/ReactNativeDemo/android/app/src/main/AndroidManifest.xml:13:9-40
+	android:name
+		ADDED from /Users/yongfu/ReactNativeDemo/android/app/src/main/AndroidManifest.xml:9:7-38
+activity#com.mydemoapp.MainActivity
+ADDED from /Users/yongfu/ReactNativeDemo/android/app/src/main/AndroidManifest.xml:16:7-27:18
+	android:label
+		ADDED from /Users/yongfu/ReactNativeDemo/android/app/src/main/AndroidManifest.xml:18:9-41
+	android:windowSoftInputMode
+		ADDED from /Users/yongfu/ReactNativeDemo/android/app/src/main/AndroidManifest.xml:20:9-51
+	android:configChanges
+		ADDED from /Users/yongfu/ReactNativeDemo/android/app/src/main/AndroidManifest.xml:19:9-79
+	android:name
+		ADDED from /Users/yongfu/ReactNativeDemo/android/app/src/main/AndroidManifest.xml:17:9-37
+intent-filter#action:name:android.intent.action.DOWNLOAD_COMPLETE+action:name:android.intent.action.MAIN+category:name:android.intent.category.LAUNCHER
+ADDED from /Users/yongfu/ReactNativeDemo/android/app/src/main/AndroidManifest.xml:21:9-26:25
+action#android.intent.action.MAIN
+ADDED from /Users/yongfu/ReactNativeDemo/android/app/src/main/AndroidManifest.xml:22:13-65
+	android:name
+		ADDED from /Users/yongfu/ReactNativeDemo/android/app/src/main/AndroidManifest.xml:22:21-62
+category#android.intent.category.LAUNCHER
+ADDED from /Users/yongfu/ReactNativeDemo/android/app/src/main/AndroidManifest.xml:23:13-73
+	android:name
+		ADDED from /Users/yongfu/ReactNativeDemo/android/app/src/main/AndroidManifest.xml:23:23-70
+action#android.intent.action.DOWNLOAD_COMPLETE
+ADDED from /Users/yongfu/ReactNativeDemo/android/app/src/main/AndroidManifest.xml:24:10-74
+	android:name
+		ADDED from /Users/yongfu/ReactNativeDemo/android/app/src/main/AndroidManifest.xml:24:18-72
+activity#com.facebook.react.devsupport.DevSettingsActivity
+ADDED from /Users/yongfu/ReactNativeDemo/android/app/src/main/AndroidManifest.xml:28:7-84
+	android:name
+		ADDED from /Users/yongfu/ReactNativeDemo/android/app/src/main/AndroidManifest.xml:28:17-81
+uses-sdk
+INJECTED from /Users/yongfu/ReactNativeDemo/android/app/src/main/AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from /Users/yongfu/ReactNativeDemo/android/app/src/main/AndroidManifest.xml
+INJECTED from /Users/yongfu/ReactNativeDemo/android/app/src/main/AndroidManifest.xml
+MERGED from [:react-native-audio-streaming] /Users/yongfu/ReactNativeDemo/node_modules/react-native-audio-streaming/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:7:5-9:41
+MERGED from [:react-native-audio-streaming] /Users/yongfu/ReactNativeDemo/node_modules/react-native-audio-streaming/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:7:5-9:41
+MERGED from [:react-native-video] /Users/yongfu/ReactNativeDemo/node_modules/react-native-video/android-exoplayer/build/intermediates/library_manifest/debug/AndroidManifest.xml:7:5-9:41
+MERGED from [:react-native-video] /Users/yongfu/ReactNativeDemo/node_modules/react-native-video/android-exoplayer/build/intermediates/library_manifest/debug/AndroidManifest.xml:7:5-9:41
+MERGED from [:react-native-extra-dimensions-android] /Users/yongfu/ReactNativeDemo/node_modules/react-native-extra-dimensions-android/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:7:5-9:41
+MERGED from [:react-native-extra-dimensions-android] /Users/yongfu/ReactNativeDemo/node_modules/react-native-extra-dimensions-android/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:7:5-9:41
+MERGED from [:react-native-device-info] /Users/yongfu/ReactNativeDemo/node_modules/react-native-device-info/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:7:5-9:41
+MERGED from [:react-native-device-info] /Users/yongfu/ReactNativeDemo/node_modules/react-native-device-info/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:7:5-9:41
+MERGED from [:@react-native-community_async-storage] /Users/yongfu/ReactNativeDemo/node_modules/@react-native-community/async-storage/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-7:41
+MERGED from [:@react-native-community_async-storage] /Users/yongfu/ReactNativeDemo/node_modules/@react-native-community/async-storage/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:5:5-7:41
+MERGED from [:react-native-image-crop-picker] /Users/yongfu/ReactNativeDemo/node_modules/react-native-image-crop-picker/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:6:5-8:41
+MERGED from [:react-native-image-crop-picker] /Users/yongfu/ReactNativeDemo/node_modules/react-native-image-crop-picker/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:6:5-8:41
+MERGED from [:react-native-gesture-handler] /Users/yongfu/ReactNativeDemo/node_modules/react-native-gesture-handler/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:7:5-9:41
+MERGED from [:react-native-gesture-handler] /Users/yongfu/ReactNativeDemo/node_modules/react-native-gesture-handler/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:7:5-9:41
+MERGED from [com.facebook.react:react-native:0.59.6] /Users/yongfu/.gradle/caches/transforms-2/files-2.1/98d531efaeca93aaffd5a205ebd5ec2f/AndroidManifest.xml:7:5-9:41
+MERGED from [com.facebook.react:react-native:0.59.6] /Users/yongfu/.gradle/caches/transforms-2/files-2.1/98d531efaeca93aaffd5a205ebd5ec2f/AndroidManifest.xml:7:5-9:41
+MERGED from [com.github.yalantis:ucrop:2.2.2-native] /Users/yongfu/.gradle/caches/transforms-2/files-2.1/b4786347313e19a3f6c306f0f55deb26/AndroidManifest.xml:7:5-9:41
+MERGED from [com.github.yalantis:ucrop:2.2.2-native] /Users/yongfu/.gradle/caches/transforms-2/files-2.1/b4786347313e19a3f6c306f0f55deb26/AndroidManifest.xml:7:5-9:41
+MERGED from [com.android.support:appcompat-v7:28.0.0] /Users/yongfu/.gradle/caches/transforms-2/files-2.1/a10ad48d409b17ebe69114f55c8913c7/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:appcompat-v7:28.0.0] /Users/yongfu/.gradle/caches/transforms-2/files-2.1/a10ad48d409b17ebe69114f55c8913c7/AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.exoplayer:exoplayer:2.9.3] /Users/yongfu/.gradle/caches/transforms-2/files-2.1/94739f99358c23a2c1b405c4902d5b69/AndroidManifest.xml:20:5-22:41
+MERGED from [com.google.android.exoplayer:exoplayer:2.9.3] /Users/yongfu/.gradle/caches/transforms-2/files-2.1/94739f99358c23a2c1b405c4902d5b69/AndroidManifest.xml:20:5-22:41
+MERGED from [com.google.android.gms:play-services-gcm:16.1.0] /Users/yongfu/.gradle/caches/transforms-2/files-2.1/90955697629a5db75d43a3896afc74e0/AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-gcm:16.1.0] /Users/yongfu/.gradle/caches/transforms-2/files-2.1/90955697629a5db75d43a3896afc74e0/AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-iid:16.0.1] /Users/yongfu/.gradle/caches/transforms-2/files-2.1/d97ae606e0b2e4dd163572cb8eb20043/AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-iid:16.0.1] /Users/yongfu/.gradle/caches/transforms-2/files-2.1/d97ae606e0b2e4dd163572cb8eb20043/AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-base:16.0.1] /Users/yongfu/.gradle/caches/transforms-2/files-2.1/5fccfd0682b5baf4636688e254485f60/AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-base:16.0.1] /Users/yongfu/.gradle/caches/transforms-2/files-2.1/5fccfd0682b5baf4636688e254485f60/AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-stats:16.0.1] /Users/yongfu/.gradle/caches/transforms-2/files-2.1/e61114a4b9f04e440409e36bb3271b34/AndroidManifest.xml:5:5-44
+MERGED from [com.google.android.gms:play-services-stats:16.0.1] /Users/yongfu/.gradle/caches/transforms-2/files-2.1/e61114a4b9f04e440409e36bb3271b34/AndroidManifest.xml:5:5-44
+MERGED from [com.google.android.gms:play-services-tasks:16.0.1] /Users/yongfu/.gradle/caches/transforms-2/files-2.1/384e442b486fc767cc0922b53d97274e/AndroidManifest.xml:5:5-44
+MERGED from [com.google.android.gms:play-services-tasks:16.0.1] /Users/yongfu/.gradle/caches/transforms-2/files-2.1/384e442b486fc767cc0922b53d97274e/AndroidManifest.xml:5:5-44
+MERGED from [com.google.android.gms:play-services-basement:16.0.1] /Users/yongfu/.gradle/caches/transforms-2/files-2.1/fad11eb32d28b9e5fdf3608ba4d46f04/AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-basement:16.0.1] /Users/yongfu/.gradle/caches/transforms-2/files-2.1/fad11eb32d28b9e5fdf3608ba4d46f04/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-v4:28.0.0] /Users/yongfu/.gradle/caches/transforms-2/files-2.1/98d361bb25472c412b9e77810252939f/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-v4:28.0.0] /Users/yongfu/.gradle/caches/transforms-2/files-2.1/98d361bb25472c412b9e77810252939f/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-media-compat:28.0.0] /Users/yongfu/.gradle/caches/transforms-2/files-2.1/7b3e6d2f2dd3f08130c50289de808447/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-media-compat:28.0.0] /Users/yongfu/.gradle/caches/transforms-2/files-2.1/7b3e6d2f2dd3f08130c50289de808447/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-fragment:28.0.0] /Users/yongfu/.gradle/caches/transforms-2/files-2.1/9045df8faad7cf08df218be16e1ffe48/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-fragment:28.0.0] /Users/yongfu/.gradle/caches/transforms-2/files-2.1/9045df8faad7cf08df218be16e1ffe48/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:animated-vector-drawable:28.0.0] /Users/yongfu/.gradle/caches/transforms-2/files-2.1/586bdae41665c7cd676fe213be415c46/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:animated-vector-drawable:28.0.0] /Users/yongfu/.gradle/caches/transforms-2/files-2.1/586bdae41665c7cd676fe213be415c46/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-core-ui:28.0.0] /Users/yongfu/.gradle/caches/transforms-2/files-2.1/6618203a6eb7cc23f2146092461a1bc4/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-core-ui:28.0.0] /Users/yongfu/.gradle/caches/transforms-2/files-2.1/6618203a6eb7cc23f2146092461a1bc4/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-core-utils:28.0.0] /Users/yongfu/.gradle/caches/transforms-2/files-2.1/50c4a00717ccd1cb9967fa1fe96e2619/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-core-utils:28.0.0] /Users/yongfu/.gradle/caches/transforms-2/files-2.1/50c4a00717ccd1cb9967fa1fe96e2619/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-vector-drawable:28.0.0] /Users/yongfu/.gradle/caches/transforms-2/files-2.1/eaf8f80b8c0b48a1d2143d46527bc05f/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-vector-drawable:28.0.0] /Users/yongfu/.gradle/caches/transforms-2/files-2.1/eaf8f80b8c0b48a1d2143d46527bc05f/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:loader:28.0.0] /Users/yongfu/.gradle/caches/transforms-2/files-2.1/4e37582072ca275f1e7f768c9c0d2747/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:loader:28.0.0] /Users/yongfu/.gradle/caches/transforms-2/files-2.1/4e37582072ca275f1e7f768c9c0d2747/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:viewpager:28.0.0] /Users/yongfu/.gradle/caches/transforms-2/files-2.1/01024713dff3407fb415c13faa4bf99e/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:viewpager:28.0.0] /Users/yongfu/.gradle/caches/transforms-2/files-2.1/01024713dff3407fb415c13faa4bf99e/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:coordinatorlayout:28.0.0] /Users/yongfu/.gradle/caches/transforms-2/files-2.1/23b041caf755678d47ef7bf2d61aa61c/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:coordinatorlayout:28.0.0] /Users/yongfu/.gradle/caches/transforms-2/files-2.1/23b041caf755678d47ef7bf2d61aa61c/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:drawerlayout:28.0.0] /Users/yongfu/.gradle/caches/transforms-2/files-2.1/4aa1a16d6b6583cb3d128af31ba9460a/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:drawerlayout:28.0.0] /Users/yongfu/.gradle/caches/transforms-2/files-2.1/4aa1a16d6b6583cb3d128af31ba9460a/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:slidingpanelayout:28.0.0] /Users/yongfu/.gradle/caches/transforms-2/files-2.1/a5dfbf41c271174e3a97d0d9b0b30915/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:slidingpanelayout:28.0.0] /Users/yongfu/.gradle/caches/transforms-2/files-2.1/a5dfbf41c271174e3a97d0d9b0b30915/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:customview:28.0.0] /Users/yongfu/.gradle/caches/transforms-2/files-2.1/74cd622363a8fc49cb1fe87f8881afea/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:customview:28.0.0] /Users/yongfu/.gradle/caches/transforms-2/files-2.1/74cd622363a8fc49cb1fe87f8881afea/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:swiperefreshlayout:28.0.0] /Users/yongfu/.gradle/caches/transforms-2/files-2.1/be8d26f37da0875a9a097a9ee51b019e/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:swiperefreshlayout:28.0.0] /Users/yongfu/.gradle/caches/transforms-2/files-2.1/be8d26f37da0875a9a097a9ee51b019e/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:asynclayoutinflater:28.0.0] /Users/yongfu/.gradle/caches/transforms-2/files-2.1/7913633ed0dd38679d253509ba9cc7f1/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:asynclayoutinflater:28.0.0] /Users/yongfu/.gradle/caches/transforms-2/files-2.1/7913633ed0dd38679d253509ba9cc7f1/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-compat:28.0.0] /Users/yongfu/.gradle/caches/transforms-2/files-2.1/5e352a987e5a4c8470c708e3e7b1aeda/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-compat:28.0.0] /Users/yongfu/.gradle/caches/transforms-2/files-2.1/5e352a987e5a4c8470c708e3e7b1aeda/AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.exoplayer:extension-okhttp:2.9.3] /Users/yongfu/.gradle/caches/transforms-2/files-2.1/ed4d079790a86b416a5ff874271f0d50/AndroidManifest.xml:20:5-22:41
+MERGED from [com.google.android.exoplayer:extension-okhttp:2.9.3] /Users/yongfu/.gradle/caches/transforms-2/files-2.1/ed4d079790a86b416a5ff874271f0d50/AndroidManifest.xml:20:5-22:41
+MERGED from [com.android.support:versionedparcelable:28.0.0] /Users/yongfu/.gradle/caches/transforms-2/files-2.1/75cb9c4017bbdaa3dc290fed183af200/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:versionedparcelable:28.0.0] /Users/yongfu/.gradle/caches/transforms-2/files-2.1/75cb9c4017bbdaa3dc290fed183af200/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:cursoradapter:28.0.0] /Users/yongfu/.gradle/caches/transforms-2/files-2.1/819f9cf29cfe46d0c415207d0e59d01f/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:cursoradapter:28.0.0] /Users/yongfu/.gradle/caches/transforms-2/files-2.1/819f9cf29cfe46d0c415207d0e59d01f/AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.exoplayer:exoplayer-dash:2.9.3] /Users/yongfu/.gradle/caches/transforms-2/files-2.1/fab9fe119a12b73ef8a211eeb015681a/AndroidManifest.xml:20:5-22:41
+MERGED from [com.google.android.exoplayer:exoplayer-dash:2.9.3] /Users/yongfu/.gradle/caches/transforms-2/files-2.1/fab9fe119a12b73ef8a211eeb015681a/AndroidManifest.xml:20:5-22:41
+MERGED from [com.google.android.exoplayer:exoplayer-hls:2.9.3] /Users/yongfu/.gradle/caches/transforms-2/files-2.1/9790963ca4bb3115dcd8be2626262119/AndroidManifest.xml:20:5-22:41
+MERGED from [com.google.android.exoplayer:exoplayer-hls:2.9.3] /Users/yongfu/.gradle/caches/transforms-2/files-2.1/9790963ca4bb3115dcd8be2626262119/AndroidManifest.xml:20:5-22:41
+MERGED from [com.google.android.exoplayer:exoplayer-smoothstreaming:2.9.3] /Users/yongfu/.gradle/caches/transforms-2/files-2.1/b9b42f2a752dfd4e19cd8d4d551db28b/AndroidManifest.xml:20:5-22:41
+MERGED from [com.google.android.exoplayer:exoplayer-smoothstreaming:2.9.3] /Users/yongfu/.gradle/caches/transforms-2/files-2.1/b9b42f2a752dfd4e19cd8d4d551db28b/AndroidManifest.xml:20:5-22:41
+MERGED from [com.google.android.exoplayer:exoplayer-ui:2.9.3] /Users/yongfu/.gradle/caches/transforms-2/files-2.1/541e9b774d700a5097ef946963d36762/AndroidManifest.xml:20:5-22:41
+MERGED from [com.google.android.exoplayer:exoplayer-ui:2.9.3] /Users/yongfu/.gradle/caches/transforms-2/files-2.1/541e9b774d700a5097ef946963d36762/AndroidManifest.xml:20:5-22:41
+MERGED from [com.google.android.exoplayer:exoplayer-core:2.9.3] /Users/yongfu/.gradle/caches/transforms-2/files-2.1/96fe02f63980573ae8b5e1f901a53501/AndroidManifest.xml:20:5-22:41
+MERGED from [com.google.android.exoplayer:exoplayer-core:2.9.3] /Users/yongfu/.gradle/caches/transforms-2/files-2.1/96fe02f63980573ae8b5e1f901a53501/AndroidManifest.xml:20:5-22:41
+MERGED from [android.arch.lifecycle:runtime:1.1.1] /Users/yongfu/.gradle/caches/transforms-2/files-2.1/3077125dc9eff63155c93507d3a18bc3/AndroidManifest.xml:20:5-44
+MERGED from [android.arch.lifecycle:runtime:1.1.1] /Users/yongfu/.gradle/caches/transforms-2/files-2.1/3077125dc9eff63155c93507d3a18bc3/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:documentfile:28.0.0] /Users/yongfu/.gradle/caches/transforms-2/files-2.1/925429a9932b70157e40cc8a4043ac27/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:documentfile:28.0.0] /Users/yongfu/.gradle/caches/transforms-2/files-2.1/925429a9932b70157e40cc8a4043ac27/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:localbroadcastmanager:28.0.0] /Users/yongfu/.gradle/caches/transforms-2/files-2.1/9260b7a0b8180461e6446a921bb7b7a5/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:localbroadcastmanager:28.0.0] /Users/yongfu/.gradle/caches/transforms-2/files-2.1/9260b7a0b8180461e6446a921bb7b7a5/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:print:28.0.0] /Users/yongfu/.gradle/caches/transforms-2/files-2.1/5f4e6edc0e04d2a271a197057737368b/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:print:28.0.0] /Users/yongfu/.gradle/caches/transforms-2/files-2.1/5f4e6edc0e04d2a271a197057737368b/AndroidManifest.xml:20:5-44
+MERGED from [android.arch.lifecycle:viewmodel:1.1.1] /Users/yongfu/.gradle/caches/transforms-2/files-2.1/b49ae9570c1d1343034daef457b4a880/AndroidManifest.xml:20:5-44
+MERGED from [android.arch.lifecycle:viewmodel:1.1.1] /Users/yongfu/.gradle/caches/transforms-2/files-2.1/b49ae9570c1d1343034daef457b4a880/AndroidManifest.xml:20:5-44
+MERGED from [android.arch.lifecycle:livedata:1.1.1] /Users/yongfu/.gradle/caches/transforms-2/files-2.1/9ce76a13e8c448fd540015a3fb622ec2/AndroidManifest.xml:20:5-44
+MERGED from [android.arch.lifecycle:livedata:1.1.1] /Users/yongfu/.gradle/caches/transforms-2/files-2.1/9ce76a13e8c448fd540015a3fb622ec2/AndroidManifest.xml:20:5-44
+MERGED from [android.arch.lifecycle:livedata-core:1.1.1] /Users/yongfu/.gradle/caches/transforms-2/files-2.1/feaee3d3354f9448987e6993541471dc/AndroidManifest.xml:20:5-44
+MERGED from [android.arch.lifecycle:livedata-core:1.1.1] /Users/yongfu/.gradle/caches/transforms-2/files-2.1/feaee3d3354f9448987e6993541471dc/AndroidManifest.xml:20:5-44
+MERGED from [android.arch.core:runtime:1.1.1] /Users/yongfu/.gradle/caches/transforms-2/files-2.1/45090a55f1d3fa3a4d6a60adc4cffcf3/AndroidManifest.xml:20:5-44
+MERGED from [android.arch.core:runtime:1.1.1] /Users/yongfu/.gradle/caches/transforms-2/files-2.1/45090a55f1d3fa3a4d6a60adc4cffcf3/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:interpolator:28.0.0] /Users/yongfu/.gradle/caches/transforms-2/files-2.1/61f7ad7f405a85b8693e93097c674c43/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:interpolator:28.0.0] /Users/yongfu/.gradle/caches/transforms-2/files-2.1/61f7ad7f405a85b8693e93097c674c43/AndroidManifest.xml:20:5-44
+MERGED from [com.facebook.fresco:imagepipeline-okhttp3:1.10.0] /Users/yongfu/.gradle/caches/transforms-2/files-2.1/7d74671aa03b9825fd3c76ee0e2c4eef/AndroidManifest.xml:5:5-7:41
+MERGED from [com.facebook.fresco:imagepipeline-okhttp3:1.10.0] /Users/yongfu/.gradle/caches/transforms-2/files-2.1/7d74671aa03b9825fd3c76ee0e2c4eef/AndroidManifest.xml:5:5-7:41
+MERGED from [com.facebook.fresco:fresco:1.10.0] /Users/yongfu/.gradle/caches/transforms-2/files-2.1/6fb4fd9c44a5659d25fab246a65493e6/AndroidManifest.xml:5:5-7:41
+MERGED from [com.facebook.fresco:fresco:1.10.0] /Users/yongfu/.gradle/caches/transforms-2/files-2.1/6fb4fd9c44a5659d25fab246a65493e6/AndroidManifest.xml:5:5-7:41
+MERGED from [com.facebook.fresco:drawee:1.10.0] /Users/yongfu/.gradle/caches/transforms-2/files-2.1/2910dc1f52648e28121d748b8a7238dd/AndroidManifest.xml:5:5-7:41
+MERGED from [com.facebook.fresco:drawee:1.10.0] /Users/yongfu/.gradle/caches/transforms-2/files-2.1/2910dc1f52648e28121d748b8a7238dd/AndroidManifest.xml:5:5-7:41
+MERGED from [com.facebook.fresco:imagepipeline:1.10.0] /Users/yongfu/.gradle/caches/transforms-2/files-2.1/44ac24184a8aa1aae9e9ecdce1d74e75/AndroidManifest.xml:5:5-7:41
+MERGED from [com.facebook.fresco:imagepipeline:1.10.0] /Users/yongfu/.gradle/caches/transforms-2/files-2.1/44ac24184a8aa1aae9e9ecdce1d74e75/AndroidManifest.xml:5:5-7:41
+MERGED from [com.facebook.fresco:imagepipeline-base:1.10.0] /Users/yongfu/.gradle/caches/transforms-2/files-2.1/bc82cc69cc86e205513d6b4d46de2f79/AndroidManifest.xml:5:5-7:41
+MERGED from [com.facebook.fresco:imagepipeline-base:1.10.0] /Users/yongfu/.gradle/caches/transforms-2/files-2.1/bc82cc69cc86e205513d6b4d46de2f79/AndroidManifest.xml:5:5-7:41
+MERGED from [com.facebook.soloader:soloader:0.6.0] /Users/yongfu/.gradle/caches/transforms-2/files-2.1/402ee2e1cb272962957771c0b3218cd2/AndroidManifest.xml:7:5-9:41
+MERGED from [com.facebook.soloader:soloader:0.6.0] /Users/yongfu/.gradle/caches/transforms-2/files-2.1/402ee2e1cb272962957771c0b3218cd2/AndroidManifest.xml:7:5-9:41
+MERGED from [com.facebook.fresco:fbcore:1.10.0] /Users/yongfu/.gradle/caches/transforms-2/files-2.1/96009d793186b00c9276b90ecf86d7d5/AndroidManifest.xml:5:5-7:41
+MERGED from [com.facebook.fresco:fbcore:1.10.0] /Users/yongfu/.gradle/caches/transforms-2/files-2.1/96009d793186b00c9276b90ecf86d7d5/AndroidManifest.xml:5:5-7:41
+INJECTED from /Users/yongfu/ReactNativeDemo/android/app/src/main/AndroidManifest.xml
+INJECTED from /Users/yongfu/ReactNativeDemo/android/app/src/main/AndroidManifest.xml
+	android:targetSdkVersion
+		INJECTED from /Users/yongfu/ReactNativeDemo/android/app/src/main/AndroidManifest.xml
+		ADDED from /Users/yongfu/ReactNativeDemo/android/app/src/main/AndroidManifest.xml
+		INJECTED from /Users/yongfu/ReactNativeDemo/android/app/src/main/AndroidManifest.xml
+	android:minSdkVersion
+		INJECTED from /Users/yongfu/ReactNativeDemo/android/app/src/main/AndroidManifest.xml
+		ADDED from /Users/yongfu/ReactNativeDemo/android/app/src/main/AndroidManifest.xml
+		INJECTED from /Users/yongfu/ReactNativeDemo/android/app/src/main/AndroidManifest.xml
+uses-permission#android.permission.ACCESS_NETWORK_STATE
+ADDED from [:react-native-audio-streaming] /Users/yongfu/ReactNativeDemo/node_modules/react-native-audio-streaming/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:11:5-79
+MERGED from [com.google.android.exoplayer:exoplayer-core:2.9.3] /Users/yongfu/.gradle/caches/transforms-2/files-2.1/96fe02f63980573ae8b5e1f901a53501/AndroidManifest.xml:24:5-79
+MERGED from [com.google.android.exoplayer:exoplayer-core:2.9.3] /Users/yongfu/.gradle/caches/transforms-2/files-2.1/96fe02f63980573ae8b5e1f901a53501/AndroidManifest.xml:24:5-79
+	android:name
+		ADDED from [:react-native-audio-streaming] /Users/yongfu/ReactNativeDemo/node_modules/react-native-audio-streaming/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:11:22-76
+service#com.audioStreaming.Signal
+ADDED from [:react-native-audio-streaming] /Users/yongfu/ReactNativeDemo/node_modules/react-native-audio-streaming/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:14:9-18:63
+	android:enabled
+		ADDED from [:react-native-audio-streaming] /Users/yongfu/ReactNativeDemo/node_modules/react-native-audio-streaming/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:16:13-35
+	android:stopWithTask
+		ADDED from [:react-native-audio-streaming] /Users/yongfu/ReactNativeDemo/node_modules/react-native-audio-streaming/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:17:13-40
+	android:theme
+		ADDED from [:react-native-audio-streaming] /Users/yongfu/ReactNativeDemo/node_modules/react-native-audio-streaming/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:18:13-60
+	android:name
+		ADDED from [:react-native-audio-streaming] /Users/yongfu/ReactNativeDemo/node_modules/react-native-audio-streaming/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:15:13-53
+receiver#com.learnium.RNDeviceInfo.RNDeviceReceiver
+ADDED from [:react-native-device-info] /Users/yongfu/ReactNativeDemo/node_modules/react-native-device-info/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:12:9-19:20
+	android:enabled
+		ADDED from [:react-native-device-info] /Users/yongfu/ReactNativeDemo/node_modules/react-native-device-info/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:14:13-35
+	android:exported
+		ADDED from [:react-native-device-info] /Users/yongfu/ReactNativeDemo/node_modules/react-native-device-info/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:15:13-36
+	android:name
+		ADDED from [:react-native-device-info] /Users/yongfu/ReactNativeDemo/node_modules/react-native-device-info/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:13:13-70
+intent-filter#action:name:com.android.vending.INSTALL_REFERRER
+ADDED from [:react-native-device-info] /Users/yongfu/ReactNativeDemo/node_modules/react-native-device-info/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:16:13-18:29
+action#com.android.vending.INSTALL_REFERRER
+ADDED from [:react-native-device-info] /Users/yongfu/ReactNativeDemo/node_modules/react-native-device-info/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:17:17-79
+	android:name
+		ADDED from [:react-native-device-info] /Users/yongfu/ReactNativeDemo/node_modules/react-native-device-info/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:17:25-76
+provider#android.support.v4.content.FileProvider
+ADDED from [:react-native-image-crop-picker] /Users/yongfu/ReactNativeDemo/node_modules/react-native-image-crop-picker/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:13:9-21:20
+	android:grantUriPermissions
+		ADDED from [:react-native-image-crop-picker] /Users/yongfu/ReactNativeDemo/node_modules/react-native-image-crop-picker/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:17:13-47
+	android:authorities
+		ADDED from [:react-native-image-crop-picker] /Users/yongfu/ReactNativeDemo/node_modules/react-native-image-crop-picker/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:15:13-60
+	android:exported
+		ADDED from [:react-native-image-crop-picker] /Users/yongfu/ReactNativeDemo/node_modules/react-native-image-crop-picker/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:16:13-37
+	android:name
+		ADDED from [:react-native-image-crop-picker] /Users/yongfu/ReactNativeDemo/node_modules/react-native-image-crop-picker/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:14:13-67
+meta-data#android.support.FILE_PROVIDER_PATHS
+ADDED from [:react-native-image-crop-picker] /Users/yongfu/ReactNativeDemo/node_modules/react-native-image-crop-picker/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:18:13-20:58
+	android:resource
+		ADDED from [:react-native-image-crop-picker] /Users/yongfu/ReactNativeDemo/node_modules/react-native-image-crop-picker/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:20:17-55
+	android:name
+		ADDED from [:react-native-image-crop-picker] /Users/yongfu/ReactNativeDemo/node_modules/react-native-image-crop-picker/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:19:17-67
+activity#com.yalantis.ucrop.UCropActivity
+ADDED from [:react-native-image-crop-picker] /Users/yongfu/ReactNativeDemo/node_modules/react-native-image-crop-picker/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:23:9-25:72
+	android:theme
+		ADDED from [:react-native-image-crop-picker] /Users/yongfu/ReactNativeDemo/node_modules/react-native-image-crop-picker/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:25:13-69
+	android:name
+		ADDED from [:react-native-image-crop-picker] /Users/yongfu/ReactNativeDemo/node_modules/react-native-image-crop-picker/android/build/intermediates/library_manifest/debug/AndroidManifest.xml:24:13-60
+uses-permission#com.google.android.c2dm.permission.RECEIVE
+ADDED from [com.google.android.gms:play-services-gcm:16.1.0] /Users/yongfu/.gradle/caches/transforms-2/files-2.1/90955697629a5db75d43a3896afc74e0/AndroidManifest.xml:23:5-82
+MERGED from [com.google.android.gms:play-services-iid:16.0.1] /Users/yongfu/.gradle/caches/transforms-2/files-2.1/d97ae606e0b2e4dd163572cb8eb20043/AndroidManifest.xml:23:5-82
+MERGED from [com.google.android.gms:play-services-iid:16.0.1] /Users/yongfu/.gradle/caches/transforms-2/files-2.1/d97ae606e0b2e4dd163572cb8eb20043/AndroidManifest.xml:23:5-82
+	android:name
+		ADDED from [com.google.android.gms:play-services-gcm:16.1.0] /Users/yongfu/.gradle/caches/transforms-2/files-2.1/90955697629a5db75d43a3896afc74e0/AndroidManifest.xml:23:22-79
+activity#com.google.android.gms.common.api.GoogleApiActivity
+ADDED from [com.google.android.gms:play-services-base:16.0.1] /Users/yongfu/.gradle/caches/transforms-2/files-2.1/5fccfd0682b5baf4636688e254485f60/AndroidManifest.xml:23:9-26:75
+	android:exported
+		ADDED from [com.google.android.gms:play-services-base:16.0.1] /Users/yongfu/.gradle/caches/transforms-2/files-2.1/5fccfd0682b5baf4636688e254485f60/AndroidManifest.xml:25:13-37
+	android:theme
+		ADDED from [com.google.android.gms:play-services-base:16.0.1] /Users/yongfu/.gradle/caches/transforms-2/files-2.1/5fccfd0682b5baf4636688e254485f60/AndroidManifest.xml:26:13-72
+	android:name
+		ADDED from [com.google.android.gms:play-services-base:16.0.1] /Users/yongfu/.gradle/caches/transforms-2/files-2.1/5fccfd0682b5baf4636688e254485f60/AndroidManifest.xml:24:13-79
+meta-data#com.google.android.gms.version
+ADDED from [com.google.android.gms:play-services-basement:16.0.1] /Users/yongfu/.gradle/caches/transforms-2/files-2.1/fad11eb32d28b9e5fdf3608ba4d46f04/AndroidManifest.xml:23:9-25:69
+	android:value
+		ADDED from [com.google.android.gms:play-services-basement:16.0.1] /Users/yongfu/.gradle/caches/transforms-2/files-2.1/fad11eb32d28b9e5fdf3608ba4d46f04/AndroidManifest.xml:25:13-66
+	android:name
+		ADDED from [com.google.android.gms:play-services-basement:16.0.1] /Users/yongfu/.gradle/caches/transforms-2/files-2.1/fad11eb32d28b9e5fdf3608ba4d46f04/AndroidManifest.xml:24:13-58

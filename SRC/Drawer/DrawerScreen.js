@@ -79,8 +79,9 @@ export default class DrawerScreen extends Component{
         }
         let item = <Text style={{color:'#fff',fontSize:24,fontWeight:'bold'}}>{nameStr.slice(nameStr.length-2,nameStr.length)}</Text>
         return(
-         <View style={{flex:1,position:'relative',height:height}}>
-        <ScrollView style={{flex:1}}>
+         <View style={{flex:1,height:height}}>
+             <View style={{flex:1,position:'relative',height:height,width:300,backgroundColor:'#fff'}}>
+             <ScrollView style={{flex:1}}>
             <TouchableOpacity style={{flex:1,height:180,}} onPress={()=> this._pressBtn(1)}>
             <ImageBackground style={{flex:1,flexDirection:'row',justifyContent:'flex-start',alignItems:'flex-end'}} 
            source={require('../../img/mine_top.png')} 
@@ -134,6 +135,7 @@ export default class DrawerScreen extends Component{
          width:'100%',height:30,backgroundColor:'#00eeee',alignItems:'center',justifyContent:'center'}}>
             <Text style={{color:'#fff',fontSize:16,fontWeight:'bold'}}>log out</Text>
          </TouchableOpacity>
+            </View>
          </View>
         )
     }

@@ -1,6 +1,5 @@
 import React,{Component} from 'react';
 import {SafeAreaView,Text,TouchableOpacity,StyleSheet,Button,ScrollView,View,Dimensions,Image,Platform,NativeModules} from 'react-native';
-import createStackNavigator from 'react-navigation';
 import UserModel from '../Base/UserModel';
 import REQUEST_URL from '../Base/BaseWeb'
 import fehchData from '../Base/FetchData';
@@ -10,21 +9,30 @@ import DeviceInfo from 'react-native-device-info';
 import Modal from 'react-native-modal';
 import VideoListView from './View/VideoListView';
 const manager = NativeModules.Manager;
+const toastmanger = NativeModules.ToastExample;
+const callbackManger = NativeModules.Callback;
 export default class HomeScreen extends Component{
    static navigationOptions = ({navigation})=>{
        var parkName = navigation.getParam('title','');
        return{
-           headerTitle:(<Text style={{color:'#00a056',fontSize:20,fontWeight:'bold'}}>{parkName}</Text>),
+           headerTitle:(
+           <View style={{width:'100%',alignItems:'center',justifyContent:'center'}}>
+               <Text style={{color:'#00a056',fontSize:20,fontWeight:'bold',backgroundColor:'#fff',alignItems:"center"}}>{parkName}</Text>
+           </View>
+           ),
            headerLeft:(<TouchableOpacity hitSlop={{top:20,right:20,bottom:20,left:20}} 
            onPress={()=> navigation.openDrawer()}
            style={{marginLeft:21}}>
                <Image source={require('../../img/mine.png')} style={{width:20,height:24}} resizeMode='contain'/>
            </TouchableOpacity>),
-           headerRight:(<Button onPress= {() =>{
-             let parkID = navigation.getParam('id','');
-             navigation.navigate('ParkSelect',{id:parkID});
-           }} 
-            title='园区' color='#333'/>) 
+           headerRight:(<TouchableOpacity style={{marginRight:21}} hitSlop={{top:20,right:20,bottom:20,left:20}}
+            onPress={()=>{
+                let parkID = navigation.getParam('id','');
+                navigation.navigate('ParkSelect',{id:parkID});
+            }}>
+                <Text style={{color:'#333'}}>园区</Text>
+            </TouchableOpacity>
+            ) 
        }
    }
   constructor(props){
@@ -49,6 +57,14 @@ export default class HomeScreen extends Component{
     // manager.getLocation((error,loc)=>{
     //     alert(loc);
     // })
+    // toastmanger.show("Awesome",toastmanger.SHORT);
+    callbackManger.callbackData((err,res)=>{
+        if(err !== null){
+            alert(err.message);
+        }else{
+            alert(res)
+        }
+    })
    }
    //设置初始化内容
    _getParkInfo = async()=>{
@@ -182,18 +198,23 @@ export default class HomeScreen extends Component{
         <ScrollView style={{flex:1,flexDirection:'row'}} horizontal={true} contentContainerStyle={{marginLeft:20}}
         showVerticalScrollIndicator={false}
         showHorizontalScrollIndicator={false}
-        ><Button title="监测数据" onPress={() => this._categorySlect(1)} 
-          color = {this.state.selectIndex == 1 ? '#00a056' : '#333'}  
-          fomntSize = {this.state.selectIndex == 1 ? 16 : 14} />  
-          <Button title="监控数据" onPress={()=>this._categorySlect(2)} 
-          color = {this.state.selectIndex == 2 ? '#00a056' : '#333'}  
-          fomntSize = {this.state.selectIndex == 2 ? 16 : 14} />   
-          <Button title="地块数据" onPress={()=>this._categorySlect(3)} 
-          color = {this.state.selectIndex == 3 ? '#00a056' : '#333'}  
-          fomntSize = {this.state.selectIndex == 3 ? 16 : 14} />  
-        <Button title="水肥一体" onPress={()=>this._categorySlect(4)} 
-          color = {this.state.selectIndex == 4 ? '#00a056' : '#333'}  
-          fontSize = {this.state.selectIndex == 4 ? 16 : 14} /> 
+        >
+            <TouchableOpacity onPress={() => this._categorySlect(1)} style={{marginRight:10}}>
+                <Text style={{color:this.state.selectIndex == 1 ? '#00a056' : '#333',paddingTop:10,paddingBottom:10}}>
+                    监测数据</Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => this._categorySlect(2)} style={{marginRight:10}}>
+                <Text style={{color:this.state.selectIndex == 2 ? '#00a056' : '#333',paddingTop:10,paddingBottom:10}}>
+                    监控数据</Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => this._categorySlect(3)} style={{marginRight:10}}>
+                <Text style={{color:this.state.selectIndex == 3 ? '#00a056' : '#333',paddingTop:10,paddingBottom:10}}>
+                    地块数据</Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => this._categorySlect(4)} style={{marginRight:10}}>
+                <Text style={{color:this.state.selectIndex == 4 ? '#00a056' : '#333',paddingTop:10,paddingBottom:10}}>
+                    水肥一体</Text>
+            </TouchableOpacity>
         </ScrollView>
         </View>
         <View style={styles.bottomContainer}>

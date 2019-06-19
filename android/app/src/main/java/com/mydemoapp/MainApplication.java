@@ -42,7 +42,8 @@ public class MainApplication extends Application implements ReactApplication {
             new RNDeviceInfo(),
             new AsyncStoragePackage(),
             new PickerPackage(),
-            new RNGestureHandlerPackage()
+            new RNGestureHandlerPackage(),
+              new CustomToastPackage()
       );
     }
 

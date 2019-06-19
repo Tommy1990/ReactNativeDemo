@@ -45,6 +45,7 @@
 		963C3DEB2265CBF30069B947 /* WebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 963C3DEA2265CBF30069B947 /* WebViewController.m */; };
 		963C3DEF2265CE490069B947 /* Manager.m in Sources */ = {isa = PBXBuildFile; fileRef = 963C3DEE2265CE490069B947 /* Manager.m */; };
 		9681F05D2282C7DB00C8A355 /* libimageCropPicker.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 961E87AE2249C31D0098B9BB /* libimageCropPicker.a */; };
+		96A8443B22AE3FFD0078814F /* NSObject+MyDic2OBJ.m in Sources */ = {isa = PBXBuildFile; fileRef = 96A8443A22AE3FFD0078814F /* NSObject+MyDic2OBJ.m */; };
 		96C58D522292588900B4519E /* bundle in Resources */ = {isa = PBXBuildFile; fileRef = 96C58D512292588900B4519E /* bundle */; };
 		96C58D55229289DE00B4519E /* RSKImageCropper.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 961E88212249D7EF0098B9BB /* RSKImageCropper.framework */; };
 		96C58D56229289DE00B4519E /* RSKImageCropper.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 961E88212249D7EF0098B9BB /* RSKImageCropper.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -468,6 +469,8 @@
 		963C3DEA2265CBF30069B947 /* WebViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WebViewController.m; sourceTree = "<group>"; };
 		963C3DED2265CE490069B947 /* Manager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Manager.h; sourceTree = "<group>"; };
 		963C3DEE2265CE490069B947 /* Manager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Manager.m; sourceTree = "<group>"; };
+		96A8443922AE3FFD0078814F /* NSObject+MyDic2OBJ.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSObject+MyDic2OBJ.h"; sourceTree = "<group>"; };
+		96A8443A22AE3FFD0078814F /* NSObject+MyDic2OBJ.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSObject+MyDic2OBJ.m"; sourceTree = "<group>"; };
 		96C58D512292588900B4519E /* bundle */ = {isa = PBXFileReference; lastKnownFileType = folder; path = bundle; sourceTree = "<group>"; };
 		96CC7DE72266B4CB00DF78CF /* NFWebJavascriptBridge.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = NFWebJavascriptBridge.js; sourceTree = "<group>"; };
 		96CC7E182266B5F000DF78CF /* JSDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JSDelegate.h; sourceTree = "<group>"; };
@@ -832,6 +835,8 @@
 			children = (
 				963C3DED2265CE490069B947 /* Manager.h */,
 				963C3DEE2265CE490069B947 /* Manager.m */,
+				96A8443922AE3FFD0078814F /* NSObject+MyDic2OBJ.h */,
+				96A8443A22AE3FFD0078814F /* NSObject+MyDic2OBJ.m */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -1522,6 +1527,7 @@
 				A741088C227C1FAB00C4CE91 /* VoiceManger.m in Sources */,
 				96DE84A7223F67BE00E1E7F7 /* CalendarManager.m in Sources */,
 				963C3DEF2265CE490069B947 /* Manager.m in Sources */,
+				96A8443B22AE3FFD0078814F /* NSObject+MyDic2OBJ.m in Sources */,
 				963C3DEB2265CBF30069B947 /* WebViewController.m in Sources */,
 				96CC7E1A2266B5F000DF78CF /* JSDelegate.m in Sources */,
 			);
